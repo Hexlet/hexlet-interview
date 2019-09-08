@@ -1,23 +1,16 @@
-# compiled output
 /dist
 /node_modules
+.env
 
-# Logs
 logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
 
-# OS
 .DS_Store
 
-# Tests
 /coverage
 /.nyc_output
 
-# IDEs and editors
 /.idea
 .project
 .classpath
@@ -26,7 +19,6 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
