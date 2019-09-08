@@ -1,1 +1,1 @@
-# hexlet-frontend-games
+# Hexlet Interview
