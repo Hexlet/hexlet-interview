@@ -1,5 +1,6 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Interview } from './entity/interview.entity';
 
 @Controller()
 export class AppController {
@@ -7,7 +8,7 @@ export class AppController {
 
   @Get()
   @Render('index')
-  getHello() {
+  async getHello() {
     return this.appService.getHello();
   }
 }

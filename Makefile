@@ -10,4 +10,7 @@ start:
 lint:
 	npm run lint
 
+deploy:
+	git push heroku master
+
 .PHONY: test

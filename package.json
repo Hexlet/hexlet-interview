@@ -5,7 +5,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
@@ -13,7 +13,10 @@
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:run": "npm run typeorm migration:run",
+    "schema:drop": "npm run typeorm schema:drop"
   },
   "dependencies": {
     "@nestjs/common": "^6.0.0",
@@ -25,23 +28,27 @@
     "class-validator": "0.10.0",
     "class-transformer": "0.2.3",
     "pug": "^2.0.4",
-    "reflect-metadata": "^0.1.12",
-    "rxjs": "^6.3.3"
+    "pg": "^7.12.1",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^6.3.3",
+    "dotenv": "^8.1.0",
+    "typeorm": "0.2.18"
   },
   "devDependencies": {
     "@nestjs/testing": "^6.0.0",
+    "@types/dotenv": "^6.1.1",
     "@types/express": "4.16.1",
     "@types/jest": "24.0.11",
-    "@types/node": "11.13.4",
     "@types/supertest": "2.0.7",
     "jest": "24.7.1",
     "prettier": "1.17.0",
+    "sqlite3": "^4.1.0",
     "supertest": "4.0.2",
     "ts-jest": "24.0.2",
-    "ts-node": "8.1.0",
     "tsc-watch": "2.2.1",
     "tsconfig-paths": "3.8.0",
     "tslint": "5.16.0",
+    "ts-node": "^8.3.0",
     "typescript": "3.4.3"
   },
   "jest": {
