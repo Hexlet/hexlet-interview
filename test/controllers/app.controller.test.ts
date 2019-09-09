@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { AppModule } from './../../src/app.module';
+import { bootstrap } from '../bootstrap';
 
-describe('AppController (e2e)', () => {
+describe('main page', () => {
   let app;
 
   beforeEach(async () => {
@@ -11,13 +12,14 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    bootstrap(app);
+
     await app.init();
   });
 
   it('/ (GET)', () => {
     return request(app.getHttpServer())
       .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .expect(200);
   });
 });
