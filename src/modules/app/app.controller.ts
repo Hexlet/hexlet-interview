@@ -1,6 +1,5 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Interview } from './entity/interview.entity';
 
 @Controller()
 export class AppController {
