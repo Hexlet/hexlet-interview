@@ -29,8 +29,6 @@
     "bootstrap": "^4.3.1",
     "class-transformer": "0.2.3",
     "class-validator": "0.10.0",
-    "dotenv": "^8.1.0",
-    "nestjs-i18n": "^4.0.5",
     "pg": "^7.12.1",
     "pug": "^2.0.4",
     "reflect-metadata": "^0.1.10",
