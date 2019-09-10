@@ -22,7 +22,7 @@ const testConfig: ConnectionOptions = {
 
 const config: ConnectionOptions = {
   type: 'postgres',
-  url: process.env.DB_URL,
+  url: process.env.DATABASE_URL,
   ...commonOptions,
 };
 
