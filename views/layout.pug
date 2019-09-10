@@ -1,0 +1,23 @@
+doctype html
+html(lang='ru').h-100
+
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, minimal-ui')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    //-script(src='../public/js/')
+    link(href='/css/index.css', rel='stylesheet')
+    link(href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', rel='stylesheet')
+    //-link(rel="shortcut icon" type="image/x-icon" href='https://d2vgcf2rm1on1i.cloudfront.net/icons/default/favicon.ico')
+    title Собеседования онлайн!
+    block head
+
+  body.d-flex.flex-column.h-100
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href="/") HexletCv
+
+    block content
+
+    footer.footer.mt-auto
+      .container
+        p © Hexlet

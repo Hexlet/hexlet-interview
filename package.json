@@ -34,7 +34,8 @@
     "rxjs": "^6.3.3",
     "dotenv": "^8.1.0",
     "typeorm": "0.2.18",
-    "sqlite3": "^4.1.0"
+    "sqlite3": "^4.1.0",
+    "bootstrap": "^4.3.1"
   },
   "devDependencies": {
     "@nestjs/testing": "^6.0.0",
