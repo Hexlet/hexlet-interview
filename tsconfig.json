@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es5",
-      "es6"
-    ],
-    "target": "es5",
+    "lib": ["es5", "es6"],
     "module": "commonjs",
     "moduleResolution": "node",
+    "strictNullChecks": true,
+    "removeComments": true,
+    "target": "es2017",
     "outDir": "./dist",
     "baseUrl": "./",
     "emitDecoratorMetadata": true,

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { AppModule } from './../../src/app.module';
-import { bootstrap } from '../bootstrap';
+import { AppModule } from './../src/modules';
+import { bootstrap } from './bootstrap';
 
 describe('main page', () => {
   let app;
@@ -13,12 +13,17 @@ describe('main page', () => {
 
     app = moduleFixture.createNestApplication();
     bootstrap(app);
-
     await app.init();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
+  afterEach(async () => {
+    if (app) {
+      await app.close();
+    }
+  });
+
+  it('/ (GET)', async () => {
+    await request(app.getHttpServer())
       .get('/')
       .expect(200);
   });

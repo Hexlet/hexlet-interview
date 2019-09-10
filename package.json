@@ -8,47 +8,57 @@
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
+    "start:dev": "NODE_ENV=dev LOG_LEVEL=FINE nodemon",
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
-    "start:prod": "node dist/main.js",
+    "prestart:prod": "rimraf dist && npm run build",
+    "start:prod": "NODE_ENV=production node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
+    "test": "jest --runInBand --forceExit --coverage",
     "test:watch": "jest --watch",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "migration:run": "npm run typeorm migration:run",
-    "schema:drop": "npm run typeorm schema:drop"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/modules/config/ormconfig.ts",
+    "migration:run:dev": "NODE_ENV=dev npm run typeorm -- migration:run",
+    "migration:generate:dev": "NODE_ENV=dev npm run typeorm -- migration:generate -n Migration",
+    "migration:create:dev": "NODE_ENV=dev npm run typeorm migration:create -- -n Migration",
+    "schema:drop": "npm run typeorm schema:drop",
+    "test:e2e": "jest --config ./test/jest-e2e.json --verbose=false --runInBand --forceExit"
   },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
   "dependencies": {
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
     "@nestjs/typeorm": "^6.1.3",
-    "@nestjsx/crud": "^4.2.0",
     "@nestjsx/crud-typeorm": "^4.2.0",
-    "class-validator": "0.10.0",
     "class-transformer": "0.2.3",
-    "pug": "^2.0.4",
+    "class-validator": "0.10.0",
     "pg": "^7.12.1",
+    "pug": "^2.0.4",
     "reflect-metadata": "^0.1.10",
+    "rimraf": "^3.0.0",
     "rxjs": "^6.3.3",
-    "dotenv": "^8.1.0",
-    "typeorm": "0.2.18",
-    "sqlite3": "^4.1.0"
+    "sqlite3": "^4.1.0",
+    "typeorm": "0.2.18"
   },
   "devDependencies": {
     "@nestjs/testing": "^6.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/express": "4.16.1",
+    "@types/faker": "^4.1.5",
     "@types/jest": "24.0.11",
     "@types/supertest": "2.0.7",
+    "faker": "^4.1.0",
     "jest": "24.7.1",
+    "pre-commit": "^1.2.2",
     "prettier": "1.17.0",
     "supertest": "4.0.2",
     "ts-jest": "24.0.2",
+    "ts-node": "^8.3.0",
     "tsc-watch": "2.2.1",
     "tsconfig-paths": "3.8.0",
     "tslint": "5.16.0",
-    "ts-node": "^8.3.0",
     "typescript": "3.4.3"
   },
   "jest": {
@@ -58,11 +68,14 @@
       "ts"
     ],
     "rootDir": "test",
-    "testRegex": ".test.ts$",
+    "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "modulePathIgnorePatterns": [
+      "node_modules"
+    ]
   }
 }
