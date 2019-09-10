@@ -8,7 +8,7 @@
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "NODE_ENV=dev LOG_LEVEL=FINE nodemon",
+    "start:dev": "NODE_ENV=dev nodemon",
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
     "prestart:prod": "rimraf dist && npm run build",
     "start:prod": "NODE_ENV=production node dist/main.js",
