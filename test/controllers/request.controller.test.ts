@@ -20,13 +20,13 @@ describe('#request', () => {
   });
 
   it('/ (GET)', () => {
-    request(app.getHttpServer())
+    return request(app.getHttpServer())
       .get('/')
       .expect(200);
   });
 
-  it('create new request for interview', async () => {
-    request(app.getHttpServer())
+  it('create new request for interview', () => {
+    return request(app.getHttpServer())
       .post('/request')
       .expect(201);
   });
