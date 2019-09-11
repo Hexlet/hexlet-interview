@@ -5,6 +5,6 @@ import * as i18n from 'i18n';
 export class AppService {
   getHello(locale: string) {
     i18n.setLocale(locale);
-    return { message: i18n.__('Hello') };
+    return { message: i18n.__('hello') };
   }
 }
