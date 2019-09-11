@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../../src/modules/app/app.module';
 import { bootstrap } from '../bootstrap';
+import { INestApplication } from '@nestjs/common';
 import * as i18n from 'i18n';
 
 i18n.configure({
@@ -11,7 +12,7 @@ i18n.configure({
 });
 
 describe('#main', () => {
-  let app;
+  let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -29,5 +30,9 @@ describe('#main', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200);
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
