@@ -1,5 +1,6 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Res } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -7,7 +8,8 @@ export class AppController {
 
   @Get()
   @Render('index')
-  async getHello() {
-    return this.appService.getHello();
+  async getHello(@Res() res: Response) {
+    const locale = (<any>res).getLocale();
+    return {message: this.appService.getHello(locale)};
   }
 }
