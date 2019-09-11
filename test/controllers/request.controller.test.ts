@@ -2,11 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../../src/modules/app/app.module';
 import { bootstrap } from '../bootstrap';
-import { Request } from '../../src/modules/request/request.entity';
-import { RequestService } from '../../src/modules/request/request.service';
+import { INestApplication } from '@nestjs/common';
 
 describe('#request', () => {
-  let app;
+  let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -29,5 +28,9 @@ describe('#request', () => {
     request(app.getHttpServer())
       .post('/request')
       .expect(201);
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
