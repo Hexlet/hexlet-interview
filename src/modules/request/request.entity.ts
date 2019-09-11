@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 
 @Entity('request')
-export class Interview extends BaseEntity {
+export class Request extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -10,4 +10,10 @@ export class Interview extends BaseEntity {
 
   @Column()
   profession: string;
+
+  @Column()
+  position: string;
+
+  @Column()
+  description: string;
 }
