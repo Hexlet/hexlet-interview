@@ -10,4 +10,10 @@ export class Request extends BaseEntity {
 
   @Column()
   profession: string;
+
+  @Column()
+  position: string;
+
+  @Column()
+  description: string;
 }

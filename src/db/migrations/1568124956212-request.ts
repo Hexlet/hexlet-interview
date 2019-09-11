@@ -19,6 +19,14 @@ export class request1568124956212 implements MigrationInterface {
             name: 'profession',
             type: 'varchar',
           },
+          {
+            name: 'position',
+            type: 'varchar',
+          },
+          {
+            name: 'description',
+            type: 'text',
+          },
         ],
       }), true);
     }

@@ -2,15 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../../src/modules/app/app.module';
 import { bootstrap } from '../bootstrap';
-import * as i18n from 'i18n';
+import { Request } from '../../src/modules/request/request.entity';
+import { RequestService } from '../../src/modules/request/request.service';
 
-i18n.configure({
-  locales: ['en', 'ru'],
-  cookie: 'interviewcookie',
-  directory: __dirname + '/locales'
-});
-
-describe('#main', () => {
+describe('#request', () => {
   let app;
 
   beforeEach(async () => {
@@ -19,15 +14,20 @@ describe('#main', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.use(i18n.init);
     bootstrap(app);
 
     await app.init();
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
+    request(app.getHttpServer())
       .get('/')
       .expect(200);
+  });
+
+  it('create new request for interview', async () => {
+    request(app.getHttpServer())
+      .post('/request')
+      .expect(201);
   });
 });

@@ -11,6 +11,7 @@ const commonOptions = {
   cli: {
     migrationsDir: 'src/db/migrations',
   },
+  keepConnectionAlive: true,
 };
 
 const testConfig: ConnectionOptions = {
