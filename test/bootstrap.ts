@@ -1,7 +1,3 @@
-import * as path from 'path';
+import { bootstrapApp } from '../src/bootstrap';
 
-export const bootstrap = (app) => {
-  app.useStaticAssets(path.join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(path.join(__dirname,  '..', 'views'));
-  app.setViewEngine('pug');
-};
+export const bootstrap = (app) => bootstrapApp(app);
