@@ -3,13 +3,6 @@ import * as request from 'supertest';
 import { AppModule } from '../../src/modules/app/app.module';
 import { bootstrap } from '../bootstrap';
 import { INestApplication } from '@nestjs/common';
-import * as i18n from 'i18n';
-
-i18n.configure({
-  locales: ['en', 'ru'],
-  cookie: 'interviewcookie',
-  directory: __dirname + '/locales'
-});
 
 describe('#main', () => {
   let app: INestApplication;
@@ -20,7 +13,6 @@ describe('#main', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.use(i18n.init);
     bootstrap(app);
 
     await app.init();
