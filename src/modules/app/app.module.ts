@@ -7,12 +7,8 @@ import { RequestController } from '../request/request.controller';
 import { RequestModule } from '../request/request.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(ormconfig),
-    RequestModule,
-  ],
+  imports: [TypeOrmModule.forRoot(ormconfig), RequestModule],
   controllers: [AppController],
   providers: [AppService],
-
 })
 export class AppModule {}

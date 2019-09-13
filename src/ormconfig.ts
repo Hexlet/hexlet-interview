@@ -1,6 +1,9 @@
 import { ConnectionOptions } from 'typeorm';
 
-const env = process.env.NODE_ENV === 'test' || !process.env.NODE_ENV ? 'test' : process.env.NODE_ENV;
+const env =
+  process.env.NODE_ENV === 'test' || !process.env.NODE_ENV
+    ? 'test'
+    : process.env.NODE_ENV;
 
 const commonOptions = {
   entities: [__dirname + '/**/*.entity{.ts,.js}'],

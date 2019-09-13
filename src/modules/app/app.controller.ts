@@ -9,7 +9,7 @@ export class AppController {
   @Get()
   @Render('index')
   async getHello(@Res() res: Response) {
-    const locale = (<any>res).getLocale();
-    return {message: this.appService.getHello(locale)};
+    const locale = res.getLocale();
+    return { message: this.appService.getHello(locale) };
   }
 }
