@@ -1,5 +1,5 @@
-import * as path from 'path';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as i18n from 'i18n';
 
@@ -9,7 +9,7 @@ i18n.configure({
   directory: __dirname + '/locales'
 });
 
-export const bootstrapApp = (app) => {
+export const bootstrapApp = (app: NestExpressApplication) => {
   app.useGlobalPipes(new ValidationPipe());
   app.use(i18n.init);
 
