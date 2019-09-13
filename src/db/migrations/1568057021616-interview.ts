@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class interview1568057021616 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<any> {
-      await queryRunner.createTable(new Table({
+  public async up(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.createTable(
+      new Table({
         name: 'interview',
         columns: [
           {
@@ -28,11 +28,12 @@ export class interview1568057021616 implements MigrationInterface {
             type: 'varchar',
           },
         ],
-      }), true);
-    }
+      }),
+      true,
+    );
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<any> {
-      await queryRunner.dropTable('interview');
-    }
-
+  public async down(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.dropTable('interview');
+  }
 }
