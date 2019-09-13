@@ -1,28 +1,31 @@
 extends ../layout
 
 block content
-  .d-flex.justify-content-center.p-3
-    form
-      .form-group
-        label(for='username') Ваше имя
-        input.form-control(type='text' id='username' required)
-        small.form-text.text-muted Чтобы собеседующий знал, как к вам обращаться
-      .form-group
-        label(for='profession') В чём вы сильны
-        select.form-control(id='profession')
-          option Фронтенд
-          option Бэкенд
-        small.form-text.text-muted Выберите специальность, на тему которой хотите собеседоваться
-      .form-group
-        label(for='level') Ваш скилл
-        select.form-control(id='level')
-          option Intern
-          option Junior
-          option Middle
-          option Senior
-        small.form-text.text-muted Оцените свой уровень в выбранной специальности
-      .form-group
-        label(for='extra') О себе
-        textarea.form-control(id='extra')
-        small.form-text.text-muted Например, ссылка на резюме или профиль Гитхаб
-      button.btn.btn-primary(type='submit') Отправить заявку
+  .container
+    .d-flex.pt-5
+      .col-lg-5.col-md-8.mx-auto
+        h1 Заявка на собеседование
+        form
+          .form-group
+            label(for='username') Ваше имя
+            input.form-control(type='text' id='username' required)
+            small.form-text.text-muted Чтобы собеседующий знал, как к вам обращаться
+          .form-group
+            label(for='profession') В чём вы сильны
+            select.form-control(id='profession')
+              option Фронтенд
+              option Бэкенд
+            small.form-text.text-muted Выберите специальность, на тему которой хотите собеседоваться
+          .form-group
+            label(for='level') Ваш скилл
+            select.form-control(id='level')
+              option Intern
+              option Junior
+              option Middle
+              option Senior
+            small.form-text.text-muted Оцените свой уровень в выбранной специальности
+          .form-group
+            label(for='extra') О себе
+            textarea.form-control(id='extra')
+            small.form-text.text-muted Например, ссылка на резюме или профиль Гитхаб
+          button.btn.btn-primary(type='submit') Отправить заявку
