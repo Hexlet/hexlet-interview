@@ -8,8 +8,10 @@ export class request1568124956212 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'integer',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'username',
