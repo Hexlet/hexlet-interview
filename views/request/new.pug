@@ -1,4 +1,34 @@
 extends ../layout
 
 block content
-  p Тут будет форма для оставления заявки на собеседование
+  .d-flex.justify-content-center.p-3
+    form(enctype='multipart/form-data' method='post')
+      .form-group
+        label(for='username') Ваше имя
+        input.form-control(type='text' placeholder='Введите имя' id='username' required)
+        small.form-text.text-muted Чтобы собеседующий знал, как к вам обращаться
+      .form-group
+        label(for='profession') В чём вы сильны
+        select.form-control(id='profession')
+          option Фронтенд
+          option Бэкенд
+        small.form-text.text-muted Выберите специальность, на тему которой хотите собеседоваться
+      .form-group
+        label(for='level') Ваш скилл
+        select.form-control(id='level')
+          option Intern
+          option Junior
+          option Middle
+          option Senior
+        small.form-text.text-muted Оцените свой уровень в выбранной специальности
+      .form-group
+        label(for='extra') О себе
+        textarea.form-control(id='extra' placeholder='Например, любимые технологии и подходы')
+        small.form-text.text-muted Необязательно
+      .form-group
+        label(for='cv') Резюме
+        input.form-control-file(type='file' id='cv')
+        small.form-text.text-muted Можете прикрепить резюме, это поможет интервьюеру лучше подготовиться
+        
+
+        
