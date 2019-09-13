@@ -20,7 +20,12 @@ export class UserService {
   }
 
   async create(userCreateDto: UserCreateDto) {
-    return this.repo.create(userCreateDto);
+    const newUser =  this.repo.create(userCreateDto);
+    if (newUser) {
+      this.repo.save(newUser);
+      return newUser;
+    }
+    return null;
   }
 
   async update(id: number, user: User) {
