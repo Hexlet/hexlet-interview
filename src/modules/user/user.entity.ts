@@ -4,11 +4,11 @@ import { BeforeInsert, Entity, Column, PrimaryGeneratedColumn, BaseEntity } from
 
 export enum UserRole {
   ADMIN = 'admin',
-  USER = 'user'
+  USER = 'user',
 }
 
 @Entity('user')
-export class User extends BaseEntity{
+export class User extends BaseEntity {
   public static hashPassword(password: string): Promise<string> {
     return new Promise((resolve, reject) => {
         bcrypt.hash(password, 10, (err, hash) => {
@@ -41,7 +41,7 @@ export class User extends BaseEntity{
 
   @IsNotEmpty()
   @Column({
-    unique: true
+    unique: true,
   })
   public email: string;
 
@@ -51,15 +51,15 @@ export class User extends BaseEntity{
 
   @IsNotEmpty()
   @Column({
-    default: false
+    default: false,
   })
   enabled: boolean;
 
   @IsNotEmpty()
   @Column({
-    default: UserRole.USER
+    default: UserRole.USER,
   })
-  role: UserRole
+  role: UserRole;
 
   public toString(): string {
     return `${this.firstName} ${this.lastName} (${this.email})`;

@@ -23,15 +23,15 @@ export class UserController {
 
   @Post()
   async create(@Res() res, @Body() userCreateDto: UserCreateDto): Promise<any> {
-    console.log(`userCreatedDto: ${JSON.stringify(userCreateDto)}`);
     await this.service.create(userCreateDto);
     return res.redirect('user');
   }
 
+/*
   @Put(':id/update')
   async update(@Param('id') id, @Body() userCreateDto: UserCreateDto): Promise<any> {
   }
-
+*/
   @Delete(':id/delete')
   async delete(@Res() res, @Param('id') id): Promise<any> {
     await this.service.delete(id);
