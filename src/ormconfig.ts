@@ -1,9 +1,6 @@
 import { ConnectionOptions } from 'typeorm';
 
-const env =
-  process.env.NODE_ENV === 'test' || !process.env.NODE_ENV
-    ? 'test'
-    : process.env.NODE_ENV;
+const env = process.env.NODE_ENV || 'development';
 
 const commonOptions = {
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
@@ -17,19 +14,30 @@ const commonOptions = {
   keepConnectionAlive: true,
 };
 
-const testConfig: ConnectionOptions = {
+const test: ConnectionOptions = {
   type: 'sqlite',
-  database: __dirname + '/db/development.sqlite',
-  entities: [__dirname + '/**/*.entity{.ts,.js}'],
+  database: ':memory:',
   ...commonOptions,
 };
 
-const config: ConnectionOptions = {
+const development: ConnectionOptions = {
+  type: 'sqlite',
+  database: __dirname + '/db/development.sqlite',
+  ...commonOptions,
+};
+
+const production: ConnectionOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
   ...commonOptions,
 };
 
-const realConfig = env === 'test' ? testConfig : config;
+const configs: { [key: string]: ConnectionOptions } = {
+  development,
+  test,
+  production,
+};
 
-export = realConfig;
+const config = configs[env];
+
+export = config;
