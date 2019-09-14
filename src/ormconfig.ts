@@ -18,7 +18,7 @@ const test: ConnectionOptions = {
   type: 'sqlite',
   database: ':memory:',
   ...commonOptions,
-}
+};
 
 const development: ConnectionOptions = {
   type: 'sqlite',
@@ -32,7 +32,7 @@ const production: ConnectionOptions = {
   ...commonOptions,
 };
 
-const configs: { [key: string]: ConnectionOptions} = {
+const configs: { [key: string]: ConnectionOptions } = {
   development,
   test,
   production,
