@@ -7,12 +7,13 @@ html(lang='ru').h-100
     meta(http-equiv='X-UA-Compatible' content='IE=edge')
     link(href='/css/index.css', rel='stylesheet')
     link(href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', rel='stylesheet')
-    title Собеседования онлайн!
+    title #{__('app.title')}
     block head
 
   body.d-flex.flex-column.h-100
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
       a.navbar-brand(href="/") HexletCv
+      a.navbar-brand(href="/request") #{__('app.requests')}
 
     block content
 

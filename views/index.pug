@@ -1,9 +1,8 @@
 extends layout
 
 block content
-  p1 Grreting should be here #{__('hello')}
   main.flex-shrink-0.my-5
     .container
       .row.d-flex
         .mx-auto
-          button.btn.btn-success(type="button") #{__('app.want_to_interview')}
+          a.btn.btn-success(href="/request/new") #{__('app.want_to_interview')}
