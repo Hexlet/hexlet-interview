@@ -1,6 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Request } from './request.entity';
 import { Repository } from 'typeorm';
+import { RequestCreateDto } from './dto/request.create.dto';
 
 export class RequestService {
   constructor(
@@ -15,8 +16,10 @@ export class RequestService {
     return await this.repo.findOne();
   }
 
-  async create() {
-    return this.repo.create();
+  async create(createDto: RequestCreateDto) {
+    const request = this.repo.create(createDto);
+
+    return await request.save();
   }
 
   // async update() {

@@ -28,6 +28,7 @@ export class request1568124956212 implements MigrationInterface {
           {
             name: 'description',
             type: 'text',
+            isNullable: true,
           },
         ],
       }),

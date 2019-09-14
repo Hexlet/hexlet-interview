@@ -1,33 +1,28 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { AppModule } from '../../src/modules/app/app.module';
-import { bootstrap } from '../bootstrap';
-import { INestApplication } from '@nestjs/common';
+import { createTestingApp } from '../app.testing';
 
 describe('#request', () => {
-  let app: INestApplication;
+  let app;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    bootstrap(app);
-
-    await app.init();
+    app = await createTestingApp();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
+  it('show all requests', () => {
+    return request(app.http)
       .get('/')
       .expect(200);
   });
 
-  it('create new request for interview', () => {
-    return request(app.getHttpServer())
+  it('create new request for interview', async () => {
+    const { body: { id } } = await request(app.http)
       .post('/request')
+      .send({ username: 'Vasya', profession: 'Backend PHP Developer', position: 'Junior' })
       .expect(201);
+
+    const newrequest = await app.repos.request.findOne(id);
+
+    expect(newrequest).not.toBeNull();
   });
 
   afterAll(async () => {
