@@ -3,5 +3,11 @@
 		"want_to_interview": "Хочу собеседоваться",
 		"title": "Собеседования онлайн",
 		"requests": "Заявки"
+	},
+	"hello": "hello",
+	"request": {
+		"username": "Имя собеседуемого",
+		"profession": "Профессия",
+		"position": "Позиция"
 	}
 }
