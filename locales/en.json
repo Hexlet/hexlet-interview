@@ -1,1 +1,8 @@
-{ }
+{
+	"hello": "hello",
+	"app": {
+		"title": "app.title",
+		"requests": "app.requests",
+		"want_to_interview": "app.want_to_interview"
+	}
+}
