@@ -2,12 +2,18 @@
 	"app": {
 		"want_to_interview": "Хочу собеседоваться",
 		"title": "Собеседования онлайн",
-		"requests": "Заявки"
+		"requests": "Заявки",
+    "coming_interviews": "Предстоящие интервью"
 	},
 	"hello": "hello",
 	"request": {
 		"username": "Имя собеседуемого",
 		"profession": "Профессия",
 		"position": "Позиция"
-	}
+	},
+  "interview": {
+    "interviewer": "Собеседующий",
+    "interviewee": "Собеседуемый",
+    "videoLink": "Ссылка на трансляцию"
+  }
 }

@@ -3,6 +3,12 @@
 	"app": {
 		"title": "app.title",
 		"requests": "app.requests",
-		"want_to_interview": "app.want_to_interview"
+		"want_to_interview": "app.want_to_interview",
+		"coming_interviews": "app.coming_interviews"
+	},
+	"interview": {
+		"interviewer": "interview.interviewer",
+		"interviewee": "interview.interviewee",
+		"videoLink": "interview.videoLink"
 	}
 }
