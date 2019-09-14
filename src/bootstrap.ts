@@ -7,6 +7,7 @@ i18n.configure({
   locales: ['en', 'ru'],
   cookie: 'interviewcookie',
   directory: __dirname + '/locales',
+  objectNotation: true,
 });
 
 export const bootstrapApp = (app: NestExpressApplication) => {
