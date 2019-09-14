@@ -15,8 +15,8 @@ export class UserService {
     return await this.repo.find();
   }
 
-  async findOne(id: number) {
-    return await this.repo.findOne(id);
+  async findOneByEmail(email: string) {
+    return await this.repo.findOne({ email });
   }
 
   async create(userCreateDto: UserCreateDto) {

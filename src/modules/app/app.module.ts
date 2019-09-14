@@ -6,12 +6,14 @@ import * as ormconfig from '../../ormconfig';
 import { RequestController } from '../request/request.controller';
 import { RequestModule } from '../request/request.module';
 import { UserModule } from '../user/user.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(ormconfig),
     RequestModule,
     UserModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

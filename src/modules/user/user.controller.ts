@@ -1,14 +1,15 @@
-import { Body, Render, Controller, Get, Put, Post, Param, Res, Delete } from '@nestjs/common';
+import { Body, Render, Controller, Get, Put, Post, Param, Res, Delete, UseGuards } from '@nestjs/common';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { UserCreateDto } from './dto/user.create.dto';
-import { identifier } from 'babel-types';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
   constructor(public service: UserService) {}
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   @Render('user/index')
   async findAll(): Promise<any> {
     const users = await this.service.findAll();

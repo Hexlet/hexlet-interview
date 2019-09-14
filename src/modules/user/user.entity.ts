@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { IsNotEmpty } from 'class-validator';
-import { BeforeInsert, Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { BeforeInsert, Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -9,23 +9,12 @@ export enum UserRole {
 
 @Entity('user')
 export class User extends BaseEntity {
-  public static hashPassword(password: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        bcrypt.hash(password, 10, (err, hash) => {
-            if (err) {
-                return reject(err);
-            }
-            resolve(hash);
-        });
-    });
+  public static async hashPassword(password: string) {
+    return await bcrypt.hash(password, 10);
   }
 
-  public static comparePassword(user: User, password: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(password, user.password, (err, res) => {
-            resolve(res === true);
-        });
-    });
+  public async comparePassword(password: string) {
+    return await bcrypt.compare(password, this.password);
   }
 
   @PrimaryGeneratedColumn('increment')
@@ -40,7 +29,7 @@ export class User extends BaseEntity {
   public lastName: string;
 
   @IsNotEmpty()
-  @Column({
+  @PrimaryColumn({
     unique: true,
   })
   public email: string;
