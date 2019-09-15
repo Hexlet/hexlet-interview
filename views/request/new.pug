@@ -2,33 +2,33 @@ extends ../layout
 
 block content
   .container
-    .d-flex.pt-5
+    .row.pt-5
       .col-lg-5.col-md-8.mx-auto
-        h1 Заявка на собеседование
+        h1 #{__('request.interview-request')}
         form
           .form-group
-            label(for='username') Ваше имя
+            label(for='username') #{__('request.name')}
             input.form-control(type='text' id='username' required)
-            small.form-text.text-muted Чтобы собеседующий знал, как к вам обращаться
+            small.form-text.text-muted #{__('request.name-description')}
           .form-group
-            label(for='profession') В чём вы сильны
+            label(for='profession') #{__('request.profession')}
             select.form-control(id='profession')
-              option Фронтенд JavaScript
-              option Бэкенд JavaScript
-              option PHP-программист
-              option Java-программист
-              option Python-программист
-            small.form-text.text-muted Выберите специальность, на тему которой хотите собеседоваться
+              option #{__('request.js-frontend')}
+              option #{__('request.js-backend')}
+              option #{__('request.php')}
+              option #{__('request.java')}
+              option #{__('request.python')}
+            small.form-text.text-muted #{__('request.professsion-description')}
           .form-group
-            label(for='level') Ваш скилл
+            label(for='level') #{__('request.level')}
             select.form-control(id='level')
-              option Intern
-              option Junior
-              option Middle
-              option Senior
-            small.form-text.text-muted Оцените свой уровень в выбранной специальности
+              option #{__('request.intern')}
+              option #{__('request.junior')}
+              option #{__('request.middle')}
+              option #{__('request.senior')}
+            small.form-text.text-muted #{__('request.level-description')}
           .form-group
-            label(for='extra') О себе
-            textarea.form-control(id='extra')
-            small.form-text.text-muted Например, ссылка на резюме или профиль Гитхаб
-          button.btn.btn-primary(type='submit') Отправить заявку
+            label(for='about') #{__('request.about')}
+            textarea.form-control(id='about')
+            small.form-text.text-muted #{__('request.about-description')}
+          button.btn.btn-primary(type='submit') #{__('request.send-request')}
