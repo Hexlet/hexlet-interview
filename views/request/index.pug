@@ -1,21 +1,23 @@
 extends ../layout
 
 block content
-  if requests.length > 0
-    .container.bg-white.shadow-sm.py-4
-      h3.text-center.mb-4 #{__('app.requests')}
-      .table-responsive
-        table.table.table-sm
-          thead
-            tr
-              th.p-3.border-0 #{__('request.username')}
-              th.p-3.border-0 #{__('request.profession')}
-              th.p-3.border-0 #{__('request.position')}
-            tbody
-              each request in requests
-                tr
-                  td.p-3.align-middle.text-nowrap #{request.username}
-                  td.p-3.align-middle.text-nowrap #{request.profession}
-                  td.p-3.align-middle.text-nowrap #{request.position}
+  .container
+    .row.pt-5
+      .col
+        h1.mb-4.text-center #{__('app.requests')}
+        .table-responsive.table-sm.bg-white.shadow-sm
+          table.table
+            thead.thead-light
+              tr
+                th.p-3.border-0 #{__('request.username')}
+                th.p-3.border-0 #{__('request.profession')}
+                th.p-3.border-0 #{__('request.position')}
+              tbody
+                if requests.length > 0
+                  each request in requests
+                    tr
+                      td.p-3.align-middle.text-nowrap #{request.username}
+                      td.p-3.align-middle.text-nowrap #{request.profession}
+                      td.p-3.align-middle.text-nowrap #{request.position}
 
 
