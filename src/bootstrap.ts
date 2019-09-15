@@ -5,7 +5,6 @@ import * as i18n from 'i18n';
 
 i18n.configure({
   locales: ['en', 'ru'],
-  cookie: 'interviewcookie',
   defaultLocale: 'ru',
   directory: __dirname + '/../locales',
   objectNotation: true,
