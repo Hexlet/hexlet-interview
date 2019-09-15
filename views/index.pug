@@ -1,9 +1,25 @@
 extends layout
 
 block content
-  p1 Grreting should be here #{__('hello')}
   main.flex-shrink-0.my-5
     .container
       .row.d-flex
         .mx-auto
-          button.btn.btn-success(type="button") #{__('app.want_to_interview')}
+          a.btn.btn-success(href="/request/new") #{__('app.want_to_interview')}
+      .row.d-flex
+        if comingInterviews.length > 0
+          .container.bg-white.shadow-sm.py-4
+            h3.text-center.mb-4 #{__('app.coming_interviews')}
+            .table-responsive
+              table.table.table-sm
+                thead
+                  tr
+                    th.p-3.border-0 #{__('interview.interviewer')}
+                    th.p-3.border-0 #{__('interview.interviewee')}
+                    th.p-3.border-0 #{__('interview.videoLink')}
+                  tbody
+                    each interview in comingInterviews
+                      tr
+                        td.p-3.align-middle.text-nowrap #{interview.interviewer}
+                        td.p-3.align-middle.text-nowrap #{interview.interviewee}
+                        td.p-3.align-middle.text-nowrap #{interview.videoLink}

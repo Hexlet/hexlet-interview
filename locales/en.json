@@ -1,8 +1,16 @@
 {
-  "hello": "Hello!!!",
+  "hello": "hello",
   "app": {
-    "want_to_interview": "ololo"
+    "want_to_interview": "Apply for interview",
+    "title": "app.title",
+		"requests": "app.requests",
+    "coming_interviews": "app.coming_interviews"
   },
+  "interview": {
+      "interviewer": "interview.interviewer",
+      "interviewee": "interview.interviewee",
+      "videoLink": "interview.videoLink"
+    },
   "request": {
     "interview-request": "Apply for interview",
     "name": "Your name",

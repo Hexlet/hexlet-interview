@@ -1,7 +1,15 @@
 {
   "hello": "Привет!",
   "app": {
-    "want_to_interview": "Хочу собеседоваться"
+    "want_to_interview": "Хочу собеседоваться",
+    "title": "Собеседования онлайн",
+		"requests": "Заявки",
+    "coming_interviews": "Предстоящие интервью"
+  },
+  "interview": {
+    "interviewer": "Собеседующий",
+    "interviewee": "Собеседуемый",
+    "videoLink": "Ссылка на трансляцию",
   },
   "request": {
     "interview-request": "Заявка на собеседование",
