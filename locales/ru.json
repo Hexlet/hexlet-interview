@@ -1,19 +1,35 @@
 {
-	"app": {
-		"want_to_interview": "Хочу собеседоваться",
-		"title": "Собеседования онлайн",
+  "hello": "Привет!",
+  "app": {
+    "want_to_interview": "Хочу собеседоваться",
+    "title": "Собеседования онлайн",
 		"requests": "Заявки",
     "coming_interviews": "Предстоящие интервью"
-	},
-	"hello": "hello",
-	"request": {
-		"username": "Имя собеседуемого",
-		"profession": "Профессия",
-		"position": "Позиция"
-	},
+  },
   "interview": {
     "interviewer": "Собеседующий",
     "interviewee": "Собеседуемый",
-    "videoLink": "Ссылка на трансляцию"
+    "videoLink": "Ссылка на трансляцию",
+  },
+  "request": {
+    "interview-request": "Заявка на собеседование",
+    "name": "Ваше имя",
+    "name-description": "Чтобы собеседующий знал, как к вам обращаться",
+    "profession": "Выберите тему собеседования",
+    "js-frontend": "JavaScript frontend",
+    "js-backend": "JavaScript backend",
+    "php": "PHP",
+    "java": "Java",
+    "python": "Phyton",
+    "professsion-description": "В какой профессии вы сильны",
+    "level": "Ваш уровень",
+    "intern": "Intern",
+    "junior": "Junior",
+    "middle": "Middle",
+    "senior": "Senior",
+    "level-description": "Оцените свой уровень в выбранной профессии",
+    "about": "О себе",
+    "about-description": "Например, ссылка на резюме или профиль на гитхабе",
+    "send-request": "Отправить заявку"
   }
 }
