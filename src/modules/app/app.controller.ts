@@ -12,9 +12,14 @@ export class AppController {
     const locale = res.getLocale();
     return {
       comingInterviews: [{
-        interviewer: 'Kirill Mokevnin',
-        interviewee: 'Eugene Sinitsyn',
+        interviewer: 'Vasiliy Ivanov',
+        interviewee: 'Petr Sidorov',
         videoLink: 'https://youtube.com',
+      }],
+      pastInterviews: [{
+        interviewer: 'Ivan Ivanov',
+        interviewee: 'Petr Petrov',
+        videoLink: 'https://youtube.com/',
       }],
       message: this.appService.getHello(locale),
     };

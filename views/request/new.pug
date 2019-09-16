@@ -5,14 +5,14 @@ block content
     .row.pt-5
       .col-lg-5.col-md-8.mx-auto
         h1 #{__('request.interview-request')}
-        form
+        form(method='POST' action='/request')
           .form-group
             label(for='username') #{__('request.name')}
-            input.form-control(type='text' id='username' required)
+            input.form-control(type='text' name='username' required)
             small.form-text.text-muted #{__('request.name-description')}
           .form-group
             label(for='profession') #{__('request.profession')}
-            select.form-control(id='profession')
+            select.form-control(name='profession')
               option #{__('request.js-frontend')}
               option #{__('request.js-backend')}
               option #{__('request.php')}
@@ -21,7 +21,7 @@ block content
             small.form-text.text-muted #{__('request.professsion-description')}
           .form-group
             label(for='level') #{__('request.level')}
-            select.form-control(id='level')
+            select.form-control(name='position')
               option #{__('request.intern')}
               option #{__('request.junior')}
               option #{__('request.middle')}
@@ -29,6 +29,6 @@ block content
             small.form-text.text-muted #{__('request.level-description')}
           .form-group
             label(for='about') #{__('request.about')}
-            textarea.form-control(id='about')
+            textarea.form-control(name='description')
             small.form-text.text-muted #{__('request.about-description')}
           button.btn.btn-primary(type='submit') #{__('request.send-request')}

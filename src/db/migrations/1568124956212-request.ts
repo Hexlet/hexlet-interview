@@ -14,6 +14,10 @@ export class request1568124956212 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
+            name: 'state',
+            type: 'varchar',
+          },
+          {
             name: 'username',
             type: 'varchar',
           },
@@ -29,6 +33,14 @@ export class request1568124956212 implements MigrationInterface {
             name: 'description',
             type: 'text',
             isNullable: true,
+          },
+          {
+            name: 'created_at',
+            type: 'datetime',
+          },
+          {
+            name: 'updated_at',
+            type: 'datetime',
           },
         ],
       }),

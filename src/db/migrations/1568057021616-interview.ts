@@ -29,6 +29,18 @@ export class interview1568057021616 implements MigrationInterface {
             name: 'video_link',
             type: 'varchar',
           },
+          {
+            name: 'date',
+            type: 'datetime',
+          },
+          {
+            name: 'created_at',
+            type: 'datetime',
+          },
+          {
+            name: 'updated_at',
+            type: 'datetime',
+          },
         ],
       }),
       true,

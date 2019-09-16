@@ -9,12 +9,9 @@ export class RequestController {
   @Get()
   @Render('request/index')
   async findAll(): Promise<any> {
-    const all = await this.service.findAll();
-    return {
-      requests: [
-        { username: 'Василий Пупкин', profession: 'Backend PHP developer', position: 'Junior' }
-      ],
-    };
+    const requests = await this.service.findAll();
+
+    return { requests };
   }
 
   @Get('/new')

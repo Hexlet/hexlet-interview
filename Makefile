@@ -13,7 +13,7 @@ start:
 lint:
 	npm run lint
 
-deploy:
-	git push heroku master
+db-console:
+	sqlite3 src/db/development.sqlite
 
 .PHONY: test
