@@ -7,6 +7,7 @@ import { RequestController } from '../request/request.controller';
 import { RequestModule } from '../request/request.module';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
+import { UserService } from '../user/user.service';
 
 @Module({
   imports: [

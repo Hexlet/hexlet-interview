@@ -1,27 +1,28 @@
 import { Controller, Get, Render, Res, UseGuards, Post, Request } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from '../auth/auth.service';
 import { AppService } from './app.service';
 import { Response } from 'express';
+import { LoginGuard } from '../auth/login.guard';
+import { AuthenticatedGuard } from '../auth/authenticated.guard';
+import { UserService } from '../user/user.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly authService: AuthService
     ) {}
 
-  @UseGuards(AuthGuard('local'))
-  @Post('login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
-  }
+    @UseGuards(LoginGuard)
+    @Post('/login')
+    login(@Res() res: Response) {
+      res.redirect('/index');
+    }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Get('me')
-  getProfile(@Request() req) {
-      return req.user;
-  }
+    @UseGuards(AuthenticatedGuard)
+    @Get('/user')
+    @Render('views/user/index')
+    getUsers(@Request() req) {
+      return { users: ['One', 'Two', 'Three'] };
+    }
 
   @Get()
   @Render('index')

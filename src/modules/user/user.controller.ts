@@ -8,15 +8,7 @@ import { AuthGuard } from '@nestjs/passport';
 export class UserController {
   constructor(public service: UserService) {}
 
-  @Get()
-  @UseGuards(AuthGuard('jwt'))
-  @Render('user/index')
-  async findAll(): Promise<any> {
-    const users = await this.service.findAll();
-    return { users };
-  }
-
-  @Get('/new')
+    @Get('/new')
   @Render('user/new')
   new() {
     return {};

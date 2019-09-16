@@ -12,48 +12,36 @@ export class user1568273019623 implements MigrationInterface {
                 type: 'number',
                 length: '255',
                 isPrimary: true,
-                isNullable: false,
-              },
+                isGenerated: true,
+                generationStrategy: 'increment',              },
               {
-                name: 'first_name',
+                name: 'firstname',
                 type: 'varchar',
                 length: '255',
-                isPrimary: false,
-                isNullable: false,
               },
               {
-                name: 'last_name',
+                name: 'lastname',
                 type: 'varchar',
                 length: '255',
-                isPrimary: false,
-                isNullable: false,
               },
               {
                 name: 'email',
                 type: 'varchar',
                 length: '255',
-                isPrimary: false,
-                isNullable: false,
               },
               {
                 name: 'password',
                 type: 'varchar',
                 length: '255',
-                isPrimary: false,
-                isNullable: false,
               },
               {
                 name: 'enabled',
                 type: 'boolean',
-                isPrimary: false,
-                isNullable: false
               },
               {
                 name: 'role',
                 type: 'varchar',
                 length: '255',
-                isPrimary: false,
-                isNullable: false
               }
           ],
           }), true);

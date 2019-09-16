@@ -21,12 +21,12 @@ export class User extends BaseEntity {
   id: number;
 
   @IsNotEmpty()
-  @Column({ name: 'first_name' })
-  public firstName: string;
+  @Column()
+  public firstname: string;
 
   @IsNotEmpty()
-  @Column({ name: 'last_name' })
-  public lastName: string;
+  @Column()
+  public lastname: string;
 
   @IsNotEmpty()
   @PrimaryColumn({
@@ -44,14 +44,8 @@ export class User extends BaseEntity {
   })
   enabled: boolean;
 
-  @IsNotEmpty()
-  @Column({
-    default: UserRole.USER,
-  })
-  role: UserRole;
-
   public toString(): string {
-    return `${this.firstName} ${this.lastName} (${this.email})`;
+    return `${this.firstname} ${this.lastname} (${this.email})`;
   }
 
   @BeforeInsert()
