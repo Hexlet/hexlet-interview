@@ -16,9 +16,7 @@ export class UserService {
   }
 
   async findOneByEmail(email: string): Promise<User> {
-    console.log(`UserService:findOneByEmail, email is: ${email}`);
-    console.log(`UserService:findOneByEmail: users count: ${await this.repo.count()}`);
-    return await this.repo.findOne({ select:['firstname', 'lastname', 'email'], where:{ "email": email } });
+    return await this.repo.findOne({select: ['firstname', 'lastname', 'email', 'password'], where: { email } });
   }
 
   async create(userCreateDto: UserCreateDto) {
