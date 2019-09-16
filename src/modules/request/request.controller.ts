@@ -26,7 +26,7 @@ export class RequestController {
     try {
       this.service.create(requestCreateDto);
     } catch (e) {
-      return { errors: ['1', '2'] }
+      return { errors: ['1', '2'] };
     }
 
     res.redirect('/');

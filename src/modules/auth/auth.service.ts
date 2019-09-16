@@ -5,7 +5,7 @@ import { User } from '../user/user.entity';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UserService
+    private readonly usersService: UserService,
     ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {

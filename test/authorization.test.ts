@@ -12,27 +12,27 @@ describe('Authorization test', () => {
     app = await createTestingApp();
 
     const user1 = await app.repos.user.create({
-      firstname: "Ivan",
-      lastname: "Susanin",
-      password: "1234",
-      email: "isusanin@gmail.com",
+      firstname: 'Ivan',
+      lastname: 'Susanin',
+      password: '1234',
+      email: 'isusanin@gmail.com',
       enabled: 1});
-      await app.repos.user.save(user1);
+    await app.repos.user.save(user1);
     const user2 = await app.repos.user.create({
-      firstname: "Koзьма",
-      lastname: "Прутков",
-      password: "1234",
-      email: "kprutkov@gmail.com",
+      firstname: 'Koзьма',
+      lastname: 'Прутков',
+      password: '1234',
+      email: 'kprutkov@gmail.com',
       enabled: 1});
-      await app.repos.user.save(user2);
+    await app.repos.user.save(user2);
     const user3 = await app.repos.user.create({
-      firstname: "Левша",
-      lastname: "Блохин",
-      password: "1234",
-      email: "levsha@gmail.com",
+      firstname: 'Левша',
+      lastname: 'Блохин',
+      password: '1234',
+      email: 'levsha@gmail.com',
       enabled: 1});
-      await app.repos.user.save(user3);
-      });
+    await app.repos.user.save(user3);
+  });
 
   it('GET protected page without authorization', () => {
     return request(app.http)
@@ -47,14 +47,13 @@ describe('Authorization test', () => {
       .expect(HttpStatus.FORBIDDEN);
 
     const authInfo = {
-      "username": "kprutkov@gmail.com",
-      "password": "1234",
+      username: 'kprutkov@gmail.com',
+      password: '1234',
     };
     const response = await request(app.http)
       .post('/login')
       .send(authInfo);
     expect(response.status).toBe(HttpStatus.FOUND);
-    console.log(response.header['set-cookie']);
     await request(app.http)
       .get('/user')
       .set('Cookie', response.header['set-cookie'])

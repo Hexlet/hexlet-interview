@@ -17,7 +17,6 @@ export class AppController {
       res.redirect('/');
     }
 
-
   @Get()
   @Render('index')
   async getHello(@Res() res: Response) {
