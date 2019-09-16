@@ -1,8 +1,8 @@
 import * as Faker from 'faker';
 import { define } from 'typeorm-seeding';
-import { User, UserRole } from '../../modules/user/user.entity';
+import { User } from '../../modules/user/user.entity';
 
-define(User, (faker: typeof Faker, settings: { role: string }) => {
+define(User, (faker: typeof Faker) => {
     const user = new User();
     user.id = faker.random.number(1);
     user.firstname = faker.name.firstName();
