@@ -4,7 +4,12 @@
     "want_to_interview": "Хочу собеседоваться",
     "title": "Собеседования онлайн",
     "requests": "Заявки",
-    "coming_interviews": "Предстоящие интервью"
+    "coming_interviews": "Предстоящие интервью",
+    "past_interviews": "Прошедшие интервью"
+  },
+  "users": {
+    "sign_in": "Войти",
+    "sign_up": "Регистрация"
   },
   "interview": {
     "interviewer": "Собеседующий",

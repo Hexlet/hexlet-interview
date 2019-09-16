@@ -6,7 +6,6 @@ const commonOptions = {
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   synchronize: false,
   migrationsRun: true,
-  logging: true,
   migrations: [__dirname + '/db/migrations/**/*{.ts,.js}'],
   cli: {
     migrationsDir: 'src/db/migrations',
@@ -17,24 +16,21 @@ const commonOptions = {
 const test: ConnectionOptions = {
   type: 'sqlite',
   database: ':memory:',
+  logging: false,
   ...commonOptions,
 };
 
 const development: ConnectionOptions = {
-  //type: 'postgres',
-  //host: 'localhost',
-  //port: 5432,
-  //username: 'test',
-  //password: 'test',
-  //database: 'test',
-   type: 'sqlite',
-   database: __dirname + '/db/development.sqlite',
+  type: 'sqlite',
+  database: __dirname + '/db/development.sqlite',
+  logging: true,
   ...commonOptions,
 };
 
 const production: ConnectionOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
+  logging: true,
   ...commonOptions,
 };
 

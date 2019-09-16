@@ -22,6 +22,7 @@ export class AppController {
   @Render('index')
   async getHello(@Res() res: Response) {
     const locale = res.getLocale();
+
     return {
       comingInterviews: [{
         interviewer: 'Vasiliy Ivanov',

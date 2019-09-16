@@ -18,7 +18,7 @@ describe('#request', () => {
     const { body: { id } } = await request(app.http)
       .post('/request')
       .send({ username: 'Vasya', profession: 'Backend PHP Developer', position: 'Junior' })
-      .expect(201);
+      .expect(302);
 
     const newrequest = await app.repos.request.findOne(id);
 
