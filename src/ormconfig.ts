@@ -21,8 +21,14 @@ const test: ConnectionOptions = {
 };
 
 const development: ConnectionOptions = {
-  type: 'sqlite',
-  database: __dirname + '/db/development.sqlite',
+  //type: 'postgres',
+  //host: 'localhost',
+  //port: 5432,
+  //username: 'test',
+  //password: 'test',
+  //database: 'test',
+   type: 'sqlite',
+   database: __dirname + '/db/development.sqlite',
   ...commonOptions,
 };
 
