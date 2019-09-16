@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Post, Render } from '@nestjs/common';
-import { Request } from './request.entity';
 import { RequestService } from './request.service';
 import { RequestCreateDto } from './dto/request.create.dto';
 
@@ -10,7 +9,9 @@ export class RequestController {
   @Get()
   @Render('request/index')
   async findAll(): Promise<any> {
-    return this.service.findAll();
+    const requests = await this.service.findAll();
+
+    return { requests };
   }
 
   @Get('/new')
@@ -21,6 +22,6 @@ export class RequestController {
 
   @Post()
   async create(@Body() requestCreateDto: RequestCreateDto): Promise<any> {
-    return {};
+    return this.service.create(requestCreateDto);
   }
 }

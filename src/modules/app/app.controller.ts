@@ -28,6 +28,18 @@ export class AppController {
   @Render('index')
   async getHello(@Res() res: Response) {
     const locale = res.getLocale();
-    return { message: this.appService.getHello(locale) };
+    return {
+      comingInterviews: [{
+        interviewer: 'Vasiliy Ivanov',
+        interviewee: 'Petr Sidorov',
+        videoLink: 'https://youtube.com',
+      }],
+      pastInterviews: [{
+        interviewer: 'Ivan Ivanov',
+        interviewee: 'Petr Petrov',
+        videoLink: 'https://youtube.com/',
+      }],
+      message: this.appService.getHello(locale),
+    };
   }
 }

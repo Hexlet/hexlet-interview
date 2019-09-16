@@ -1,9 +1,38 @@
 extends layout
 
 block content
-  p1 Grreting should be here #{__('hello')}
   main.flex-shrink-0.my-5
     .container
-      .row.d-flex
-        .mx-auto
-          button.btn.btn-success(type="button") Хочу собеседоваться
+      .d-flex.mb-4
+        a.mx-auto.btn.btn-success(href="/request/new") #{__('app.want_to_interview')}
+      h2.text-center.mb-4 #{__('app.coming_interviews')}
+      .table-responsive.bg-white.shadow-sm
+        table.table.table-sm
+          thead.thead-light
+            tr
+              th.p-3.border-0 #{__('interview.interviewer')}
+              th.p-3.border-0 #{__('interview.interviewee')}
+              th.p-3.border-0 #{__('interview.videoLink')}
+            tbody
+              if comingInterviews && comingInterviews.length > 0
+                each interview in comingInterviews
+                  tr
+                    td.p-3.align-middle.text-nowrap #{interview.interviewer}
+                    td.p-3.align-middle.text-nowrap #{interview.interviewee}
+                    td.p-3.align-middle.text-nowrap #{interview.videoLink}
+
+      h2.text-center.mb-4 #{__('app.past_interviews')}
+      .table-responsive.bg-white.shadow-sm
+        table.table.table-sm
+          thead.thead-light
+            tr
+              th.p-3.border-0 #{__('interview.interviewer')}
+              th.p-3.border-0 #{__('interview.interviewee')}
+              th.p-3.border-0 #{__('interview.videoLink')}
+            tbody
+              if pastInterviews && pastInterviews.length > 0
+                each interview in comingInterviews
+                  tr
+                    td.p-3.align-middle.text-nowrap #{interview.interviewer}
+                    td.p-3.align-middle.text-nowrap #{interview.interviewee}
+                    td.p-3.align-middle.text-nowrap #{interview.videoLink}

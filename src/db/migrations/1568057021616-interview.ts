@@ -1,7 +1,9 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { datetime } from '../datetime.adapter';
 
 export class interview1568057021616 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
+    const databaseType = queryRunner.connection.options.type;
     await queryRunner.createTable(
       new Table({
         name: 'interview',
@@ -28,6 +30,18 @@ export class interview1568057021616 implements MigrationInterface {
           {
             name: 'video_link',
             type: 'varchar',
+          },
+          {
+            name: 'date',
+            type: datetime(databaseType),
+          },
+          {
+            name: 'created_at',
+            type: datetime(databaseType),
+          },
+          {
+            name: 'updated_at',
+            type: datetime(databaseType),
           },
         ],
       }),

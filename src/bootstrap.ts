@@ -7,9 +7,10 @@ import * as passport from 'passport';
 
 i18n.configure({
   locales: ['en', 'ru'],
-  cookie: 'interviewcookie',
-  directory: __dirname + '/locales',
+  defaultLocale: 'ru',
+  directory: __dirname + '/../locales',
   objectNotation: true,
+  updateFiles: false,
 });
 
 export const bootstrapApp = (app: NestExpressApplication) => {
