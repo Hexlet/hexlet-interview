@@ -14,15 +14,9 @@ export class AppController {
     @UseGuards(LoginGuard)
     @Post('/login')
     login(@Res() res: Response) {
-      res.redirect('/index');
+      res.redirect('/');
     }
 
-    @UseGuards(AuthenticatedGuard)
-    @Get('/user')
-    @Render('views/user/index')
-    getUsers(@Request() req) {
-      return { users: ['One', 'Two', 'Three'] };
-    }
 
   @Get()
   @Render('index')
