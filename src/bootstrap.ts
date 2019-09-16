@@ -8,6 +8,7 @@ i18n.configure({
   defaultLocale: 'ru',
   directory: __dirname + '/../locales',
   objectNotation: true,
+  updateFiles: false,
 });
 
 export const bootstrapApp = (app: NestExpressApplication) => {
