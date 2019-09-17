@@ -31,10 +31,6 @@ export class User extends BaseEntity {
   })
   enabled: boolean;
 
-  public toString(): string {
-    return `${this.firstname} ${this.lastname} (${this.email})`;
-  }
-
   @BeforeInsert()
   public async hashPassword(): Promise<void> {
     this.password = await hashPassword(this.password);
