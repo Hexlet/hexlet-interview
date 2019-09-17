@@ -12,7 +12,7 @@
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
     "start:prod": "NODE_ENV=production node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest --runInBand --detectOpenHandles --forceExit --verbose=false",
+    "test": "jest",
     "test:watch": "jest --watch",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "migration:run": "npm run typeorm migration:run",
