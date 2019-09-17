@@ -1,5 +1,5 @@
-import { Render, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
+import { Render, Controller, Get, Post, Res, Req, UseGuards } from '@nestjs/common';
+import { Response, Request } from 'express';
 import { LoginGuard } from '../auth/login.guard';
 
 @Controller('auth')
@@ -7,12 +7,18 @@ export class AuthController {
 
   @Post('/sign_in')
   @UseGuards(LoginGuard)
-  login(@Res() res: Response) {
+  sign_in(@Res() res: Response) {
     res.redirect('/');
   }
 
   @Post('/sign_up')
-  register(@Res() res: Response) {
+  sign_up(@Res() res: Response) {
+    res.redirect('/');
+  }
+
+  @Get('sign_out')
+  sign_out(@Req() req: Request, @Res() res: Response){
+    req.logout();
     res.redirect('/');
   }
 

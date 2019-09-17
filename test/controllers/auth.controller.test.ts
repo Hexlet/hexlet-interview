@@ -40,7 +40,7 @@ describe('Authorization test', () => {
       .expect(HttpStatus.FORBIDDEN);
   });
 
-  it('test valid credentials', async () => {
+  it('test valid credentials, login, logout', async () => {
 
     await request(app.http)
       .get('/user')
@@ -58,7 +58,16 @@ describe('Authorization test', () => {
       .get('/user')
       .set('Cookie', response.header['set-cookie'])
       .expect(HttpStatus.OK);
-  });
+
+    await request(app.http)
+      .get('/auth/sign_out')
+      .expect(HttpStatus.FOUND);
+
+    await request(app.http)
+      .get('/user')
+      .expect(HttpStatus.FORBIDDEN);
+
+    });
 
   it('disallow invalid credentials', async () => {
     const authInfo = {username: 'invadiemail@email.ru', password: '1234'};
