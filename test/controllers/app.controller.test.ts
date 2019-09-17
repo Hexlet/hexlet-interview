@@ -1,27 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { AppModule } from '../../src/modules/app/app.module';
-import { bootstrap } from '../bootstrap';
-import { INestApplication } from '@nestjs/common';
+import { createTestingApp, TestingApp } from '../app.testing';
+import { HttpStatus } from '@nestjs/common';
 
 describe('#main', () => {
-  let app: INestApplication;
+  let app: TestingApp;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    bootstrap(app);
-
-    await app.init();
+    app = await createTestingApp();
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
+    return request(app.http)
       .get('/')
-      .expect(200);
+      .expect(HttpStatus.OK);
   });
 
   afterAll(async () => {
