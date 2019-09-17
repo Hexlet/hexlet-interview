@@ -17,6 +17,5 @@ import { AuthController } from './auth.controller';
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, UserService, SessionSerializer],
-  exports: [AuthService, LocalStrategy, SessionSerializer],
 })
 export class AuthModule {}
