@@ -4,12 +4,12 @@ block content
   .main.container
     .row
       .col-md-6.col-md-offset-3
-        h1.display-4.m-b-2 Log In
+        h1.display-4.m-b-2 #{__('users.sign_in')}
         form(method='POST' action='/auth/sign_in')
           div.form-group
-            label(for='email') Email
+            label(for='email') #{__('users.email')}
             input.form-control(type='text' id='username' placeholder='username' name='username')
           div.form-group
-            label(for='password') Password
+            label(for='password') #{__('users.password')}
             input.form-control(type='password' id='password' placeholder='password' name='password')
-          button.btn.btn-primary(type='submit') Log in
+          button.btn.btn-primary(type='submit') #{__('users.sign_in')}

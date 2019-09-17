@@ -19,14 +19,14 @@ html(lang='ru').h-100
           if login
             li.nav-item
               a.nav-link(href='/auth/sign_out')
-                div Выход
+                div #{__('users.sign_out')}
           else
             li.nav-item
               a.nav-link(href='/auth/sign_in')
-                div Войти
+                div #{__('users.sign_in')}
             li.nav-item
               a.nav-link(href='/auth/sign_up')
-                div Регистрация
+                div #{__('users.sign_up')}
 
 
     block content
