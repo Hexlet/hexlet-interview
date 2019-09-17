@@ -7,18 +7,18 @@ export class AuthController {
 
   @Post('/sign_in')
   @UseGuards(LoginGuard)
-  sign_in(@Res() res: Response) {
+  signIn(@Res() res: Response) {
     res.redirect('/');
   }
 
   @Post('/sign_up')
-  sign_up(@Req() req: Request, @Res() res: Response) {
+  signUp(@Req() req: Request, @Res() res: Response) {
     res.locals.loggedIn = (req.user) ? true : false;
     res.redirect('/');
   }
 
   @Get('sign_out')
-  sign_out(@Req() req: Request, @Res() res: Response) {
+  signOut(@Req() req: Request, @Res() res: Response) {
     req.logout();
     res.redirect('/');
   }
