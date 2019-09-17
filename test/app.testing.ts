@@ -5,6 +5,7 @@ import { getRepository, Repository, BaseEntity } from 'typeorm';
 import { Request } from '../src/modules/request/request.entity';
 import { Interview } from '../src/modules/interview/interview.entity';
 import { INestApplication } from '@nestjs/common';
+import { User } from '../src/modules/user/user.entity';
 
 export const createTestingApp = async (): Promise<TestingApp> => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -22,6 +23,7 @@ export const createTestingApp = async (): Promise<TestingApp> => {
     repos: {
       request: getRepository(Request),
       interview: getRepository(Interview),
+      user: getRepository(User),
     },
   }};
 };

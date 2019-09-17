@@ -10,7 +10,14 @@
   },
   "users": {
     "sign_in": "Войти",
-    "sign_up": "Регистрация"
+    "sign_up": "Регистрация",
+    "sign_out": "Выйти",
+		"email": "Email",
+		"password": "Пароль",
+		"password_confirmation": "Подтверждение пароля",
+		"first_name": "Имя",
+		"last_name": "Фамилия"
+
   },
   "interview": {
     "interviewer": "Собеседующий",

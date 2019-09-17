@@ -9,7 +9,13 @@
 	},
   "users": {
     "sign_in": "Sign In",
-    "sign_up": "Sign Up"
+		"sign_up": "Sign Up",
+		"sign_out": "Sign Out",
+		"email": "Email",
+		"password": "Password",
+		"password_confirmation": "Password confirmation",
+		"first_name": "First name",
+		"last_name": "Last name"
   },
 	"interview": {
 		"interviewer": "Interviewer",
