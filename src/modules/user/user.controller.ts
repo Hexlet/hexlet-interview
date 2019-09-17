@@ -31,16 +31,4 @@ export class UserController {
     await this.service.delete(id);
     return res.redirect('user');
   }
-
-  @Get('sign_in')
-  @Render('user/sign_in')
-  showSignIn() {
-    return {};
-  }
-
-  @Get('sign_up')
-  @Render('user/sign_up')
-  showSignUp() {
-    return {};
-  }
 }

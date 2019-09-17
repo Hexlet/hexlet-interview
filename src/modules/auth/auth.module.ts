@@ -7,6 +7,7 @@ import { UserService } from '../user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../user/user.entity';
 import { SessionSerializer } from './session.serializer';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { SessionSerializer } from './session.serializer';
     UserModule,
     PassportModule,
   ],
+  controllers: [AuthController],
   providers: [AuthService, LocalStrategy, UserService, SessionSerializer],
   exports: [AuthService, LocalStrategy, SessionSerializer],
 })
