@@ -1,8 +1,9 @@
 import * as request from 'supertest';
-import { createTestingApp } from '../app.testing';
+import { createTestingApp, TestingApp } from '../app.testing';
+import { HttpStatus } from '@nestjs/common';
 
 describe('#request', () => {
-  let app;
+  let app: TestingApp;
 
   beforeEach(async () => {
     app = await createTestingApp();
@@ -18,7 +19,7 @@ describe('#request', () => {
     const { body: { id } } = await request(app.http)
       .post('/request')
       .send({ username: 'Vasya', profession: 'Backend PHP Developer', position: 'Junior' })
-      .expect(302);
+      .expect(HttpStatus.FOUND);
 
     const newrequest = await app.repos.request.findOne(id);
 
