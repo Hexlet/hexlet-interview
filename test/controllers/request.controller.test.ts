@@ -1,32 +1,15 @@
 import * as request from 'supertest';
 import { createTestingApp } from '../app.testing';
-import { INestApplication } from '@nestjs/common';
-import { Request } from '../../src/modules/request/request.entity';
-import { Repository, getRepository } from 'typeorm';
-import { RequestCreateDto } from '../../src/modules/request/dto/request.create.dto';
 
 describe('#request', () => {
-  let app: INestApplication;
-  let requestRepository: Repository<Request>;
-  const createRequestBody: RequestCreateDto = {
-    username: 'Vasya',
-    profession: 'Backend PHP Developer',
-    position: 'Junior',
-  };
+  let app;
 
   beforeEach(async () => {
     app = await createTestingApp();
-    requestRepository = getRepository(Request);
   });
 
-  afterEach(async () => {
-    if (app) {
-      await app.close();
-    }
-  });
-
-  it('show all requests', async () => {
-    await request(app.getHttpServer())
+  it('show all requests', () => {
+    return request(app.http)
       .get('/')
       .expect(200);
   });
@@ -34,12 +17,21 @@ describe('#request', () => {
   it('create new request for interview', async () => {
     const {
       body: { id },
-    } = await request(app.getHttpServer())
+    } = await request(app.http)
       .post('/request')
-      .send(createRequestBody)
+      .send({
+        username: 'Vasya',
+        profession: 'Backend PHP Developer',
+        position: 'Junior',
+      })
       .expect(201);
 
-    const newrequest = await requestRepository.findOne(id);
+    const newrequest = await app.repos.request.findOne(id);
+
     expect(newrequest).not.toBeNull();
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
