@@ -28,6 +28,10 @@ export const bootstrapApp = (app: NestExpressApplication) => {
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use( (req, res, next) => {
+    res.locals.login = req.isAuthenticated();
+    next();
+  });
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('pug');

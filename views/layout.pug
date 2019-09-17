@@ -16,12 +16,18 @@ html(lang='ru').h-100
       a.navbar-brand(href="/request") #{__('app.requests')}
       .collapse.navbar-collapse
         ul.navbar-nav.ml-auto
-          li.nav-item
-            a.nav-link(href='/auth/sign_in')
-              div Войти
-          li.nav-item
-            a.nav-link(href='/auth/sign_up')
-              div Регистрация
+          if login
+            li.nav-item
+              a.nav-link(href='/auth/sign_out')
+                div Выход
+          else
+            li.nav-item
+              a.nav-link(href='/auth/sign_in')
+                div Войти
+            li.nav-item
+              a.nav-link(href='/auth/sign_up')
+                div Регистрация
+
 
     block content
 

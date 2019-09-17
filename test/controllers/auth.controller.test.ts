@@ -54,6 +54,7 @@ describe('Authorization test', () => {
       .post('/auth/sign_in')
       .send(authInfo);
     expect(response.status).toBe(HttpStatus.FOUND);
+
     await request(app.http)
       .get('/user')
       .set('Cookie', response.header['set-cookie'])

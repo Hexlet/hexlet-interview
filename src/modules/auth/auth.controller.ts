@@ -12,12 +12,13 @@ export class AuthController {
   }
 
   @Post('/sign_up')
-  sign_up(@Res() res: Response) {
+  sign_up(@Req() req: Request, @Res() res: Response) {
+    res.locals.loggedIn = (req.user) ? true : false;
     res.redirect('/');
   }
 
   @Get('sign_out')
-  sign_out(@Req() req: Request, @Res() res: Response){
+  sign_out(@Req() req: Request, @Res() res: Response) {
     req.logout();
     res.redirect('/');
   }
