@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { User } from '../user.entity';
+import { User } from '../../user/user.entity';
 
 export async function hashPassword(password: string) {
   return await bcrypt.hash(password, 10);

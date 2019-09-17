@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 import { BeforeInsert, Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
-import { hashPassword } from './utils/password';
+import { hashPassword } from '../auth/utils/password';
 
 @Entity('user')
 export class User extends BaseEntity {

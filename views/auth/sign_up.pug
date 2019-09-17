@@ -1,4 +1,24 @@
 extends ../layout
 
 block content
-  p Форма регистрации
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Log In
+        form(method='POST' action='/auth/register')
+          div.form-group
+            label(for='firstname') First name
+            input.form-control(type='text' id='firstname' placeholder='First name' name='firstname')
+          div.form-group
+            label(for='lastname') Last name
+            input.form-control(type='text' id='lastname' placeholder='Last name' name='lastname')
+          div.form-group
+            label(for='email') Email
+            input.form-control(type='text' id='email' placeholder='Email' name='email')
+          div.form-group
+            label(for='password') Password
+            input.form-control(type='password' id='password' placeholder='Password' name='password')
+          div.form-group
+            label(for='confirmpassword') Confirm password
+            input.form-control(type='password' id='confirmpassword' placeholder='Confirm password' name='confirmpassword')
+          button.btn.btn-primary(type='submit') Register
