@@ -51,7 +51,7 @@ describe('Authorization test', () => {
       password: '1234',
     };
     const response = await request(app.http)
-      .post('/auth/login')
+      .post('/auth/sign_in')
       .send(authInfo);
     expect(response.status).toBe(HttpStatus.FOUND);
     await request(app.http)
@@ -61,9 +61,9 @@ describe('Authorization test', () => {
   });
 
   it('disallow invalid credentials', async () => {
-    const authInfo = {username: 'two@email.ru', password: '1234'};
+    const authInfo = {username: 'invadiemail@email.ru', password: '1234'};
     const response = await request(app.http)
-      .post('/auth/login')
+      .post('/auth/sign_in')
       .send(authInfo);
     expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
   });

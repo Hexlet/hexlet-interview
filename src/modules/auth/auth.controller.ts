@@ -5,13 +5,13 @@ import { LoginGuard } from '../auth/login.guard';
 @Controller('auth')
 export class AuthController {
 
-  @Post('/login')
+  @Post('/sign_in')
   @UseGuards(LoginGuard)
   login(@Res() res: Response) {
     res.redirect('/');
   }
 
-  @Post('/register')
+  @Post('/sign_up')
   register(@Res() res: Response) {
     res.redirect('/');
   }
