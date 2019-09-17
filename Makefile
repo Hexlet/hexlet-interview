@@ -2,7 +2,7 @@ test:
 	npm run test
 
 setup:
-	cp -n .env.example .env || true
+	cp -n .env.example development.env || true
 
 install:
 	npm install

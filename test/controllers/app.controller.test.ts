@@ -2,7 +2,7 @@ import * as request from 'supertest';
 import { INestApplication } from '@nestjs/common';
 import { createTestingApp } from '../app.testing';
 
-describe.only('#main', () => {
+describe('#main', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
