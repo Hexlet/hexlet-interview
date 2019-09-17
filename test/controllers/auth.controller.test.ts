@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { AppModule } from './../src/modules/app/app.module';
-import { bootstrap } from './bootstrap';
+import { AppModule } from '../../src/modules/app/app.module';
+import { bootstrap } from '../bootstrap';
 import { HttpStatus, INestApplication } from '@nestjs/common';
-import { createTestingApp } from './app.testing';
+import { createTestingApp } from '../app.testing';
 
 describe('Authorization test', () => {
   let app;
@@ -51,7 +51,7 @@ describe('Authorization test', () => {
       password: '1234',
     };
     const response = await request(app.http)
-      .post('/login')
+      .post('/auth/login')
       .send(authInfo);
     expect(response.status).toBe(HttpStatus.FOUND);
     await request(app.http)
@@ -63,7 +63,7 @@ describe('Authorization test', () => {
   it('disallow invalid credentials', async () => {
     const authInfo = {username: 'two@email.ru', password: '1234'};
     const response = await request(app.http)
-      .post('/login')
+      .post('/auth/login')
       .send(authInfo);
     expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
   });
