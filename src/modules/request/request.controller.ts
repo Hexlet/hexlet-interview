@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post, Render, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res } from '@nestjs/common';
 import { RequestService } from './request.service';
 import { RequestCreateDto } from './dto/request.create.dto';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 @Controller('request')
 export class RequestController {
@@ -22,12 +22,14 @@ export class RequestController {
   }
 
   @Post()
-  async create(@Body() requestCreateDto: RequestCreateDto, @Res() res: Response ): Promise<any> {
+  async create(@Body() requestCreateDto: RequestCreateDto, @Req() req: any, @Res() res: Response ): Promise<any> {
     try {
       this.service.create(requestCreateDto);
     } catch (e) {
       return { errors: ['1', '2'] };
     }
+
+    req.flash('success', 'Message');
 
     res.redirect('/');
   }

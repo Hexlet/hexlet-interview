@@ -10,9 +10,7 @@ export class ConfigService {
   }
 
   get dbParams(): TypeOrmModuleOptions {
-    const SOURCE_PATH = process.env.NODE_ENV === 'production' ? 'dist' : 'src';
-
-    return {
+    const res = {
       type: this.envConfig.DB_TYPE,
       host: this.envConfig.DB_HOST,
       port: this.envConfig.DB_PORT,
@@ -20,15 +18,17 @@ export class ConfigService {
       password: this.envConfig.DB_PASSWORD,
       database: this.envConfig.DB_NAME,
       synchronize: false,
-      entities: [`${SOURCE_PATH}/**/**.entity{.ts,.js}`],
+      entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
       migrationsRun: true,
       logging: ['error'],
       url: this.envConfig.DATABASE_URL,
-      migrations: [`${SOURCE_PATH}/db/migrations/*.ts`],
+      migrations: [__dirname + '/../../db/migrations/**/*{.ts,.js}'],
       cli: {
         migrationsDir: 'src/db/migrations',
       },
       keepConnectionAlive: true,
     } as TypeOrmModuleOptions;
+
+    return res;
   }
 }
