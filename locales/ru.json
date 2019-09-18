@@ -3,19 +3,32 @@
   "app": {
     "want_to_interview": "Хочу собеседоваться",
     "title": "Собеседования онлайн",
-		"requests": "Заявки",
-    "coming_interviews": "Предстоящие интервью"
+    "requests": "Заявки",
+    "interviews": "Интервью",
+    "coming_interviews": "Предстоящие интервью",
+    "past_interviews": "Прошедшие интервью"
+  },
+  "users": {
+    "sign_in": "Войти",
+    "sign_up": "Регистрация",
+    "sign_out": "Выйти",
+		"email": "Email",
+		"password": "Пароль",
+		"password_confirmation": "Подтверждение пароля",
+		"first_name": "Имя",
+		"last_name": "Фамилия"
+
   },
   "interview": {
     "interviewer": "Собеседующий",
     "interviewee": "Собеседуемый",
-    "videoLink": "Ссылка на трансляцию",
+    "videoLink": "Ссылка на трансляцию"
   },
   "request": {
     "interview-request": "Заявка на собеседование",
     "name": "Ваше имя",
     "name-description": "Чтобы собеседующий знал, как к вам обращаться",
-    "profession": "Выберите тему собеседования",
+    "profession": "Профессия",
     "js-frontend": "JavaScript frontend",
     "js-backend": "JavaScript backend",
     "php": "PHP",

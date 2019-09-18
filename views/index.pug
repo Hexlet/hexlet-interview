@@ -3,20 +3,52 @@ extends layout
 block content
   main.flex-shrink-0.my-5
     .container
-      .d-flex.mb-4
-        a.mx-auto.btn.btn-success(href="/request/new") #{__('app.want_to_interview')}
-      h1.text-center.mb-4 #{__('app.coming_interviews')}
-      .table-responsive.bg-white.shadow-sm
-        table.table.table-sm
-          thead.thead-light
-            tr
-              th.p-3.border-0 #{__('interview.interviewer')}
-              th.p-3.border-0 #{__('interview.interviewee')}
-              th.p-3.border-0 #{__('interview.videoLink')}
-            tbody
-              if comingInterviews.length > 0
-                each interview in comingInterviews
-                  tr
-                    td.p-3.align-middle.text-nowrap #{interview.interviewer}
-                    td.p-3.align-middle.text-nowrap #{interview.interviewee}
-                    td.p-3.align-middle.text-nowrap #{interview.videoLink}
+      .card.mb-4
+        .card-body
+          h3.card-title.text-center.mb-4 Для чего нужны онлайн собеседования?
+          .row.mr-4.ml-4
+            p
+              | Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.
+              | Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.
+              | В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов,
+              | используя Lorem Ipsum для распечатки образцов.
+              | Lorem Ipsum не только успешно пережил без заметных изменений пять веков,
+              | но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов
+              | Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время,
+              | программы электронной вёрстки типа Aldus PageMaker,
+              | в шаблонах которых используется Lorem Ipsum.
+          .row
+            a.mx-auto.btn.btn-success.btn-lg(href="/request/new") #{__('app.want_to_interview')}
+      .row.mb-5
+        h2.text-center.mx-auto.mb-4 #{__('app.coming_interviews')}
+        .table-responsive.bg-white.shadow-sm
+          table.table.table-sm
+            thead.thead-light
+              tr
+                th.p-3.border-0 #{__('interview.interviewer')}
+                th.p-3.border-0 #{__('interview.interviewee')}
+                th.p-3.border-0 #{__('interview.videoLink')}
+              tbody
+                if comingInterviews && comingInterviews.length > 0
+                  each interview in comingInterviews
+                    tr
+                      td.p-3.align-middle.text-nowrap #{interview.interviewer}
+                      td.p-3.align-middle.text-nowrap #{interview.interviewee}
+                      td.p-3.align-middle.text-nowrap #{interview.videoLink}
+
+      .row.mb5
+        h2.text-center.mx-auto.mb-4 #{__('app.past_interviews')}
+        .table-responsive.bg-white.shadow-sm
+          table.table.table-sm
+            thead.thead-light
+              tr
+                th.p-3.border-0 #{__('interview.interviewer')}
+                th.p-3.border-0 #{__('interview.interviewee')}
+                th.p-3.border-0 #{__('interview.videoLink')}
+              tbody
+                if pastInterviews && pastInterviews.length > 0
+                  each interview in comingInterviews
+                    tr
+                      td.p-3.align-middle.text-nowrap #{interview.interviewer}
+                      td.p-3.align-middle.text-nowrap #{interview.interviewee}
+                      td.p-3.align-middle.text-nowrap #{interview.videoLink}

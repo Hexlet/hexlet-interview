@@ -1,9 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
 
 @Entity('interview')
 export class Interview extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ default: 'new' })
+  state: string;
 
   @Column()
   interviewer: string;
@@ -13,4 +16,25 @@ export class Interview extends BaseEntity {
 
   @Column({ name: 'video_link' })
   videoLink: string;
+
+  @Column()
+  date: Date;
+
+  @Column({ name: 'created_at' })
+  createdAt: Date;
+
+  @Column({ name: 'updated_at' })
+  updatedAt: Date;
+
+  @BeforeInsert()
+  setDefaults() {
+    this.state = 'new';
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
+
+  @BeforeUpdate()
+  updateUpdatedAt() {
+    this.updatedAt = new Date();
+  }
 }

@@ -13,7 +13,25 @@ html(lang='ru').h-100
   body.d-flex.flex-column.h-100
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
       a.navbar-brand(href="/").mr-5 HexletInterview
-      a.navbar-brand(href="/request") #{__('app.requests')}
+      .collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href="/request") #{__('app.requests')}
+          //-li.nav-item
+            //-a.nav-link(href="/interview") #{__('app.interviews')}
+        ul.navbar-nav.ml-auto
+          if login
+            li.nav-item
+              a.nav-link(href='/auth/sign_out')
+                div #{__('users.sign_out')}
+          else
+            li.nav-item
+              a.nav-link(href='/auth/sign_in')
+                div #{__('users.sign_in')}
+            li.nav-item
+              a.nav-link(href='/auth/sign_up')
+                div #{__('users.sign_up')}
+
 
     block content
 
