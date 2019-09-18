@@ -13,7 +13,6 @@ export class AuthController {
 
   @Post('/sign_up')
   signUp(@Req() req: Request, @Res() res: Response) {
-    res.locals.loggedIn = (req.user) ? true : false;
     res.redirect('/');
   }
 
