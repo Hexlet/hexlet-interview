@@ -14,6 +14,6 @@ lint:
 	npm run lint
 
 db-console:
-	sqlite3 src/db/development.sqlite
+	sqlite3 interview
 
 .PHONY: test
