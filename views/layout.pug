@@ -32,6 +32,14 @@ html(lang='ru').h-100
               a.nav-link(href='/auth/sign_up')
                 div #{__('users.sign_up')}
 
+    if messages.success
+      .alert.alert-success #{messages.success}
+
+    if messages.error
+      .alert.alert-danger #{messages.error}
+
+    if messages.warn
+      .alert.alert-warning #{messages.warn}
 
     block content
 
