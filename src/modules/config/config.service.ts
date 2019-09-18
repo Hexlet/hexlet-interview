@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as dotenv from 'dotenv';
-import { ConnectionOptions } from 'typeorm';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export class ConfigService {
   private readonly envConfig: { [key: string]: string | number };
@@ -9,7 +9,7 @@ export class ConfigService {
     this.envConfig = dotenv.parse(fs.readFileSync(filePath));
   }
 
-  get dbParams(): ConnectionOptions {
+  get dbParams(): TypeOrmModuleOptions {
     const SOURCE_PATH = process.env.NODE_ENV === 'production' ? 'dist' : 'src';
 
     return {
@@ -21,7 +21,7 @@ export class ConfigService {
       database: this.envConfig.DB_NAME,
       synchronize: false,
       entities: [`${SOURCE_PATH}/**/**.entity{.ts,.js}`],
-      dropSchema: process.env.NODE_ENV === 'test',
+      // dropSchema: process.env.NODE_ENV === 'test',
       migrationsRun: true,
       logging: true,
       url: this.envConfig.DATABASE_URL,
@@ -29,6 +29,7 @@ export class ConfigService {
       cli: {
         migrationsDir: 'src/db/migrations',
       },
-    } as ConnectionOptions;
+      keepConnectionAlive: true,
+    } as TypeOrmModuleOptions;
   }
 }
