@@ -21,9 +21,8 @@ export class ConfigService {
       database: this.envConfig.DB_NAME,
       synchronize: false,
       entities: [`${SOURCE_PATH}/**/**.entity{.ts,.js}`],
-      // dropSchema: process.env.NODE_ENV === 'test',
       migrationsRun: true,
-      logging: true,
+      logging: ['error'],
       url: this.envConfig.DATABASE_URL,
       migrations: [`${SOURCE_PATH}/db/migrations/*.ts`],
       cli: {
