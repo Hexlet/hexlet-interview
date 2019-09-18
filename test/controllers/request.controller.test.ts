@@ -1,16 +1,20 @@
 import * as request from 'supertest';
-import { createTestingApp, TestingApp } from '../app.testing';
-import { HttpStatus } from '@nestjs/common';
+import { Request } from '../../src/modules/request/request.entity';
+import { createTestingApp } from '../app.testing';
+import { HttpStatus, INestApplication } from '@nestjs/common';
+import { getRepository, Repository } from 'typeorm';
 
 describe('#request', () => {
-  let app: TestingApp;
+  let app: INestApplication;
+  let requestRepo: Repository<Request>;
 
   beforeEach(async () => {
     app = await createTestingApp();
+    requestRepo = getRepository(Request);
   });
 
-  it('show all requests', () => {
-    return request(app.http)
+  it('show all requests', async () => {
+    await request(app.getHttpServer())
       .get('/')
       .expect(200);
   });
@@ -18,7 +22,7 @@ describe('#request', () => {
   it('create new request for interview', async () => {
     const {
       body: { id },
-    } = await request(app.http)
+    } = await request(app.getHttpServer())
       .post('/request')
       .send({
         username: 'Vasya',
@@ -27,12 +31,14 @@ describe('#request', () => {
       })
       .expect(HttpStatus.FOUND);
 
-    const newrequest = await app.repos.request.findOne(id);
+    const newrequest = await requestRepo.findOne(id);
 
     expect(newrequest).not.toBeNull();
   });
 
-  afterAll(async () => {
-    await app.close();
+  afterEach(async () => {
+    if (app) {
+      await app.close();
+    }
   });
 });

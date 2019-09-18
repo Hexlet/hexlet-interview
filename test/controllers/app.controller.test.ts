@@ -1,21 +1,23 @@
 import * as request from 'supertest';
-import { createTestingApp, TestingApp } from '../app.testing';
-import { HttpStatus } from '@nestjs/common';
+import { createTestingApp } from '../app.testing';
+import { HttpStatus, INestApplication } from '@nestjs/common';
 
 describe('#main', () => {
-  let app: TestingApp;
+  let app: INestApplication;
 
   beforeEach(async () => {
     app = await createTestingApp();
   });
 
-  it('/ (GET)', () => {
-    return request(app.http)
+  it('/ (GET)', async () => {
+    await request(app.getHttpServer())
       .get('/')
       .expect(HttpStatus.OK);
   });
 
-  afterAll(async () => {
-    await app.close();
+  afterEach(async () => {
+    if (app) {
+      await app.close();
+    }
   });
 });
