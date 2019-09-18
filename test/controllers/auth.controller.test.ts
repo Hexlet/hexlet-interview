@@ -28,15 +28,15 @@ describe('Authorization test', () => {
         lastname: 'Прутков',
         password: '1234',
         email: 'kprutkov@gmail.com',
-        enabled: false
+        enabled: false,
       },
       {
         firstname: 'Левша',
         lastname: 'Блохин',
         password: '1234',
         email: 'levsha@gmail.com',
-        enabled: false
-      }
+        enabled: false,
+      },
     ]);
     await userRepo.save(users);
   });
