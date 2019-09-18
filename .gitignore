@@ -25,3 +25,10 @@ npm-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+development.*
+
+## sqlite table
+interview
+
+production.*

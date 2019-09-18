@@ -16,9 +16,15 @@ describe('#request', () => {
   });
 
   it('create new request for interview', async () => {
-    const { body: { id } } = await request(app.http)
+    const {
+      body: { id },
+    } = await request(app.http)
       .post('/request')
-      .send({ username: 'Vasya', profession: 'Backend PHP Developer', position: 'Junior' })
+      .send({
+        username: 'Vasya',
+        profession: 'Backend PHP Developer',
+        position: 'Junior',
+      })
       .expect(HttpStatus.FOUND);
 
     const newrequest = await app.repos.request.findOne(id);
