@@ -3,25 +3,25 @@ import * as dotenv from 'dotenv';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export class ConfigService {
-  private readonly envConfig: { [key: string]: string | number };
-
-  constructor(filePath: string) {
-    this.envConfig = dotenv.parse(fs.readFileSync(filePath));
+  constructor(filePath?: string) {
+    if (filePath) {
+      dotenv.config({path: filePath});
+    }
   }
 
   get dbParams(): TypeOrmModuleOptions {
     const res = {
-      type: this.envConfig.DB_TYPE,
-      host: this.envConfig.DB_HOST,
-      port: this.envConfig.DB_PORT,
-      username: this.envConfig.DB_USER,
-      password: this.envConfig.DB_PASSWORD,
-      database: this.envConfig.DB_NAME,
+      type: process.env.DB_TYPE,
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       synchronize: false,
       entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
       migrationsRun: true,
       logging: ['error'],
-      url: this.envConfig.DATABASE_URL,
+      url: process.env.DATABASE_URL,
       migrations: [__dirname + '/../../db/migrations/**/*{.ts,.js}'],
       cli: {
         migrationsDir: 'src/db/migrations',
