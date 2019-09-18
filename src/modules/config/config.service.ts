@@ -11,7 +11,7 @@ export class ConfigService {
 
   get dbParams(): TypeOrmModuleOptions {
     const res = {
-      type: process.env.DB_TYPE,
+      type: process.env.DB_TYPE || 'postgres',
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       username: process.env.DB_USER,
