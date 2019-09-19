@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Res, UseGuards, Post, Request } from '@nestjs/common';
+import { Controller, Get, Render, Res, UseGuards, Post, Request, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
 
@@ -10,7 +10,7 @@ export class AppController {
 
   @Get()
   @Render('index')
-  async getHello(@Res() res: Response) {
+  async getHello(@Res() res: Response, @Req() req: any) {
     const locale = res.getLocale();
 
     return {

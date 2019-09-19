@@ -4,6 +4,7 @@ import { join } from 'path';
 import * as i18n from 'i18n';
 import * as Session from 'express-session';
 import * as passport from 'passport';
+import * as flash from 'express-flash';
 
 i18n.configure({
   locales: ['en', 'ru'],
@@ -26,9 +27,10 @@ export const bootstrapApp = (app: NestExpressApplication) => {
     resave: false,
     saveUninitialized: false,
   }));
+  app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use( (req, res, next) => {
+  app.use((req, res, next) => {
     res.locals.login = req.isAuthenticated();
     next();
   });
