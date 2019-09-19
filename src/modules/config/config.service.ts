@@ -26,14 +26,14 @@ export class ConfigService {
     const test: TypeOrmModuleOptions = {
       type: 'sqlite',
       database: ':memory:',
-      logging: true,
+      logging: false,
       ...commonOptions,
     };
 
     const development: TypeOrmModuleOptions = {
       type: 'sqlite',
       database: __dirname + '/../../db/development.sqlite',
-      logging: true,
+      logging: false,
       ...commonOptions,
     };
 

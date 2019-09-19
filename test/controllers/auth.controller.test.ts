@@ -81,7 +81,6 @@ describe('Authorization test', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send(authInfo);
-
     expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
   });
 

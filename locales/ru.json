@@ -16,8 +16,12 @@
 		"password": "Пароль",
 		"password_confirmation": "Подтверждение пароля",
 		"first_name": "Имя",
-		"last_name": "Фамилия"
-
+    "last_name": "Фамилия",
+    "login_success": "Вы успешно вошли в систему!",
+    "login_error": "Ошибка входа в систему",
+    "registration_success": "Регистрация успешно завершена",
+		"registration_error_password_mismatch": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!",
+		"registration_error_existing_user": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!"
   },
   "interview": {
     "interviewer": "Собеседующий",
