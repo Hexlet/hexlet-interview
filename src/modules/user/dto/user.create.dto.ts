@@ -1,10 +1,12 @@
-import { IsNotEmpty, IsEmail } from 'class-validator';
+import { IsNotEmpty, IsEmail, Equals } from 'class-validator';
+import passport = require('passport');
+
 
 export class UserCreateDto {
   @IsNotEmpty()
-  readonly firstName: string;
+  readonly firstname: string;
 
-  readonly lastName: string;
+  readonly lastname: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -12,4 +14,7 @@ export class UserCreateDto {
 
   @IsNotEmpty()
   readonly password: string;
+
+  @IsNotEmpty()
+  readonly confirmpassword: string;
 }

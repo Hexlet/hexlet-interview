@@ -11,21 +11,20 @@ export class UserService {
     private readonly repo: Repository<User>,
   ) {}
 
-  async findAll() {
-    return await this.repo.find();
+  async findAll(): Promise<User[]> {
+    return this.repo.find();
   }
 
-  async findOneByEmail(email: string): Promise<User> {
-    return await this.repo.findOne({select: ['firstname', 'lastname', 'email', 'password'], where: { email } });
+  findOneByEmail(email: string): Promise<User> {
+    return this.repo.findOne({select: ['firstname', 'lastname', 'email', 'password'], where: { email } });
   }
 
-  async create(userCreateDto: UserCreateDto) {
-    const newUser =  this.repo.create(userCreateDto);
-    if (newUser) {
-      this.repo.save(newUser);
-      return newUser;
-    }
-    return null;
+  createAndSave(userCreateDto: UserCreateDto) : Promise<User>{
+    const newUser = this.repo.create(userCreateDto);
+      if (newUser) {
+        return this.repo.save(newUser);
+      }
+      return null;
   }
 
   async update(id: number, user: User) {

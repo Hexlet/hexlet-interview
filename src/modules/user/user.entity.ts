@@ -3,7 +3,7 @@ import { BeforeInsert, Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, Ba
 import { hashPassword } from '../auth/utils/password';
 
 @Entity('user')
-export class User extends BaseEntity {
+export class User {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
