@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RequestModule } from '../request/request.module';
+import { InterviewModule } from '../interview/interview.module';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 
@@ -15,7 +15,7 @@ import { ConfigService } from '../config/config.service';
       useFactory: async (configService: ConfigService) =>
         configService.dbParams,
     }),
-    RequestModule,
+    InterviewModule,
     AuthModule,
     ConfigModule,
   ],

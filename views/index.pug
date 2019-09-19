@@ -18,7 +18,7 @@ block content
               | программы электронной вёрстки типа Aldus PageMaker,
               | в шаблонах которых используется Lorem Ipsum.
           .row
-            a.mx-auto.btn.btn-success.btn-lg(href="/request/new") #{__('app.want_to_interview')}
+            a.mx-auto.btn.btn-success.btn-lg(href="/interview/new") #{__('app.want_to_interview')}
       .row.mb-5
         h2.text-center.mx-auto.mb-4 #{__('app.coming_interviews')}
         .table-responsive.bg-white.shadow-sm
@@ -47,7 +47,7 @@ block content
                 th.p-3.border-0 #{__('interview.videoLink')}
               tbody
                 if pastInterviews && pastInterviews.length > 0
-                  each interview in comingInterviews
+                  each interview in pastInterviews
                     tr
                       td.p-3.align-middle.text-nowrap #{interview.interviewer}
                       td.p-3.align-middle.text-nowrap #{interview.interviewee}
