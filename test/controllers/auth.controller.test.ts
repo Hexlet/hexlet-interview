@@ -1,8 +1,5 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { AppModule } from '../../src/modules/app/app.module';
 import { User } from '../../src/modules/user/user.entity';
-import { bootstrap } from '../bootstrap';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { createTestingApp } from '../app.testing';
 import { getRepository, Repository } from 'typeorm';
