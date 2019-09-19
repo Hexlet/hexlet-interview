@@ -23,7 +23,7 @@ export class AuthController {
   async signUp(@Body() userDto: UserCreateDto, @Res() res: Response) {
     if (userDto.password !== userDto.confirmpassword) {
       this.logger.log('Error: password and password confirmation did not match.');
-      res.redirect(HttpStatus.UNPROCESSABLE_ENTITY,'/');
+      res.redirect(HttpStatus.UNPROCESSABLE_ENTITY, '/');
       return;
     }
 

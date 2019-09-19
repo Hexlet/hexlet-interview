@@ -19,12 +19,12 @@ export class UserService {
     return this.repo.findOne({select: ['firstname', 'lastname', 'email', 'password'], where: { email } });
   }
 
-  createAndSave(userCreateDto: UserCreateDto) : Promise<User>{
+  createAndSave(userCreateDto: UserCreateDto): Promise<User> {
     const newUser = this.repo.create(userCreateDto);
-      if (newUser) {
-        return this.repo.save(newUser);
-      }
-      return null;
+    if (newUser) {
+      return this.repo.save(newUser);
+    }
+    return null;
   }
 
   async update(id: number, user: User) {

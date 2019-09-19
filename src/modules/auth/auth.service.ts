@@ -15,13 +15,11 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user: User = await this.usersService.findOneByEmail(email);
     if (!user) {
-      console.log(`user ${email}  not found!`);
       this.logger.log('user ${email}  not found!');
       return null;
     }
 
     if (!comparePassword(user, pass)) {
-      console.log('user found, password mismatch!');
       this.logger.log('user found, password mismatch!');
       return null;
     }
