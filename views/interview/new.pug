@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  .container
+    .row.pt-5
+      .col-lg-5.col-md-8.mx-auto
+        h1 #{__('request.interview-request')}
+        form(method='POST' action='/interview')
+          .form-group
+            label(for='interviewee') #{__('request.name')}
+            input.form-control(type='text' name='interviewee' required)
+            small.form-text.text-muted #{__('request.name-description')}
+          .form-group
+            label(for='profession') #{__('request.profession')}
+            select.form-control(name='profession')
+              option #{__('request.js-frontend')}
+              option #{__('request.js-backend')}
+              option #{__('request.php')}
+              option #{__('request.java')}
+              option #{__('request.python')}
+            small.form-text.text-muted #{__('request.professsion-description')}
+          .form-group
+            label(for='level') #{__('request.level')}
+            select.form-control(name='position')
+              option #{__('request.intern')}
+              option #{__('request.junior')}
+              option #{__('request.middle')}
+              option #{__('request.senior')}
+            small.form-text.text-muted #{__('request.level-description')}
+          .form-group
+            label(for='about') #{__('request.about')}
+            textarea.form-control(name='description')
+            small.form-text.text-muted #{__('request.about-description')}
+          button.btn.btn-primary(type='submit') #{__('request.send-request')}
