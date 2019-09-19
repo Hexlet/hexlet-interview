@@ -22,18 +22,34 @@ export class interview1568057021616 implements MigrationInterface {
           {
             name: 'interviewer',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'interviewee',
             type: 'varchar',
           },
           {
+            name: 'profession',
+            type: 'varchar',
+          },
+          {
+            name: 'position',
+            type: 'varchar',
+          },
+          {
+            name: 'description',
+            type: 'text',
+            isNullable: true,
+          },
+          {
             name: 'video_link',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'date',
             type: datetime(databaseType),
+            isNullable: true,
           },
           {
             name: 'created_at',

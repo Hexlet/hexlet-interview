@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert, BeforeUpdate } from 'typeorm';
 
 @Entity('interview')
 export class Interview extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ default: 'new' })
+  @Column()
   state: string;
 
   @Column()
@@ -13,6 +13,15 @@ export class Interview extends BaseEntity {
 
   @Column()
   interviewee: string;
+
+  @Column()
+  profession: string;
+
+  @Column()
+  position: string;
+
+  @Column()
+  description: string;
 
   @Column({ name: 'video_link' })
   videoLink: string;

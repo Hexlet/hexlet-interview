@@ -1,39 +1,37 @@
 import * as request from 'supertest';
-import { Request } from '../../src/modules/request/request.entity';
+import { Interview } from '../../src/modules/interview/interview.entity';
 import { createTestingApp } from '../app.testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { getRepository, Repository } from 'typeorm';
 
-describe('#request', () => {
+describe('#interview', () => {
   let app: INestApplication;
-  let requestRepo: Repository<Request>;
+  let interviewRepo: Repository<Interview>;
 
   beforeEach(async () => {
     app = await createTestingApp();
-    requestRepo = getRepository(Request);
+    interviewRepo = getRepository(Interview);
   });
 
-  it('show all requests', async () => {
+  it('show all interviews', async () => {
     await request(app.getHttpServer())
-      .get('/')
+      .get('/interview')
       .expect(200);
   });
 
-  it('create new request for interview', async () => {
-    const {
-      body: { id },
-    } = await request(app.getHttpServer())
-      .post('/request')
+  it('create new interview in new state', async () => {
+    const { body: { id } } = await request(app.getHttpServer())
+      .post('/interview')
       .send({
-        username: 'Vasya',
+        interviewee: 'Vasya',
         profession: 'Backend PHP Developer',
         position: 'Junior',
       })
       .expect(HttpStatus.FOUND);
 
-    const newrequest = await requestRepo.findOne(id);
+    const newInterview = await interviewRepo.findOne(id);
 
-    expect(newrequest).not.toBeNull();
+    expect(newInterview).not.toBeNull();
   });
 
   afterEach(async () => {
