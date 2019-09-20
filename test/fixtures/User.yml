@@ -1,8 +1,8 @@
 entity: User
 items:
-  ivan:
-    firstname: bob
-    lastname: Bob
-    email: bob@example.org
+  kozma:
+    firstname: Kozma
+    lastname: Prutkov
+    email: kprutkov@gmail.com
     password: '12345'
     enabled: true

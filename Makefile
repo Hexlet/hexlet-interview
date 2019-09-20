@@ -3,6 +3,7 @@ test:
 
 setup:
 	cp -n .env.example development.env || true
+	npm run fixtures:load
 
 install:
 	npm install
@@ -15,5 +16,8 @@ lint:
 
 db-console:
 	sqlite3 interview
+
+fixtures-load:
+	npm run fixtures:load
 
 .PHONY: test

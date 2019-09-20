@@ -2,39 +2,16 @@ import * as request from 'supertest';
 import { User } from '../../src/modules/user/user.entity';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { createTestingApp } from '../app.testing';
-import { getRepository, Repository } from 'typeorm';
+import { loadFixtures } from '../fixtures.loader'
+import { _ } from 'lodash';
 
 describe('Authorization test', () => {
   let app: INestApplication;
-  let userRepo: Repository<User>;
+  let users: {[key: string]: User};
 
   beforeAll(async () => {
     app = await createTestingApp();
-    userRepo = getRepository(User);
-    const users = await userRepo.create([
-      {
-        firstname: 'Ivan',
-        lastname: 'Susanin',
-        password: '1234',
-        email: 'isusanin@gmail.com',
-        enabled: false,
-      },
-      {
-        firstname: 'Koзьма',
-        lastname: 'Прутков',
-        password: '1234',
-        email: 'kprutkov@gmail.com',
-        enabled: false,
-      },
-      {
-        firstname: 'Левша',
-        lastname: 'Блохин',
-        password: '1234',
-        email: 'levsha@gmail.com',
-        enabled: false,
-      },
-    ]);
-    await userRepo.save(users);
+    users = (await loadFixtures()).User;
   });
 
   it('GET protected page without authorization', async () => {
@@ -48,9 +25,10 @@ describe('Authorization test', () => {
       .get('/user')
       .expect(HttpStatus.FORBIDDEN);
 
+    const kozma = users.kozma;
     const authInfo = {
-      username: 'kprutkov@gmail.com',
-      password: '1234',
+      username: kozma.email,
+      password: '12345',
     };
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
