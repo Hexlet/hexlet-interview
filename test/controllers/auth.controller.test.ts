@@ -8,10 +8,9 @@ describe('Authorization test', () => {
   let app: INestApplication;
   let userRepo: Repository<User>;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     app = await createTestingApp();
     userRepo = getRepository(User);
-
     const users = await userRepo.create([
       {
         firstname: 'Ivan',
@@ -82,9 +81,7 @@ describe('Authorization test', () => {
     expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
   });
 
-  afterEach(async () => {
-    if (app) {
-      await app.close();
-    }
+  afterAll(async () => {
+    await app.close();
   });
 });
