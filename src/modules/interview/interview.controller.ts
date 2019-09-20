@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Render, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res, UseGuards } from '@nestjs/common';
 import { InterviewService } from './interview.service';
 import { InterviewCreateDto } from './dto/interview.create.dto';
 import { Response } from 'express';
+import { AuthenticatedGuard } from '../auth/authenticated.guard';
 
 @Controller('interview')
 export class InterviewController {
@@ -15,6 +16,7 @@ export class InterviewController {
     return { interviews };
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Get('/new')
   @Render('interview/new')
   new() {

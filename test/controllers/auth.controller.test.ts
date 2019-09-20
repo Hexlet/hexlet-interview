@@ -17,7 +17,8 @@ describe('Authorization test', () => {
   it('GET protected page without authorization', async () => {
     await request(app.getHttpServer())
       .get('/user')
-      .expect(HttpStatus.FORBIDDEN);
+      .expect(HttpStatus.FOUND)
+      .expect('Location', '/auth/sign_in');
   });
 
   it('test valid credentials, login, logout', async () => {
@@ -43,7 +44,8 @@ describe('Authorization test', () => {
 
     await request(app.getHttpServer())
       .get('/user')
-      .expect(HttpStatus.FORBIDDEN);
+      .expect(HttpStatus.FOUND)
+      .expect('Location', '/auth/sign_in');
   });
 
   it('disallow invalid credentials', async () => {

@@ -1,4 +1,4 @@
-import { Render, Controller, Get, Post, Res, Req, UseGuards } from '@nestjs/common';
+import { Render, Controller, Get, Post, Res, Req, UseGuards, Next } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { LoginGuard } from '../auth/login.guard';
 import * as i18n from 'i18n';
@@ -9,13 +9,16 @@ export class AuthController {
 
   @Post('/sign_in')
   @UseGuards(LoginGuard)
-  signIn(@Req() req: any, @Res() res: Response) {
+  signIn(@Req() req: any, @Res() res: Response, @Next() next: any) {
     if (!req.user) {
       res.status(HttpStatus.UNAUTHORIZED);
       req.flash('error', i18n.__('users.form.invalid_credentials'));
       return res.render('auth/sign_in', { req: req.body });
     }
-    res.redirect('/');
+    const redirectTo = req.session.redirectTo || '/';
+    delete req.session.redirectTo;
+
+    res.redirect(redirectTo);
   }
 
   @Post('/sign_up')
