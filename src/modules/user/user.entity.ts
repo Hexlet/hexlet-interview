@@ -7,6 +7,9 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
+  @Column()
+  role: string;
+
   @IsNotEmpty()
   @Column()
   public firstname: string;

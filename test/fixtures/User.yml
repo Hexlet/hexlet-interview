@@ -1,8 +1,16 @@
 entity: User
 items:
   kozma:
+    role: user
     firstname: Kozma
     lastname: Prutkov
     email: kprutkov@gmail.com
     password: '12345'
+    enabled: true
+  admin:
+    role: admin
+    firstname: Admin
+    lastname: Admin
+    email: admin@admin.com
+    password: 'admin'
     enabled: true
