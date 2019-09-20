@@ -7,7 +7,7 @@ import * as passport from 'passport';
 import * as flash from 'express-flash';
 
 i18n.configure({
-  locales: ['en', 'ru'],
+  locales: ['ru', 'en'],
   defaultLocale: 'ru',
   directory: __dirname + '/../locales',
   objectNotation: true,
@@ -17,6 +17,10 @@ i18n.configure({
 export const bootstrapApp = (app: NestExpressApplication) => {
   app.useGlobalPipes(new ValidationPipe());
   app.use(i18n.init);
+  app.use((req, res, next) => {
+    res.setLocale('ru');
+    next();
+  });
 
   app.use(Session({
     cookie: {

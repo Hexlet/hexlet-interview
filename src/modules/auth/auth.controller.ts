@@ -4,11 +4,9 @@ import { LoginGuard } from '../auth/login.guard';
 import { UserService } from '../user/user.service';
 import { UserCreateDto } from '../user/dto/user.create.dto';
 import { Logger } from '@nestjs/common';
-import { AuthExceptionFilter } from '../../common/filters/auth-exceptions.filter';
 import * as i18n from 'i18n';
 
 @Controller('auth')
-@UseFilters(AuthExceptionFilter)
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
@@ -18,8 +16,12 @@ export class AuthController {
 
   @Post('/sign_in')
   @UseGuards(LoginGuard)
-  signIn(@Req() req: Request, @Res() res: Response) {
-    (req as any).flash('success', i18n.__('users.login_success'));
+  signIn(@Req() req: any, @Res() res: Response) {
+    if (!req.user) {
+      res.status(HttpStatus.UNAUTHORIZED);
+      req.flash('error', i18n.__('users.form.invalid_credentials'));
+      return res.render('auth/sign_in', { req: req.body });
+    }
     res.redirect('/');
   }
 
