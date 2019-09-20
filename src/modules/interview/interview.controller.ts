@@ -23,10 +23,11 @@ export class InterviewController {
     return {};
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Post()
   async create(@Body() interviewCreateDto: InterviewCreateDto, @Req() req: any, @Res() res: Response): Promise<any> {
     try {
-      this.service.create(interviewCreateDto);
+      this.service.create(interviewCreateDto, req.user);
     } catch (e) {
       return { errors: ['1', '2'] };
     }

@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 import { datetime } from '../datetime.adapter';
 
 export class interview1568057021616 implements MigrationInterface {
@@ -25,8 +25,8 @@ export class interview1568057021616 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'interviewee',
-            type: 'varchar',
+            name: 'interviewee_id',
+            type: 'integer',
           },
           {
             name: 'profession',
@@ -63,6 +63,13 @@ export class interview1568057021616 implements MigrationInterface {
       }),
       true,
     );
+
+    await queryRunner.createForeignKey('interview', new TableForeignKey({
+      columnNames: ['interviewee_id'],
+      referencedColumnNames: ['id'],
+      referencedTableName: 'user',
+      onDelete: 'CASCADE'
+    }));
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {

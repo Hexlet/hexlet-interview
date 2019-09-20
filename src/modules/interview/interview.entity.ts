@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert, BeforeUpdate, ManyToOne, JoinColumn } from 'typeorm';
+import { User } from '../user/user.entity';
 
 @Entity('interview')
 export class Interview extends BaseEntity {
@@ -11,8 +12,9 @@ export class Interview extends BaseEntity {
   @Column()
   interviewer: string;
 
-  @Column()
-  interviewee: string;
+  @ManyToOne(type => User, user => user.interviews)
+  @JoinColumn({ name: 'interviewee_id' })
+  interviewee: User;
 
   @Column()
   profession: string;

@@ -26,7 +26,7 @@ export class ConfigService {
     const test: TypeOrmModuleOptions = {
       type: 'sqlite',
       database: ':memory:',
-      logging: false,
+      logging: !!process.env.DB_LOGGING,
       ...commonOptions,
     };
 

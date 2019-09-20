@@ -1,6 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
-import { BeforeInsert, Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { BeforeInsert, Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, BaseEntity, OneToMany } from 'typeorm';
 import { hashPassword } from '../auth/utils/password';
+import { Interview } from '../interview/interview.entity';
 
 @Entity('user')
 export class User extends BaseEntity {
@@ -19,7 +20,7 @@ export class User extends BaseEntity {
   public lastname: string;
 
   @IsNotEmpty()
-  @PrimaryColumn({
+  @Column({
     unique: true,
   })
   public email: string;
@@ -33,6 +34,13 @@ export class User extends BaseEntity {
     default: false,
   })
   enabled: boolean;
+
+  @OneToMany(type => Interview, interview => interview.interviewee)
+  interviews: Interview[];
+
+  toString() {
+    return `${this.firstname} ${this.lastname}`;
+  }
 
   @BeforeInsert()
   public async hashPassword(): Promise<void> {

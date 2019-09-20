@@ -16,7 +16,7 @@ export class UserService {
   }
 
   findOneByEmail(email: string): Promise<User> {
-    return this.repo.findOne({select: ['firstname', 'lastname', 'email', 'password'], where: { email } });
+    return this.repo.findOne({select: ['id', 'firstname', 'lastname', 'email', 'password'], where: { email } });
   }
 
   async create(userCreateDto: UserCreateDto) {
