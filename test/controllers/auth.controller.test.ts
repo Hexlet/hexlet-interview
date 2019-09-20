@@ -77,12 +77,12 @@ describe('Authorization test', () => {
       lastname: 'Матросов',
       email: 'amatrosov@gmail.com',
       password: '1234',
-      confirmpassword: '1234'
+      confirmpassword: '1234',
     };
 
     const authInfo = {
       username: 'amatrosov@gmail.com',
-      password: '1234'
+      password: '1234',
     };
 
     const responseLoginUnexistingUser = await request(app.getHttpServer())
