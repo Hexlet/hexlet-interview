@@ -2,21 +2,22 @@ import {
   ExceptionFilter,
   Catch,
   ArgumentsHost,
-  ForbiddenException,
+  UnauthorizedException,
+  HttpStatus,
 } from '@nestjs/common';
 import * as i18n from 'i18n';
 
 import { Request, Response } from 'express';
 
-@Catch(ForbiddenException)
+@Catch(UnauthorizedException)
 export class UnauthorizedExceptionFilter implements ExceptionFilter {
-  catch(exception: ForbiddenException, host: ArgumentsHost) {
+  catch(exception: UnauthorizedException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request: any = ctx.getRequest<Request>();
 
-    request.session.redirectTo = request.url;
-    request.flash('warn', i18n.__('users.form.please_sign_in'));
-    response.redirect('/auth/sign_in');
+    response.status(HttpStatus.UNAUTHORIZED);
+    request.flash('error', i18n.__('users.form.invalid_credentials'));
+    return response.render('auth/sign_in', { req: request.body });
   }
 }
