@@ -21,10 +21,6 @@ describe('Authorization test', () => {
   });
 
   it('test valid credentials, login, logout', async () => {
-    await request(app.getHttpServer())
-      .get('/user')
-      .expect(HttpStatus.FORBIDDEN);
-
     const kozma = users.kozma;
     const authInfo = {
       username: kozma.email,
@@ -33,6 +29,7 @@ describe('Authorization test', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send(authInfo);
+
     expect(response.status).toBe(HttpStatus.FOUND);
 
     await request(app.getHttpServer())
@@ -47,7 +44,6 @@ describe('Authorization test', () => {
     await request(app.getHttpServer())
       .get('/user')
       .expect(HttpStatus.FORBIDDEN);
-
   });
 
   it('disallow invalid credentials', async () => {

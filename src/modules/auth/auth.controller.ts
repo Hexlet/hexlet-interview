@@ -2,18 +2,18 @@ import { Render, Controller, Get, Post, Res, Req, UseGuards } from '@nestjs/comm
 import { Response, Request } from 'express';
 import { LoginGuard } from '../auth/login.guard';
 import * as i18n from 'i18n';
+import { HttpStatus } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
 
   @Post('/sign_in')
-  @Render('auth/sign_in')
   @UseGuards(LoginGuard)
   signIn(@Req() req: any, @Res() res: Response) {
     if (!req.user) {
-      res.status(200);
+      res.status(HttpStatus.UNAUTHORIZED);
       req.flash('error', i18n.__('app.title'));
-      return { req: req.body };
+      return res.render('auth/sign_in', { req: req.body });
     }
     res.redirect('/');
   }
