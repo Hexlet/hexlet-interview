@@ -96,7 +96,7 @@ describe('Authorization test', () => {
 
     const authInfo1 = {
       username: 'kprutkov@gmail.com',
-      password: '1234',
+      password: '12345',
     };
     const resp = await request(app.getHttpServer())
       .post('/auth/sign_in')
