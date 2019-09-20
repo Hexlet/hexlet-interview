@@ -48,13 +48,75 @@ describe('Authorization test', () => {
       .expect('Location', '/auth/sign_in');
   });
 
-  it('disallow invalid credentials', async () => {
+  it('test disallow invalid credentials', async () => {
     const authInfo = {username: 'invadiemail@email.ru', password: '1234'};
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send(authInfo);
-
     expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
+  });
+
+  it('test register existing user', async () => {
+    const userData = {
+      firstname: 'Koзьма',
+      lastname: 'Прутков',
+      email: 'kprutkov@gmail.com',
+      password: '1234',
+      confirmpassword: '1234'};
+
+    const response = await request(app.getHttpServer())
+      .post('/auth/sign_up')
+      .send(userData);
+    expect(response.status).toBe(HttpStatus.UNPROCESSABLE_ENTITY);
+  });
+
+  it('test register user with good data', async () => {
+    const userData = {
+      role: 'user',
+      firstname: 'Александр',
+      lastname: 'Матросов',
+      email: 'amatrosov@gmail.com',
+      password: '1234',
+      confirmpassword: '1234',
+    };
+
+    const authInfo = {
+      username: 'amatrosov@gmail.com',
+      password: '1234',
+    };
+
+    const responseLoginUnexistingUser = await request(app.getHttpServer())
+      .post('/auth/sign_in')
+      .send(authInfo);
+    expect(responseLoginUnexistingUser.status).toBe(HttpStatus.UNAUTHORIZED);
+
+    const response = await request(app.getHttpServer())
+      .post('/auth/sign_up')
+      .send(userData);
+    expect(response.status).toBe(HttpStatus.CREATED);
+
+    const authInfo1 = {
+      username: 'kprutkov@gmail.com',
+      password: '12345',
+    };
+    const resp = await request(app.getHttpServer())
+      .post('/auth/sign_in')
+      .send(authInfo1);
+    expect(resp.status).toBe(HttpStatus.FOUND);
+  });
+
+  it('test register user with invalid data', async () => {
+    const userData = {
+      firstname: '',
+      lastname: 'Матросов',
+      email: 'amatrosov',
+      password: '1234',
+      confirmpassword: ''};
+
+    const response = await request(app.getHttpServer())
+      .post('/auth/sign_up')
+      .send(userData);
+    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
   });
 
   afterAll(async () => {

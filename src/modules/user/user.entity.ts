@@ -4,7 +4,7 @@ import { hashPassword } from '../auth/utils/password';
 import { Interview } from '../interview/interview.entity';
 
 @Entity('user')
-export class User extends BaseEntity {
+export class User {
   @PrimaryGeneratedColumn('increment')
   id: number;
 

@@ -21,14 +21,14 @@ html(lang='ru').h-100
           if login
             li.nav-item
               a.nav-link(href='/auth/sign_out')
-                div #{__('users.sign_out')}
+                div #{__('users.form.sign_out')}
           else
             li.nav-item
               a.nav-link(href='/auth/sign_in')
-                div #{__('users.sign_in')}
+                div #{__('users.form.sign_in')}
             li.nav-item
               a.nav-link(href='/auth/sign_up')
-                div #{__('users.sign_up')}
+                div #{__('users.form.sign_up')}
 
     if messages.success
       .alert.alert-success #{messages.success}

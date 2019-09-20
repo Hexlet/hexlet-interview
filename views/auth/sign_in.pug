@@ -3,13 +3,13 @@ extends ../layout
 block content
   .main.container
     .row
-      .col-md-6.col-md-offset-3
-        h1.display-4.m-b-2 #{__('users.sign_in')}
+      .justify-content-center
+        h1.display-4.mb-2 #{__('users.form.sign_in')}
         form(method='POST' action='/auth/sign_in')
           div.form-group
-            label(for='email') #{__('users.email')}
+            label(for='email') #{__('users.form.email')}
             input.form-control(type='text' placeholder='test@example.com' name='username' value=(req && req.username) || '')
           div.form-group
-            label(for='password') #{__('users.password')}
+            label(for='password') #{__('users.form.password')}
             input.form-control(type='password' id='password' placeholder='password' name='password')
-          button.btn.btn-primary(type='submit') #{__('users.sign_in')}
+          button.btn.btn-primary(type='submit') #{__('users.form.sign_in')}

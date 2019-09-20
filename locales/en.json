@@ -9,16 +9,21 @@
   },
   "users": {
     "form": {
-      "invalid_credentials": "Invalid email or password"
-    },
-    "sign_in": "Sign In",
-    "sign_up": "Sign Up",
-    "sign_out": "Sign Out",
-    "email": "Email",
-    "password": "Password",
-    "password_confirmation": "Password confirmation",
-    "first_name": "First name",
-    "last_name": "Last name"
+      "invalid_credentials": "Invalid email or password",
+      "sign_in": "Sign In",
+      "sign_up": "Sign Up",
+      "sign_out": "Sign Out",
+      "email": "Email",
+      "password": "Password",
+      "password_confirmation": "Password confirmation",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "login_success": "You are successfulli logged in!",
+      "login_error": "Logging in error!",
+      "registration_success": "You are successfulli registered!",
+      "registration_error_password_mismatch": "Registration error, password and password confirmation mismatch!",
+      "registration_error_existing_user": "Registration error, user already exists"
+    }
   },
   "interview": {
     "interviewer": "Interviewer",

@@ -10,8 +10,9 @@ export class UserController {
   @UseGuards(AuthenticatedGuard)
   @Get('/')
   @Render('user/index')
-  getUsers(@Request() req) {
-    return { users: ['One', 'Two', 'Three'] };
+  async getUsers(@Request() req) {
+    const users = await this.service.findAll();
+    return { users };
   }
 
   @Get('/new')
@@ -22,7 +23,7 @@ export class UserController {
 
   @Post()
   async create(@Res() res, @Body() userCreateDto: UserCreateDto): Promise<any> {
-    await this.service.create(userCreateDto);
+    await this.service.createAndSave(userCreateDto);
     return res.redirect('user');
   }
 
