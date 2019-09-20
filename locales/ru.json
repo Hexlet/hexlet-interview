@@ -8,6 +8,9 @@
     "past_interviews": "Прошедшие интервью"
   },
   "users": {
+    "form": {
+      "invalid_credentials": "Неправильный Email или пароль."
+    },
     "sign_in": "Войти",
     "sign_up": "Регистрация",
     "sign_out": "Выйти",
@@ -16,7 +19,6 @@
     "password_confirmation": "Подтверждение пароля",
     "first_name": "Имя",
     "last_name": "Фамилия"
-
   },
   "interview": {
     "interviewer": "Собеседующий",

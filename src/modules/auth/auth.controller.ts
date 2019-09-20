@@ -12,7 +12,7 @@ export class AuthController {
   signIn(@Req() req: any, @Res() res: Response) {
     if (!req.user) {
       res.status(HttpStatus.UNAUTHORIZED);
-      req.flash('error', i18n.__('app.title'));
+      req.flash('error', i18n.__('users.form.invalid_credentials'));
       return res.render('auth/sign_in', { req: req.body });
     }
     res.redirect('/');
