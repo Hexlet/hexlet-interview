@@ -51,4 +51,5 @@ block content
                     tr
                       td.p-3.align-middle.text-nowrap #{interview.interviewer}
                       td.p-3.align-middle.text-nowrap #{interview.interviewee}
-                      td.p-3.align-middle.text-nowrap #{interview.videoLink}
+                      td.p-3.align-middle.text-nowrap 
+                        a(href="#{interview.videoLink}") #{interview.videoLink}
