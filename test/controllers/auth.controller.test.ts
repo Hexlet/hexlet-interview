@@ -77,11 +77,13 @@ describe('Authorization test', () => {
       lastname: 'Матросов',
       email: 'amatrosov@gmail.com',
       password: '1234',
-      confirmpassword: '1234'};
+      confirmpassword: '1234'
+    };
 
     const authInfo = {
       username: 'amatrosov@gmail.com',
-      password: '1234'};
+      password: '1234'
+    };
 
     const responseLoginUnexistingUser = await request(app.getHttpServer())
       .post('/auth/sign_in')
@@ -101,11 +103,6 @@ describe('Authorization test', () => {
       .post('/auth/sign_in')
       .send(authInfo1);
     expect(resp.status).toBe(HttpStatus.FOUND);
-
-    await request(app.getHttpServer())
-      .get('/user')
-      .set('Cookie', resp.header['set-cookie'])
-      .expect(HttpStatus.OK);
   });
 
   it('test register user with invalid data', async () => {
