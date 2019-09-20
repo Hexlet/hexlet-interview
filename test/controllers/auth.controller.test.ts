@@ -2,7 +2,7 @@ import * as request from 'supertest';
 import { User } from '../../src/modules/user/user.entity';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { createTestingApp } from '../app.testing';
-import { loadFixtures } from '../fixtures.loader'
+import { loadFixtures } from '../fixtures.loader';
 import { _ } from 'lodash';
 
 describe('Authorization test', () => {
