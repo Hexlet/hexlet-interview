@@ -1,0 +1,8 @@
+entity: User
+items:
+  ivan:
+    firstname: bob
+    lastname: Bob
+    email: bob@example.org
+    password: '12345'
+    enabled: true

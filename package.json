@@ -18,7 +18,8 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "migration:run": "npm run typeorm migration:run",
     "migration:generate": "npm run typeorm migration:create -- -n",
-    "schema:drop": "npm run typeorm schema:drop"
+    "schema:drop": "npm run typeorm schema:drop",
+    "fixtures:load": "fixtures ./test/fixtures --config ./src/ormconfig.ts --require=ts-node/register --require=tsconfig-paths/register"
   },
   "dependencies": {
     "@nestjs/common": "^6.0.0",
@@ -31,8 +32,8 @@
     "class-transformer": "0.2.3",
     "class-validator": "0.10.0",
     "dotenv": "^8.1.0",
-    "express-session": "^1.16.2",
     "express-flash": "^0.0.2",
+    "express-session": "^1.16.2",
     "i18n": "^0.8.3",
     "memorystore": "^1.6.1",
     "passport": "^0.4.0",
@@ -44,6 +45,7 @@
     "rxjs": "^6.3.3",
     "sqlite3": "^4.1.0",
     "typeorm": "0.2.18",
+    "typeorm-fixtures-cli": "^1.3.5",
     "typeorm-seeding": "^1.0.0-rc.3"
   },
   "devDependencies": {
