@@ -9,6 +9,9 @@
     "past_interviews": "Past interviews"
   },
   "users": {
+    "form": {
+      "invalid_credentials": "Invalid email or password"
+    },
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
     "sign_out": "Sign Out",
