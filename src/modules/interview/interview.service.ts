@@ -1,11 +1,11 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Request } from './request.entity';
+import { Interview } from './interview.entity';
 import { Repository } from 'typeorm';
-import { RequestCreateDto } from './dto/request.create.dto';
+import { InterviewCreateDto } from './dto/interview.create.dto';
 
-export class RequestService {
+export class InterviewService {
   constructor(
-    @InjectRepository(Request) private readonly repo: Repository<Request>,
+    @InjectRepository(Interview) private readonly repo: Repository<Interview>,
   ) {}
 
   async findAll() {
@@ -16,13 +16,9 @@ export class RequestService {
     return await this.repo.findOne();
   }
 
-  async create(createDto: RequestCreateDto) {
+  async create(createDto: InterviewCreateDto) {
     const request = this.repo.create(createDto);
 
     return await request.save();
   }
-
-  // async update() {
-  //   return this.repo.update();
-  // }
 }

@@ -1,8 +1,8 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class RequestCreateDto {
+export class InterviewCreateDto {
   @IsNotEmpty()
-  readonly username: string;
+  interviewee: string;
 
   @IsNotEmpty()
   readonly profession: string;

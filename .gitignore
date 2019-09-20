@@ -28,7 +28,4 @@ npm-debug.log*
 
 development.*
 
-## sqlite table
-interview
-
-production.*
+interview.sqlite

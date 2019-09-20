@@ -5,10 +5,10 @@ block content
     .row.pt-5
       .col-lg-5.col-md-8.mx-auto
         h1 #{__('request.interview-request')}
-        form(method='POST' action='/request')
+        form(method='POST' action='/interview')
           .form-group
-            label(for='username') #{__('request.name')}
-            input.form-control(type='text' name='username' required)
+            label(for='interviewee') #{__('request.name')}
+            input.form-control(type='text' name='interviewee' required)
             small.form-text.text-muted #{__('request.name-description')}
           .form-group
             label(for='profession') #{__('request.profession')}

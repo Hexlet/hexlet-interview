@@ -11,7 +11,8 @@ export class user1568273019623 implements MigrationInterface {
             type: 'integer',
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',        },
+            generationStrategy: 'increment',
+          },
           {
             name: 'firstname',
             type: 'varchar',
@@ -23,6 +24,7 @@ export class user1568273019623 implements MigrationInterface {
           {
             name: 'email',
             type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'password',

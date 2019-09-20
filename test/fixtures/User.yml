@@ -1,0 +1,8 @@
+entity: User
+items:
+  kozma:
+    firstname: Kozma
+    lastname: Prutkov
+    email: kprutkov@gmail.com
+    password: '12345'
+    enabled: true

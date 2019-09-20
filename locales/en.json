@@ -1,12 +1,12 @@
 {
-	"hello": "hello",
-	"app": {
-		"want_to_interview": "Apply for interview",
-		"title": "Online Interviews",
-		"requests": "Requests",
-		"coming_interviews": "Coming interviews",
-		"past_interviews": "Past interviews"
-	},
+  "hello": "hello",
+  "app": {
+    "want_to_interview": "Apply for interview",
+    "title": "Online Interviews",
+    "interview_requests": "Interview requests",
+    "coming_interviews": "Coming interviews",
+    "past_interviews": "Past interviews"
+  },
   "users": {
     "sign_in": "Sign In",
 		"sign_up": "Sign Up",
@@ -22,30 +22,28 @@
 		"registration_error_password_mismatch": "Registration error, password and password confirmation mismatch!",
 		"registration_error_existing_user": "Registration error, user already exists"
   },
-	"interview": {
-		"interviewer": "Interviewer",
-		"interviewee": "Interviewee",
-		"videoLink": "Video link"
-	},
-	"request": {
-		"interview-request": "Apply for interview",
-		"name": "Your name",
-		"name-description": "Introduce yourself",
-		"profession": "Choose your profession",
-		"js-frontend": "JavaScript frontend",
-		"js-backend": "JavaScript backend",
-		"php": "PHP",
-		"java": "Java",
-		"python": "Phyton",
-		"professsion-description": "What are you good at",
-		"level": "Your skill level",
-		"intern": "Intern",
-		"junior": "Junior",
-		"middle": "Middle",
-		"senior": "Senior",
-		"level-description": "How good you are at choosen profession",
-		"about": "About yorself",
-		"about-description": "Link to your CV or Github profile",
-		"send-request": "Send application"
-	}
+  "interview": {
+    "interviewer": "Interviewer",
+    "interviewee": "Interviewee",
+    "videoLink": "Video link",
+    "interview-request": "Apply for interview",
+    "name": "Your name",
+    "name-description": "Introduce yourself",
+    "profession": "Choose your profession",
+    "js-frontend": "JavaScript frontend",
+    "js-backend": "JavaScript backend",
+    "php": "PHP",
+    "java": "Java",
+    "python": "Phyton",
+    "professsion-description": "What are you good at",
+    "position": "Your skill level",
+    "intern": "Intern",
+    "junior": "Junior",
+    "middle": "Middle",
+    "senior": "Senior",
+    "level-description": "How good you are at choosen profession",
+    "about": "About yorself",
+    "about-description": "Link to your CV or Github profile",
+    "send-request": "Send application"
+  }
 }

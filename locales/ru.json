@@ -3,8 +3,7 @@
   "app": {
     "want_to_interview": "Хочу собеседоваться",
     "title": "Собеседования онлайн",
-    "requests": "Заявки",
-    "interviews": "Интервью",
+    "interview_requests": "Заявки на собеседование",
     "coming_interviews": "Предстоящие интервью",
     "past_interviews": "Прошедшие интервью"
   },
@@ -26,9 +25,7 @@
   "interview": {
     "interviewer": "Собеседующий",
     "interviewee": "Собеседуемый",
-    "videoLink": "Ссылка на трансляцию"
-  },
-  "request": {
+    "videoLink": "Ссылка на трансляцию",
     "interview-request": "Заявка на собеседование",
     "name": "Ваше имя",
     "name-description": "Чтобы собеседующий знал, как к вам обращаться",

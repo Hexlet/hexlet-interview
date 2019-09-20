@@ -32,8 +32,8 @@ export class ConfigService {
 
     const development: TypeOrmModuleOptions = {
       type: 'sqlite',
-      database: __dirname + '/../../db/development.sqlite',
-      logging: false,
+      database: __dirname + '/../../../interview.sqlite',
+      logging: true,
       ...commonOptions,
     };
 

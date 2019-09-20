@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  .container.pt-5
+    h1.mb-4.text-center #{__('app.interview_requests')}
+    .table-responsive.table-sm.bg-white.shadow-sm
+      table.table
+        thead.thead-light
+          tr
+            th.p-3.border-0 #{__('interview.interviewee')}
+            th.p-3.border-0 #{__('interview.profession')}
+            th.p-3.border-0 #{__('interview.position')}
+          tbody
+            if interviews.length > 0
+              each interview in interviews
+                tr
+                  td.p-3.align-middle.text-nowrap #{interview.username}
+                  td.p-3.align-middle.text-nowrap #{interview.profession}
+                  td.p-3.align-middle.text-nowrap #{interview.position}
