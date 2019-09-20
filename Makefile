@@ -15,7 +15,7 @@ lint:
 	npm run lint
 
 db-console:
-	sqlite3 interview
+	sqlite3 interview.sqlite
 
 fixtures-load:
 	npm run fixtures:load
