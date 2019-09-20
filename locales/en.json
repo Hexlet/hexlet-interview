@@ -35,8 +35,8 @@
     "js-backend": "JavaScript backend",
     "php": "PHP",
     "java": "Java",
-    "python": "Phyton",
-    "position": "Your skill level",
+    "python": "Python",
+    "position": "Position",
     "intern": "Intern",
     "junior": "Junior",
     "middle": "Middle",
@@ -44,10 +44,10 @@
     "form": {
       "name": "Your name",
       "name-description": "Introduce yourself",
-      "position": "Your skill level",
-      "position-description": "How good you are at choosen profession",
       "profession": "Choose your profession",
       "professsion-description": "What are you good at",
+      "position": "Your skill level",
+      "position-description": "How good you are at choosen profession",
       "about": "About yorself",
       "about-description": "Link to your CV or Github profile",
       "send-request": "Send request"

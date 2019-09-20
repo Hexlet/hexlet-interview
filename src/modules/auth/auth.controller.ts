@@ -17,12 +17,10 @@ export class AuthController {
   @Post('/sign_in')
   @UseGuards(LoginGuard)
   signIn(@Req() req: any, @Res() res: Response) {
-    if (!req.user) {
-      res.status(HttpStatus.UNAUTHORIZED);
-      req.flash('error', i18n.__('users.form.invalid_credentials'));
-      return res.render('auth/sign_in', { req: req.body });
-    }
-    res.redirect('/');
+    const redirectTo = req.session.redirectTo || '/';
+    delete req.session.redirectTo;
+
+    res.redirect(redirectTo);
   }
 
   @Post('/sign_up')

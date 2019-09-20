@@ -1,4 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
+import { UnauthorizedExceptionFilter, ForbiddenExceptionFilter } from './modules/auth/filters';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as i18n from 'i18n';
@@ -16,6 +17,8 @@ i18n.configure({
 
 export const bootstrapApp = (app: NestExpressApplication) => {
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters(new ForbiddenExceptionFilter());
+  app.useGlobalFilters(new UnauthorizedExceptionFilter());
   app.use(i18n.init);
   app.use((req, res, next) => {
     res.setLocale('ru');

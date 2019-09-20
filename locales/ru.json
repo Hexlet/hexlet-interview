@@ -9,7 +9,9 @@
   },
   "users": {
     "form": {
-      "invalid_credentials": "Неправильный Email или пароль."
+      "invalid_credentials": "Неправильный Email или пароль.",
+      "please_sign_in": "Пожалуйста, войдите или зарегистрируйесь",
+      "need_sign_in": "Вам необходимо войти или зарегистрироваться"
     },
     "sign_in": "Войти",
     "sign_up": "Регистрация",
@@ -29,24 +31,28 @@
     "interviewer": "Собеседующий",
     "interviewee": "Собеседуемый",
     "videoLink": "Ссылка на трансляцию",
-    "interview-request": "Заявка на собеседование",
-    "name": "Ваше имя",
-    "name-description": "Чтобы собеседующий знал, как к вам обращаться",
+    "request": "Заявка на собеседование",
     "profession": "Профессия",
     "js-frontend": "JavaScript frontend",
     "js-backend": "JavaScript backend",
     "php": "PHP",
     "java": "Java",
-    "python": "Phyton",
-    "professsion-description": "В какой профессии вы сильны",
-    "level": "Ваш уровень",
+    "position": "Уровень",
+    "python": "Python",
     "intern": "Intern",
     "junior": "Junior",
     "middle": "Middle",
     "senior": "Senior",
-    "level-description": "Оцените свой уровень в выбранной профессии",
-    "about": "О себе",
-    "about-description": "Например, ссылка на резюме или профиль на гитхабе",
-    "send-request": "Отправить заявку"
+    "form": {
+      "name": "Ваше имя",
+      "name-description": "Чтобы собеседующий знал, как к вам обращаться",
+      "profession": "Выберите профессию",
+      "professsion-description": "В какой профессии вы сильны",
+      "position": "Ваш уровень",
+      "position-description": "Оцените свой уровень в выбранной профессии",
+      "about": "О себе",
+      "about-description": "Например, ссылка на резюме или профиль на гитхабе",
+      "send-request": "Отправить заявку"
+    }
   }
 }
