@@ -1,12 +1,13 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 import { datetime } from '../datetime.adapter';
 
-export class interview1568057021616 implements MigrationInterface {
+export class pastInterview1568998724054 implements MigrationInterface {
+
   public async up(queryRunner: QueryRunner): Promise<any> {
     const databaseType = queryRunner.connection.options.type;
     await queryRunner.createTable(
       new Table({
-        name: 'interview',
+        name: 'past_interview',
         columns: [
           {
             name: 'id',
@@ -16,17 +17,13 @@ export class interview1568057021616 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'state',
-            type: 'varchar',
-          },
-          {
             name: 'interviewer',
             type: 'varchar',
             isNullable: true,
           },
           {
-            name: 'interviewee_id',
-            type: 'integer',
+            name: 'interviewee',
+            type: 'varchar',
           },
           {
             name: 'profession',
@@ -35,11 +32,6 @@ export class interview1568057021616 implements MigrationInterface {
           {
             name: 'position',
             type: 'varchar',
-          },
-          {
-            name: 'description',
-            type: 'text',
-            isNullable: true,
           },
           {
             name: 'video_link',
@@ -55,24 +47,14 @@ export class interview1568057021616 implements MigrationInterface {
             name: 'created_at',
             type: datetime(databaseType),
           },
-          {
-            name: 'updated_at',
-            type: datetime(databaseType),
-          },
         ],
       }),
       true,
     );
-
-    await queryRunner.createForeignKey('interview', new TableForeignKey({
-      columnNames: ['interviewee_id'],
-      referencedColumnNames: ['id'],
-      referencedTableName: 'user',
-      onDelete: 'CASCADE',
-    }));
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.dropTable('interview');
+    await queryRunner.dropTable('past_interview');
   }
+
 }
