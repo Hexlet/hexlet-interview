@@ -7,6 +7,14 @@
 * NodeJS >= 10.16.0
 * npm >= 6
 
+### Run
+```bash
+- make setup
+- make install 
+- make start
+open localhost:3000 in your browser
+```
+
 ### Смысл
 ### MVP
 - Пользователь должен иметь возможность зайти на сайт, нажать кнопку "Хочу собеседоваться", после чего заполнить форму.
