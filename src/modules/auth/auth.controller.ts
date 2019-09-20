@@ -1,4 +1,4 @@
-import { Render, Controller, Get, Post, Res, Req, UseGuards, Body, HttpStatus, UseFilters } from '@nestjs/common';
+import { Render, Controller, Get, Post, Res, Req, UseGuards, Body, HttpStatus, UseFilters, ForbiddenException, UnprocessableEntityException } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { LoginGuard } from '../auth/login.guard';
 import { UserService } from '../user/user.service';
@@ -27,21 +27,23 @@ export class AuthController {
   async signUp(@Req() req: Request, @Body() userDto: UserCreateDto, @Res() res: Response) {
     if (userDto.password !== userDto.confirmpassword) {
       this.logger.error('Password and password confirmation did not match.');
-      (req as any).flash('error', i18n.__('users.registration_error_password_mismatch'));
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY).redirect('/');
+      const errMessage = i18n.__('users.registration_error_password_mismatch');
+      (req as any).flash('error', errMessage);
+      res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({ error: errMessage });
       return;
     }
 
     if (await this.userService.findOneByEmail(userDto.email)) {
       this.logger.error(`Try to register existing user ${userDto.email}`);
-      (req as any).flash('error', i18n.__('users.registration_error_existing_user'));
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY).redirect('/');
+      const errMessage = i18n.__('users.registration_error_existing_user');
+      (req as any).flash('error', errMessage);
+      res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({ error: errMessage });
       return;
     }
 
-    await this.userService.createAndSave(userDto);
+    const newUser = await this.userService.createAndSave(userDto);
     (req as any).flash('success', i18n.__('users.registration_success'));
-    res.status(HttpStatus.CREATED).redirect('/');
+    res.status(HttpStatus.CREATED).json({ user: newUser });
   }
 
   @Get('sign_out')

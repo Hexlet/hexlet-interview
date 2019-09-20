@@ -18,8 +18,7 @@ export class AuthService {
       this.logger.log('user ${email}  not found!');
       return null;
     }
-
-    if (!comparePassword(user, pass)) {
+    if (!await comparePassword(user, pass)) {
       this.logger.log('user found, password mismatch!');
       return null;
     }
