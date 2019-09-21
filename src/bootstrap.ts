@@ -40,6 +40,7 @@ export const bootstrapApp = (app: NestExpressApplication) => {
   app.use(passport.session());
   app.use((req, res, next) => {
     res.locals.login = req.isAuthenticated();
+    res.locals.user = req.user;
     next();
   });
   app.useStaticAssets(join(__dirname, '..', 'public'));
