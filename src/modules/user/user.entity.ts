@@ -31,7 +31,7 @@ export class User {
 
   @IsNotEmpty()
   @Column({
-    default: false,
+    default: true,
   })
   enabled: boolean;
 
@@ -45,5 +45,6 @@ export class User {
   @BeforeInsert()
   public async hashPassword(): Promise<void> {
     this.password = await hashPassword(this.password);
+    this.enabled = true;
   }
 }
