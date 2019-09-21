@@ -5,22 +5,17 @@ block content
     .container
       .card.mb-4
         .card-body
-          h3.card-title.text-center.mb-4 Для чего нужны онлайн собеседования?
-          .row.mr-4.ml-4
-            p
-              | Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.
-              | Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.
-              | В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов,
-              | используя Lorem Ipsum для распечатки образцов.
-              | Lorem Ipsum не только успешно пережил без заметных изменений пять веков,
-              | но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов
-              | Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время,
-              | программы электронной вёрстки типа Aldus PageMaker,
-              | в шаблонах которых используется Lorem Ipsum.
+          h2.card-title.text-center.mb-4 Для чего нужны онлайн собеседования?
+          .row.justify-content-center
+            ul.list-group-flush
+              li.list-group-item.lead
+                | Если вы еще не готовы идти на "настоящее" собеседование
+              li.list-group-item.lead
+                | Хотите просто проверить свои силы
           .row
             a.mx-auto.btn.btn-success.btn-lg(href="/interview/new") #{__('app.want_to_interview')}
       .row.mb-5
-        h2.text-center.mx-auto.mb-4 #{__('app.coming_interviews')}
+        h3.text-center.mx-auto.mb-4 #{__('app.coming_interviews')}
         .table-responsive.bg-white.shadow-sm
           table.table.table-sm
             thead.thead-light
@@ -34,10 +29,11 @@ block content
                     tr
                       td.p-3.align-middle.text-nowrap #{interview.interviewer}
                       td.p-3.align-middle.text-nowrap #{interview.interviewee}
-                      td.p-3.align-middle.text-nowrap #{interview.videoLink}
+                      td.p-3.align-middle.text-nowrap
+                        a(href=interview.videoLink) #{interview.videoLink}
 
       .row.mb5
-        h2.text-center.mx-auto.mb-4 #{__('app.past_interviews')}
+        h3.text-center.mx-auto.mb-4 #{__('app.past_interviews')}
         .table-responsive.bg-white.shadow-sm
           table.table.table-sm
             thead.thead-light
@@ -49,7 +45,8 @@ block content
                 if pastInterviews && pastInterviews.length > 0
                   each interview in pastInterviews
                     tr
-                      td.p-3.align-middle.text-nowrap #{interview.interviewer}
+                      td.p-2.align-middle.text-nowrap #{interview.interviewer}
                       td.p-3.align-middle.text-nowrap #{interview.interviewee}
                       td.p-3.align-middle.text-nowrap
-                        a(href=interview.videoLink) #{interview.videoLink}
+                        a(href=interview.videoLink)
+                          img(src=interview.preview, width='250').img-thumbnail

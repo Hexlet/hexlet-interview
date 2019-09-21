@@ -10,6 +10,7 @@ block content
             th.p-3.border-0 #{__('interview.interviewee')}
             th.p-3.border-0 #{__('interview.profession')}
             th.p-3.border-0 #{__('interview.position')}
+            th.p-3.border-0 #{__('interview.description')}
           tbody
             if interviews.length > 0
               each interview in interviews
@@ -17,3 +18,4 @@ block content
                   td.p-3.align-middle.text-nowrap #{interview.interviewee}
                   td.p-3.align-middle.text-nowrap #{interview.profession}
                   td.p-3.align-middle.text-nowrap #{interview.position}
+                  td.p-3.align-middle #{interview.description}

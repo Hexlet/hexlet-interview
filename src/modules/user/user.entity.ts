@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import { BeforeInsert, Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, BaseEntity, OneToMany } from 'typeorm';
+import { BeforeInsert, Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { hashPassword } from '../auth/utils/password';
 import { Interview } from '../interview/interview.entity';
 

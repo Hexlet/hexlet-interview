@@ -7,10 +7,6 @@ block content
         h1 #{__('interview.request')}
         form(method='POST' action='/interview')
           .form-group
-            label(for='interviewee') #{__('interview.form.name')}
-            input.form-control(type='text' name='interviewee' required)
-            small.form-text.text-muted #{__('interview.form.name-description')}
-          .form-group
             label(for='profession') #{__('interview.form.profession')}
             select.form-control(name='profession')
               option #{__('interview.js-frontend')}

@@ -1,7 +1,7 @@
 import { Controller, Get, Render, Res, UseGuards, Post, Request, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { InterviewService } from '../interview/interview.service';
-import { Response } from 'express';
+import { getPreviewFromVideoLink } from '../../utils/youtube-preview.util';
 
 @Controller()
 export class AppController {
@@ -13,13 +13,17 @@ export class AppController {
   @Get()
   @Render('index')
   async getHello() {
+    const pastInterviews = (await this.interviewService.getPast()).map(interview => {
+      return {...interview, ...{ preview: getPreviewFromVideoLink(interview.videoLink) }};
+    });
+
     return {
       comingInterviews: [{
         interviewer: 'Vasiliy Ivanov',
         interviewee: 'Petr Sidorov',
         videoLink: 'https://youtube.com',
       }],
-      pastInterviews: await this.interviewService.getPast(),
+      pastInterviews,
     };
   }
 }
