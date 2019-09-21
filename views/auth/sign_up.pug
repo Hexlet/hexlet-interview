@@ -17,8 +17,8 @@ block content
             input.form-control(type='text' id='email' placeholder='Email' name='email' value=(req && req.email))
           div.form-group
             label(for='password') #{__('users.form.password')}
-            input.form-control(type='password' id='password' placeholder='Password' name='password' value='')
+            input.form-control(type='password' id='password' placeholder='Password' name='password')
           div.form-group
             label(for='confirmpassword') #{__('users.form.password_confirmation')}
-            input.form-control(type='password' id='confirmpassword' placeholder='Confirm password' name='confirmpassword' value='')
+            input.form-control(type='password' id='confirmpassword' placeholder='Confirm password' name='confirmpassword')
           button.btn.btn-primary(type='submit') Register

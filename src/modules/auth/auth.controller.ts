@@ -1,4 +1,4 @@
-import { Render, Controller, Get, Post, Res, Req, UseGuards, Body, HttpStatus, UseFilters } from '@nestjs/common';
+import { Render, Controller, Get, Post, Res, Req, UseGuards, Body, HttpStatus, UseFilters, BadRequestException } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { LoginGuard } from '../auth/login.guard';
 import { UserService } from '../user/user.service';
@@ -21,20 +21,13 @@ export class AuthController {
 
   @Post('/sign_up')
   async signUp(@Req() req: Request, @Body() userDto: UserCreateDto, @Res() res: Response) {
-    let errorMessage = '';
 
     if (userDto.password !== userDto.confirmpassword) {
-      errorMessage = 'users.form.registration_error_password_mismatch';
+      throw new BadRequestException('registration_error_password_mismatch');
     }
 
     if (await this.userService.findOneByEmail(userDto.email)) {
-      errorMessage = 'users.form.registration_error_existing_user';
-    }
-
-    if (errorMessage !== '') {
-      (req as any).flash('error', i18n.__(errorMessage));
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY);
-      return res.render('auth/sign_up', { req: req.body });
+      throw new BadRequestException('registration_error_existing_user');
     }
 
     await this.userService.createAndSave({...userDto, ...{role: 'user'}});
