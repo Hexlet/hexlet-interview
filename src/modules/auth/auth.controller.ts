@@ -1,9 +1,10 @@
-import { Render, Controller, Get, Post, Res, Req, UseGuards, Body, HttpStatus, UseFilters } from '@nestjs/common';
+import { Render, Controller, Get, Post, Res, Req, UseGuards, Body, HttpStatus, UseFilters, BadRequestException } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { LoginGuard } from '../auth/login.guard';
 import { UserService } from '../user/user.service';
 import { UserCreateDto } from '../user/dto/user.create.dto';
 import * as i18n from 'i18n';
+import { boolean } from 'joi';
 
 @Controller('auth')
 export class AuthController {
@@ -20,23 +21,18 @@ export class AuthController {
 
   @Post('/sign_up')
   async signUp(@Req() req: Request, @Body() userDto: UserCreateDto, @Res() res: Response) {
+
     if (userDto.password !== userDto.confirmpassword) {
-      const errMessage = i18n.__('users.registration_error_password_mismatch');
-      (req as any).flash('error', errMessage);
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY);
-      return res.render('auth/sign_up', { req: req.body });
+      throw new BadRequestException('registration_error_password_mismatch');
     }
 
     if (await this.userService.findOneByEmail(userDto.email)) {
-      const errMessage = i18n.__('users.registration_error_existing_user');
-      (req as any).flash('error', errMessage);
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({ error: errMessage });
-      return;
+      throw new BadRequestException('registration_error_existing_user');
     }
 
-    const newUser = await this.userService.createAndSave({...userDto, ...{role: 'user'}});
-    (req as any).flash('success', i18n.__('users.registration_success'));
-    res.status(HttpStatus.CREATED).json({ user: newUser });
+    await this.userService.createAndSave({...userDto, ...{role: 'user'}});
+    (req as any).flash('success', i18n.__('users.form.registration_success'));
+    return res.redirect('/auth/sign_in');
   }
 
   @Get('sign_out')

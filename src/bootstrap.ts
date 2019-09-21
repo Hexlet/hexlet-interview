@@ -16,7 +16,7 @@ i18n.configure({
 });
 
 export const bootstrapApp = (app: NestExpressApplication) => {
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({whitelist: true}));
   app.useGlobalFilters(new ForbiddenExceptionFilter());
   app.useGlobalFilters(new UnauthorizedExceptionFilter());
   app.useGlobalFilters(new BadRequestExceptionFilter());

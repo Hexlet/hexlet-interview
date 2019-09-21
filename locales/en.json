@@ -7,6 +7,17 @@
     "coming_interviews": "Coming interviews",
     "past_interviews": "Past interviews"
   },
+  "validation": {
+    "firstname should not be empty": "First name should not be empty",
+    "lastname should not be empty": "Last name should not be empty",
+    "email should not be empty": "Email should not be empty",
+    "email must be an email": "Email must be an email",
+    "password should not be empty": "Password should not be empty",
+    "confirmpassword should not be empty": "Password confirmation should not be empty",
+    "registration_error_password_mismatch": "Registration error, password and password confirmation mismatch!",
+    "registration_error_existing_user": "Registration error, user already exists"
+
+  },
   "users": {
     "form": {
       "invalid_credentials": "Invalid email or password",
@@ -20,9 +31,7 @@
       "last_name": "Last name",
       "login_success": "You are successfulli logged in!",
       "login_error": "Logging in error!",
-      "registration_success": "You are successfulli registered!",
-      "registration_error_password_mismatch": "Registration error, password and password confirmation mismatch!",
-      "registration_error_existing_user": "Registration error, user already exists"
+      "registration_success": "You are successfulli registered!"
     }
   },
   "interview": {

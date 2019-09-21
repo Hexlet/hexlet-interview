@@ -67,7 +67,7 @@ describe('Authorization test', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/sign_up')
       .send(userData);
-    expect(response.status).toBe(HttpStatus.UNPROCESSABLE_ENTITY);
+    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
   });
 
   it('test register user with good data', async () => {
@@ -92,7 +92,7 @@ describe('Authorization test', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/sign_up')
       .send(userData);
-    expect(response.status).toBe(HttpStatus.CREATED);
+    expect(response.status).toBe(HttpStatus.FOUND);
 
     const authInfo1 = {
       username: 'kprutkov@gmail.com',
