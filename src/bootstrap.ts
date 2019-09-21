@@ -1,5 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
-import { UnauthorizedExceptionFilter, ForbiddenExceptionFilter } from './modules/auth/filters';
+import { UnauthorizedExceptionFilter, ForbiddenExceptionFilter, BadRequestExceptionFilter } from './modules/auth/filters';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as i18n from 'i18n';
@@ -19,6 +19,7 @@ export const bootstrapApp = (app: NestExpressApplication) => {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new ForbiddenExceptionFilter());
   app.useGlobalFilters(new UnauthorizedExceptionFilter());
+  app.useGlobalFilters(new BadRequestExceptionFilter());
   app.use(i18n.init);
   app.use((req, res, next) => {
     res.setLocale('ru');

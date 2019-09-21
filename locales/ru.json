@@ -7,6 +7,10 @@
     "coming_interviews": "Предстоящие интервью",
     "past_interviews": "Прошедшие интервью"
   },
+  "validation": {
+    "firstname should not be empty": "Имя не может быть пустым",
+    "lastname should not be empty": "Фамилия не может быть пустой"
+  },
   "users": {
     "form": {
       "invalid_credentials": "Неправильный Email или пароль.",

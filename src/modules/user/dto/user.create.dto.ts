@@ -1,5 +1,4 @@
 import { IsNotEmpty, IsEmail, Equals } from 'class-validator';
-import passport = require('passport');
 
 export class UserCreateDto {
   @IsNotEmpty()

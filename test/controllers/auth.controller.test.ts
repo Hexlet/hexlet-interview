@@ -72,7 +72,6 @@ describe('Authorization test', () => {
 
   it('test register user with good data', async () => {
     const userData = {
-      role: 'user',
       firstname: 'Александр',
       lastname: 'Матросов',
       email: 'amatrosov@gmail.com',
