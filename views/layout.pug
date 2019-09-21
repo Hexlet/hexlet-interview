@@ -20,6 +20,8 @@ html(lang='ru').h-100
         ul.navbar-nav.ml-auto
           if login
             li.nav-item
+              span.navbar-text.mr-2= user.email
+            li.nav-item
               a.nav-link(href='/auth/sign_out')
                 div #{__('users.sign_out')}
           else
