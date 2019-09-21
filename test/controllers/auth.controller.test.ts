@@ -92,7 +92,7 @@ describe('Authorization test', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/sign_up')
       .send(userData);
-    expect(response.status).toBe(HttpStatus.CREATED);
+    expect(response.status).toBe(HttpStatus.FOUND);
 
     const authInfo1 = {
       username: 'kprutkov@gmail.com',

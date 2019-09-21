@@ -9,7 +9,11 @@
   },
   "validation": {
     "firstname should not be empty": "Имя не может быть пустым",
-    "lastname should not be empty": "Фамилия не может быть пустой"
+    "lastname should not be empty": "Фамилия не может быть пустой",
+    "email should not be empty": "Email не может быть пустым",
+    "email must be an email": "В этом поле должен находиться email",
+    "password should not be empty": "Пароль не может быть пустым",
+    "confirmpassword should not be empty": "Подтверждение пароля не может быть пустым"
   },
   "users": {
     "form": {
@@ -28,7 +32,7 @@
       "login_error": "Ошибка входа в систему",
       "registration_success": "Регистрация успешно завершена",
       "registration_error_password_mismatch": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!",
-      "registration_error_existing_user": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!"
+      "registration_error_existing_user": "Ошибка регистрации, пользователь с таким email уже зарегистрирован"
       }
   },
   "interview": {

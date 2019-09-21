@@ -22,6 +22,6 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
     request.flash('error', i18n.__('validation.' + errors[0]));
 
     // make sure your view called in accordance with url structure
-    return response.render(request.url.replace(/^\/+/, ''));
+    return response.render(request.url.replace(/^\/+/, ''), { req: request.body });
   }
 }

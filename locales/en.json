@@ -7,6 +7,14 @@
     "coming_interviews": "Coming interviews",
     "past_interviews": "Past interviews"
   },
+  "validation": {
+    "firstname should not be empty": "First name should not be empty",
+    "lastname should not be empty": "Last name should not be empty",
+    "email should not be empty": "Email should not be empty",
+    "email must be an email": "Email must be an email",
+    "password should not be empty": "Password should not be empty",
+    "confirmpassword should not be empty": "Password confirmation should not be empty"
+  },
   "users": {
     "form": {
       "invalid_credentials": "Invalid email or password",
