@@ -12,6 +12,10 @@ export class ConfigService {
     }
   }
 
+  get(key: string): string {
+    return process.env[key];
+  }
+
   get dbParams(): TypeOrmModuleOptions {
     const env = process.env.NODE_ENV || 'development';
 
