@@ -6,6 +6,8 @@ import * as i18n from 'i18n';
 import * as Session from 'express-session';
 import * as passport from 'passport';
 import * as flash from 'express-flash';
+import * as helmet from 'helmet';
+import * as rateLimit from 'express-rate-limit';
 
 i18n.configure({
   locales: ['ru', 'en'],
@@ -35,6 +37,15 @@ export const bootstrapApp = (app: NestExpressApplication) => {
     resave: false,
     saveUninitialized: false,
   }));
+  app.use(helmet());
+  app.enableCors();
+  app.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000,
+      max: 100,
+    }),
+  );
+
   app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
