@@ -4,6 +4,11 @@ import { User } from '../user/user.entity';
 import { comparePassword } from '../../common/utils/password';
 import { Logger } from '@nestjs/common';
 
+function sanitizeUser(user: User) {
+  const { password, githubUid, ...result } = user;
+  return result;
+}
+
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
@@ -21,8 +26,37 @@ export class AuthService {
       return null;
     }
 
-    const { password, ...result } = user;
     this.logger.log('user found, authentificated');
-    return result;
+    return sanitizeUser(user);
+  }
+
+  async findOrCreateUserBySocialUid(
+    provider: string,
+    uid: string,
+    info: {
+      email: string,
+      name: string,
+    },
+  ): Promise<any> {
+    const { email, name } = info;
+    const userBySocialUid: User = await this.usersService.findOneBySocialUid(provider, uid);
+    if (userBySocialUid) {
+      this.logger.log(`user found by ${provider} uid`);
+      return sanitizeUser(userBySocialUid);
+    }
+    const userByEmail: User = await this.usersService.findOneByEmail(email);
+    if (userByEmail) {
+      await this.usersService.addSocialUid(userByEmail, provider, uid);
+      this.logger.log(`user found by ${email}, uid saved to user account`);
+      return sanitizeUser(userByEmail);
+    }
+    const newUser = await this.usersService.createAndSave({
+      email,
+      firstname: name,
+      ...{role: 'user'},
+      [`${provider}Uid`]: uid,
+    });
+    this.logger.log(`new user created by ${provider} profile`);
+    return sanitizeUser(newUser);
   }
 }
