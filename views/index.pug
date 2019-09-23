@@ -7,10 +7,12 @@ block content
         .card-body
           h2.card-title.text-center.mb-4 Для чего нужны онлайн собеседования?
           .row.justify-content-center
-            ul.list-group-flush
+            ul.list-group-flush.mb-4
               li.list-group-item.lead
+                i.far.fa-hand-point-right.mr-2
                 | Если вы еще не готовы идти на "настоящее" собеседование
               li.list-group-item.lead
+                i.far.fa-hand-point-right.mr-2
                 | Хотите просто проверить свои силы
           .row
             a.mx-auto.btn.btn-success.btn-lg(href="/interview/new") #{__('app.want_to_interview')}
@@ -20,16 +22,16 @@ block content
           table.table.table-sm
             thead.thead-light
               tr
-                th.p-3.border-0 #{__('interview.interviewer')}
-                th.p-3.border-0 #{__('interview.interviewee')}
-                th.p-3.border-0 #{__('interview.videoLink')}
+                th.p-3.border-0.text-center.font-11em #{__('interview.interviewer')}
+                th.p-3.border-0.text-center.font-11em #{__('interview.interviewee')}
+                th.p-3.border-0.text-center.font-11em #{__('interview.videoLink')}
               tbody
                 if comingInterviews && comingInterviews.length > 0
                   each interview in comingInterviews
                     tr
-                      td.p-3.align-middle.text-nowrap #{interview.interviewer}
-                      td.p-3.align-middle.text-nowrap #{interview.interviewee}
-                      td.p-3.align-middle.text-nowrap
+                      td.p-3.align-middle.text-center #{interview.interviewer}
+                      td.p-3.align-middle.text-center #{interview.interviewee}
+                      td.p-3.align-middle.text-center
                         a(href=interview.videoLink) #{interview.videoLink}
 
       .row.mb5
@@ -38,15 +40,15 @@ block content
           table.table.table-sm
             thead.thead-light
               tr
-                th.p-3.border-0 #{__('interview.interviewer')}
-                th.p-3.border-0 #{__('interview.interviewee')}
-                th.p-3.border-0 #{__('interview.videoLink')}
+                th.p-3.border-0.text-center.font-11em #{__('interview.interviewer')}
+                th.p-3.border-0.text-center.font-11em #{__('interview.interviewee')}
+                th.p-3.border-0.text-center.font-11em #{__('interview.videoLink')}
               tbody
                 if pastInterviews && pastInterviews.length > 0
                   each interview in pastInterviews
                     tr
-                      td.p-2.align-middle.text-nowrap #{interview.interviewer}
-                      td.p-3.align-middle.text-nowrap #{interview.interviewee}
-                      td.p-3.align-middle.text-nowrap
+                      td.p-2.align-middle.text-nowrap.text-center #{interview.interviewer}
+                      td.p-3.align-middle.text-nowrap.text-center #{interview.interviewee}
+                      td.p-3.align-middle.text-nowrap.text-center
                         a(href=interview.videoLink)
-                          img(src=interview.preview, width='250').img-thumbnail
+                          img(src=interview.preview, width='200').img-thumbnail
