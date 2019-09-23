@@ -31,9 +31,14 @@ export class User {
   })
   public email: string;
 
-  @IsNotEmpty()
   @Column()
   public password: string;
+
+  @Column({
+    unique: true,
+    name: 'github_uid',
+  })
+  public githubUid: string;
 
   @IsNotEmpty()
   @Column({
@@ -50,7 +55,9 @@ export class User {
 
   @BeforeInsert()
   public async hashPassword(): Promise<void> {
-    this.password = await hashPassword(this.password);
+    if (this.password) {
+      this.password = await hashPassword(this.password);
+    }
     this.enabled = true;
   }
 }
