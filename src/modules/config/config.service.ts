@@ -1,10 +1,14 @@
 import * as dotenv from 'dotenv';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { join } from 'path';
 
 export class ConfigService {
-  constructor(filePath?: string) {
-    if (filePath) {
-      dotenv.config({ path: filePath });
+  constructor() {
+    if (process.env.NODE_ENV !== 'production') {
+      const env = process.env.NODE_ENV || 'development';
+      const envFileName = env === 'production' ? undefined : `${env}.env`;
+      const envFilePath = join(__dirname, '../../..', envFileName);
+      dotenv.config({path: envFilePath});
     }
   }
 
@@ -15,25 +19,31 @@ export class ConfigService {
       synchronize: false,
       entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
       migrationsRun: true,
-      url: process.env.DATABASE_URL,
       migrations: [__dirname + '/../../db/migrations/**/*{.ts,.js}'],
       cli: {
         migrationsDir: 'src/db/migrations',
       },
       keepConnectionAlive: true,
+      logging: !!process.env.DB_LOGGING,
     };
 
     const test: TypeOrmModuleOptions = {
-      type: 'sqlite',
-      database: ':memory:',
-      logging: !!process.env.DB_LOGGING,
+      type: 'postgres',
+      host: 'localhost',
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       ...commonOptions,
     };
 
     const development: TypeOrmModuleOptions = {
-      type: 'sqlite',
-      database: __dirname + '/../../../interview.sqlite',
-      logging: true,
+      type: 'postgres',
+      host: 'localhost',
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       ...commonOptions,
     };
 
