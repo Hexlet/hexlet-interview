@@ -7,7 +7,7 @@ import { _ } from 'lodash';
 
 describe('Authorization test', () => {
   let app: INestApplication;
-  let users: {[key: string]: User};
+  let users: { [key: string]: User };
 
   beforeAll(async () => {
     app = await createTestingApp();
@@ -49,7 +49,7 @@ describe('Authorization test', () => {
   });
 
   it('test disallow invalid credentials', async () => {
-    const authInfo = {username: 'invadiemail@email.ru', password: '1234'};
+    const authInfo = { username: 'invadiemail@email.ru', password: '1234' };
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send(authInfo);
@@ -62,7 +62,8 @@ describe('Authorization test', () => {
       lastname: 'Прутков',
       email: 'kprutkov@gmail.com',
       password: '1234',
-      confirmpassword: '1234'};
+      confirmpassword: '1234',
+    };
 
     const response = await request(app.getHttpServer())
       .post('/auth/sign_up')
@@ -110,7 +111,8 @@ describe('Authorization test', () => {
       lastname: 'Матросов',
       email: 'amatrosov',
       password: '1234',
-      confirmpassword: ''};
+      confirmpassword: '',
+    };
 
     const response = await request(app.getHttpServer())
       .post('/auth/sign_up')
