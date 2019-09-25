@@ -1,6 +1,7 @@
 import * as request from 'supertest';
 import { createTestingApp } from '../app.testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
+import { clearDb } from '../fixtures.loader';
 
 describe('#main', () => {
   let app: INestApplication;
@@ -16,8 +17,7 @@ describe('#main', () => {
   });
 
   afterEach(async () => {
-    if (app) {
-      await app.close();
-    }
+    await clearDb();
+    await app.close();
   });
 });
