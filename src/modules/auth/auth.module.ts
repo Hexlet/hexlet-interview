@@ -10,11 +10,7 @@ import { SessionSerializer } from './session.serializer';
 import { AuthController } from './auth.controller';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    UserModule,
-    PassportModule,
-  ],
+  imports: [TypeOrmModule.forFeature([User]), UserModule, PassportModule],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, UserService, SessionSerializer],
 })

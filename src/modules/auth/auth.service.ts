@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
-import { comparePassword } from './utils/password';
+import { comparePassword } from '../../common/utils/password';
 import { Logger } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
 
-  constructor(
-    private readonly usersService: UserService,
-    ) {}
+  constructor(private readonly usersService: UserService) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user: User = await this.usersService.findOneByEmail(email);
@@ -18,7 +16,7 @@ export class AuthService {
       this.logger.log('user ${email}  not found!');
       return null;
     }
-    if (!await comparePassword(user, pass)) {
+    if (!(await comparePassword(user, pass))) {
       this.logger.log('user found, password mismatch!');
       return null;
     }
@@ -26,5 +24,5 @@ export class AuthService {
     const { password, ...result } = user;
     this.logger.log('user found, authentificated');
     return result;
-}
+  }
 }

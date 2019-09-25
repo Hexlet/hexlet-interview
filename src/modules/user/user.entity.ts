@@ -1,6 +1,12 @@
 import { IsNotEmpty } from 'class-validator';
-import { BeforeInsert, Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { hashPassword } from '../auth/utils/password';
+import {
+  BeforeInsert,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from 'typeorm';
+import { hashPassword } from '../../common/utils/password';
 import { Interview } from '../interview/interview.entity';
 
 @Entity('user')

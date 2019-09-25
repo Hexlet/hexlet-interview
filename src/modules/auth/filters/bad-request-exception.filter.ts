@@ -18,7 +18,9 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
 
     let errorMessage = '';
     if (exception.message.message[0].constraints) {
-      errorMessage = Object.values(exception.message.message[0].constraints)[0] as string;
+      errorMessage = Object.values(
+        exception.message.message[0].constraints,
+      )[0] as string;
     } else {
       errorMessage = exception.message.message;
     }
@@ -27,6 +29,8 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
     request.flash('error', i18n.__('validation.' + errorMessage));
 
     // make sure your view called in accordance with url structure
-    return response.render(request.url.replace(/^\/+/, ''), { req: request.body });
+    return response.render(request.url.replace(/^\/+/, ''), {
+      req: request.body,
+    });
   }
 }

@@ -2,7 +2,6 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 import { datetime } from '../datetime.adapter';
 
 export class pastInterview1568998724054 implements MigrationInterface {
-
   public async up(queryRunner: QueryRunner): Promise<any> {
     const databaseType = queryRunner.connection.options.type;
     await queryRunner.createTable(
@@ -56,5 +55,4 @@ export class pastInterview1568998724054 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.dropTable('past_interview');
   }
-
 }
