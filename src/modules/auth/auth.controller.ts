@@ -1,10 +1,19 @@
-import { Render, Controller, Get, Post, Res, Req, UseGuards, Body, HttpStatus, UseFilters, BadRequestException } from '@nestjs/common';
+import {
+  Render,
+  Controller,
+  Get,
+  Post,
+  Res,
+  Req,
+  UseGuards,
+  Body,
+  BadRequestException,
+} from '@nestjs/common';
 import { Response, Request } from 'express';
-import { LoginGuard } from '../auth/login.guard';
+import { LoginGuard } from './guards';
 import { UserService } from '../user/user.service';
 import { UserCreateDto } from '../user/dto/user.create.dto';
 import * as i18n from 'i18n';
-import { boolean } from 'joi';
 
 @Controller('auth')
 export class AuthController {
@@ -20,8 +29,11 @@ export class AuthController {
   }
 
   @Post('/sign_up')
-  async signUp(@Req() req: Request, @Body() userDto: UserCreateDto, @Res() res: Response) {
-
+  async signUp(
+    @Req() req: Request,
+    @Body() userDto: UserCreateDto,
+    @Res() res: Response,
+  ) {
     if (userDto.password !== userDto.confirmpassword) {
       throw new BadRequestException('registration_error_password_mismatch');
     }
@@ -30,7 +42,7 @@ export class AuthController {
       throw new BadRequestException('registration_error_existing_user');
     }
 
-    await this.userService.createAndSave({...userDto, ...{role: 'user'}});
+    await this.userService.createAndSave({ ...userDto, ...{ role: 'user' } });
     (req as any).flash('success', i18n.__('users.form.registration_success'));
     return res.redirect('/auth/sign_in');
   }

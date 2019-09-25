@@ -1,5 +1,9 @@
 import { ValidationPipe } from '@nestjs/common';
-import { UnauthorizedExceptionFilter, ForbiddenExceptionFilter, BadRequestExceptionFilter } from './modules/auth/filters';
+import {
+  UnauthorizedExceptionFilter,
+  ForbiddenExceptionFilter,
+  BadRequestExceptionFilter,
+} from './modules/auth/filters';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as i18n from 'i18n';
@@ -18,7 +22,7 @@ i18n.configure({
 });
 
 export const bootstrapApp = (app: NestExpressApplication) => {
-  app.useGlobalPipes(new ValidationPipe({whitelist: true}));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalFilters(new ForbiddenExceptionFilter());
   app.useGlobalFilters(new UnauthorizedExceptionFilter());
   app.useGlobalFilters(new BadRequestExceptionFilter());
@@ -28,15 +32,17 @@ export const bootstrapApp = (app: NestExpressApplication) => {
     next();
   });
 
-  app.use(Session({
-    cookie: {
-      maxAge: 86400000,
-      secure: false,
-    },
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-  }));
+  app.use(
+    Session({
+      cookie: {
+        maxAge: 86400000,
+        secure: false,
+      },
+      secret: 'keyboard cat',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
   app.use(helmet());
   app.enableCors();
   app.use(

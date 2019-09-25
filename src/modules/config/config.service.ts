@@ -4,7 +4,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 export class ConfigService {
   constructor(filePath?: string) {
     if (filePath) {
-      dotenv.config({path: filePath});
+      dotenv.config({ path: filePath });
     }
   }
 

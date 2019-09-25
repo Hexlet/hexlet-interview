@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class user1567973019623 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -38,12 +38,13 @@ export class user1567973019623 implements MigrationInterface {
             name: 'enabled',
             type: 'integer',
           },
-      ],
-      }), true);
-    }
+        ],
+      }),
+      true,
+    );
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<any> {
-        await queryRunner.dropTable('user');
-    }
-
+  public async down(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.dropTable('user');
+  }
 }

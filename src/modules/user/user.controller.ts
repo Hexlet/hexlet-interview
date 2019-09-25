@@ -1,7 +1,18 @@
-import { Body, Render, Controller, Get, Request, Post, Param, Res, Delete, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Render,
+  Controller,
+  Get,
+  Request,
+  Post,
+  Param,
+  Res,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserCreateDto } from './dto/user.create.dto';
-import { AuthenticatedGuard } from '../auth/authenticated.guard';
+import { AuthenticatedGuard } from '../auth/guards';
 
 @Controller('user')
 export class UserController {

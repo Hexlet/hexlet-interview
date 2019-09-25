@@ -16,7 +16,10 @@ export class UserService {
   }
 
   findOneByEmail(email: string): Promise<User> {
-    return this.repo.findOne({select: ['id', 'firstname', 'lastname', 'email', 'password'], where: { email } });
+    return this.repo.findOne({
+      select: ['id', 'firstname', 'lastname', 'email', 'password'],
+      where: { email },
+    });
   }
 
   createAndSave(userCreateDto: UserCreateDto): Promise<User> {
