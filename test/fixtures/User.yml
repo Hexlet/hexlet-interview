@@ -7,6 +7,7 @@ items:
     email: kprutkov@gmail.com
     password: '12345'
     enabled: true
+    verified: true
   admin:
     role: admin
     firstname: Admin

@@ -4,14 +4,44 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import { createTestingApp } from '../app.testing';
 import { loadFixtures } from '../fixtures.loader';
 import { _ } from 'lodash';
+import { random } from 'faker';
+import { getRepository, Repository } from 'typeorm';
+import { MailerService } from '../../src/modules/mailer/mailer.service';
 
 describe('Authorization test', () => {
   let app: INestApplication;
   let users: { [key: string]: User };
+  let userRepo: Repository<User>;
+
+  const userData = {
+    firstname: 'Александр',
+    lastname: 'Матросов',
+    email: 'amatrosov@gmail.com',
+    password: '1234',
+    confirmpassword: '1234',
+  };
+  const existingUserData = {
+    firstname: 'Koзьма',
+    lastname: 'Прутков',
+    email: 'kprutkov@gmail.com',
+    password: '12345',
+    confirmpassword: '12345',
+  };
+  const existingUserAuthInfo = {
+    username: existingUserData.email,
+    password: existingUserData.password,
+  };
+  const newUserAuthInfo = {
+    username: userData.email,
+    password: userData.password,
+  };
+  let mailerService: MailerService;
 
   beforeAll(async () => {
     app = await createTestingApp();
+    mailerService = app.get<MailerService>(MailerService);
     users = (await loadFixtures()).User;
+    userRepo = getRepository(User);
   });
 
   it('GET protected page without authorization', async () => {
@@ -22,14 +52,9 @@ describe('Authorization test', () => {
   });
 
   it('test valid credentials, login, logout', async () => {
-    const kozma = users.kozma;
-    const authInfo = {
-      username: kozma.email,
-      password: '12345',
-    };
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
-      .send(authInfo);
+      .send(existingUserAuthInfo);
 
     expect(response.status).toBe(HttpStatus.FOUND);
 
@@ -57,37 +82,16 @@ describe('Authorization test', () => {
   });
 
   it('test register existing user', async () => {
-    const userData = {
-      firstname: 'Koзьма',
-      lastname: 'Прутков',
-      email: 'kprutkov@gmail.com',
-      password: '1234',
-      confirmpassword: '1234',
-    };
-
     const response = await request(app.getHttpServer())
       .post('/auth/sign_up')
-      .send(userData);
+      .send(existingUserData);
     expect(response.status).toBe(HttpStatus.BAD_REQUEST);
   });
 
-  it('test register user with good data', async () => {
-    const userData = {
-      firstname: 'Александр',
-      lastname: 'Матросов',
-      email: 'amatrosov@gmail.com',
-      password: '1234',
-      confirmpassword: '1234',
-    };
-
-    const authInfo = {
-      username: 'amatrosov@gmail.com',
-      password: '1234',
-    };
-
+  it('test register user with good data not to be finished', async () => {
     const responseLoginUnexistingUser = await request(app.getHttpServer())
       .post('/auth/sign_in')
-      .send(authInfo);
+      .send(newUserAuthInfo);
     expect(responseLoginUnexistingUser.status).toBe(HttpStatus.UNAUTHORIZED);
 
     const response = await request(app.getHttpServer())
@@ -95,29 +99,52 @@ describe('Authorization test', () => {
       .send(userData);
     expect(response.status).toBe(HttpStatus.FOUND);
 
-    const authInfo1 = {
-      username: 'kprutkov@gmail.com',
-      password: '12345',
-    };
     const resp = await request(app.getHttpServer())
       .post('/auth/sign_in')
-      .send(authInfo1);
+      .send(existingUserAuthInfo);
     expect(resp.status).toBe(HttpStatus.FOUND);
   });
 
-  it('test register user with invalid data', async () => {
-    const userData = {
-      firstname: '',
-      lastname: 'Матросов',
-      email: 'amatrosov',
-      password: '1234',
-      confirmpassword: '',
-    };
-
-    const response = await request(app.getHttpServer())
+  it('register new user should not to be finished if verify link has never be activated', async () => {
+    await request(app.getHttpServer())
       .post('/auth/sign_up')
       .send(userData);
+
+    await request(app.getHttpServer())
+      .post('/auth/sign_in')
+      .send(newUserAuthInfo)
+      .expect(HttpStatus.UNAUTHORIZED);
+  });
+
+  it('register new user should be succeded if link were has been activated', async () => {
+    await request(app.getHttpServer())
+      .post('/auth/sign_up')
+      .send(userData);
+
+    const { token } = await userRepo.findOne({ email: userData.email });
+
+    await request(app.getHttpServer())
+      .get(`/auth/verify/${token}`)
+      .expect(HttpStatus.FOUND);
+
+    await request(app.getHttpServer())
+      .post('/auth/sign_in')
+      .send(newUserAuthInfo)
+      .expect(HttpStatus.FOUND);
+    expect(mailerService.sendVerifyLink).toBeCalled();
+  });
+
+  it('test register user with invalid data', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/auth/sign_up')
+      .send({ ...userData, firstname: '', confirmpassword: '' });
     expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+  });
+
+  it('GET auth/verify/:token return 404 if token is not exists', async () => {
+    await request(app.getHttpServer())
+      .get(`/auth/verify/${random.uuid()}`)
+      .expect(404);
   });
 
   afterAll(async () => {
