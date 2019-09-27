@@ -40,15 +40,17 @@ export class UserService {
     await this.repo.delete(id);
   }
 
-  async findOneByToken(token: string): Promise<User | undefined> {
+  async findOneByConfirmationToken(
+    confirmationToken: string,
+  ): Promise<User | undefined> {
     return this.repo.findOne({
       select: ['id', 'email'],
-      where: { token },
+      where: { confirmationToken },
     });
   }
 
   async verifyUser(user: User): Promise<void> {
-    await this.repo.update(user, { verified: true, token: null });
+    await this.repo.update(user, { verified: true, confirmationToken: null });
     this.logger.log('User with id = ${user.id} successfully verified!');
   }
 }

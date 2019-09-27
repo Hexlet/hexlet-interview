@@ -54,7 +54,7 @@ export class AuthController {
       ...{ role: 'user' },
     });
 
-    await this.mailerService.sendVerifyLink(user.email, user.token);
+    await this.mailerService.sendVerifyLink(user.email, user.confirmationToken);
 
     // !!TODO need correct redirect url
     return res.redirect('/');
@@ -81,7 +81,7 @@ export class AuthController {
   @Redirect('/auth/sign_in')
   @Get('verify/:token')
   async verifyToken(@Req() req: Request, @Param('token') token: string) {
-    const user = await this.userService.findOneByToken(token);
+    const user = await this.userService.findOneByConfirmationToken(token);
     if (!user) {
       throw new NotFoundException();
     }
