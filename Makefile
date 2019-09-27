@@ -5,7 +5,6 @@ setup:
 	cp -n .env.example development.env || true
 	npm run fixtures:load
 
-
 install:
 	npm install
 
@@ -21,9 +20,9 @@ db-down:
 	docker-compose down
 
 db-console:
-	psql -p 15023 -h localhost -U test -d interview
+	docker-compose exec db psql -U test -d interview
 db-console-test:
-	psql -p 15025 -h localhost -U test -d interview-test
+	docker-compose exec db_test psql -U test -d interview-test
 
 fixtures-load:
 	npm run fixtures:load
