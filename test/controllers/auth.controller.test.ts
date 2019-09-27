@@ -121,10 +121,12 @@ describe('Authorization test', () => {
       .post('/auth/sign_up')
       .send(userData);
 
-    const { token } = await userRepo.findOne({ email: userData.email });
+    const { confirmationToken } = await userRepo.findOne({
+      email: userData.email,
+    });
 
     await request(app.getHttpServer())
-      .get(`/auth/verify/${token}`)
+      .get(`/auth/verify/${confirmationToken}`)
       .expect(HttpStatus.FOUND);
 
     await request(app.getHttpServer())

@@ -48,7 +48,7 @@ export class User {
   verified: boolean;
 
   @Column('uuid', { name: 'confirmation_token', nullable: true })
-  token: string | null;
+  confirmationToken: string | null;
 
   @OneToMany(type => Interview, interview => interview.interviewee)
   interviews: Interview[];
@@ -65,6 +65,6 @@ export class User {
 
   @BeforeInsert()
   public async createToken(): Promise<void> {
-    this.token = uuidGenerate();
+    this.confirmationToken = uuidGenerate();
   }
 }
