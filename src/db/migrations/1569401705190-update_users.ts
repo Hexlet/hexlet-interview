@@ -4,7 +4,7 @@ export class updateUsers1569401705190 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.addColumns('user', [
       new TableColumn({
-        name: 'token',
+        name: 'confirmation_token',
         type: 'uuid',
         isNullable: true,
       }),
@@ -17,7 +17,7 @@ export class updateUsers1569401705190 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.dropColumn('user', 'token');
+    await queryRunner.dropColumn('user', 'confirmation_token');
     await queryRunner.dropColumn('user', 'verified');
   }
 }
