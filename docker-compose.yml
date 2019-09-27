@@ -1,11 +1,27 @@
 version: '3.2'
 
 services:
-  postgres:
+  db:
     image: postgres:alpine
     environment:
+      POSTGRES_DB: interview
       POSTGRES_PASSWORD: test
-      POSTGRES_DB: test
       POSTGRES_USER: test
     ports:
-      - 5433:5432
+      - 15023:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    container_name: hexlet-interview-db
+
+  db_test:
+    image: postgres:alpine
+    ports:
+      - 15025:5432
+    environment:
+      POSTGRES_DB: interview-test
+      POSTGRES_PASSWORD: test
+      POSTGRES_USER: test
+    container_name: hexlet-interview-db-test
+
+volumes:
+  pg-data:

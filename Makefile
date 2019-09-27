@@ -14,8 +14,15 @@ start:
 lint:
 	npm run lint
 
+db-up:
+	docker-compose up -d
+db-down:
+	docker-compose down
+
 db-console:
-	sqlite3 interview.sqlite
+	docker-compose exec db psql -U test -d interview
+db-console-test:
+	docker-compose exec db_test psql -U test -d interview-test
 
 fixtures-load:
 	npm run fixtures:load
