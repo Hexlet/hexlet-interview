@@ -47,7 +47,7 @@ export class User {
   })
   verified: boolean;
 
-  @Column('uuid', { nullable: true })
+  @Column('uuid', { name: 'confirmation_token', nullable: true })
   token: string | null;
 
   @OneToMany(type => Interview, interview => interview.interviewee)
@@ -61,6 +61,10 @@ export class User {
   public async hashPassword(): Promise<void> {
     this.password = await hashPassword(this.password);
     this.enabled = true;
+  }
+
+  @BeforeInsert()
+  public async createToken(): Promise<void> {
     this.token = uuidGenerate();
   }
 }
