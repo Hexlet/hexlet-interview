@@ -130,19 +130,20 @@ describe('Authorization test', () => {
   });
 
   it('test new user repeated sign in with Github', async () => {
-    nock('https://github.com')
-      .post('/login/oauth/access_token')
-      .twice()
-      .reply(200, {access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a', token_type: 'bearer'});
     const userData = {
       id: '123456',
       login: 'whoami',
       name: 'John Galt',
       email: 'johngalt@gmail.com',
     };
-    nock('https://api.github.com')
-      .get('/user')
+    nock('https://github.com')
+      .post('/login/oauth/access_token')
       .twice()
+      .reply(200, {access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a', token_type: 'bearer'});
+
+    nock('https://api.github.com')
+      .get(/\/user*/)
+      .times(4)
       .reply(200, userData);
     // first login creates user.
     await request(app.getHttpServer())
@@ -172,7 +173,8 @@ describe('Authorization test', () => {
       .post('/login/oauth/access_token')
       .reply(200, {access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a', token_type: 'bearer'});
     nock('https://api.github.com')
-      .get('/user')
+      .get(/\/user*/)
+      .twice()
       .reply(200, userData);
 
     await request(app.getHttpServer())

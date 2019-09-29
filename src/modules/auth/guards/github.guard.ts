@@ -5,6 +5,8 @@ import { Logger } from '@nestjs/common';
 
 @Injectable()
 export class GithubGuard extends AuthGuard('github') {
+  private readonly logger = new Logger(GithubGuard.name);
+
   async canActivate(context: ExecutionContext) {
     try {
       const result = (await super.canActivate(context)) as boolean;
@@ -12,7 +14,7 @@ export class GithubGuard extends AuthGuard('github') {
       await super.logIn(request);
       return result;
     } catch (err) {
-      Logger.error('Error happened during guthub auth', GithubGuard.name);
+      this.logger.log(err.message);
       throw new GitHubUnauthorizedException();
     }
   }
