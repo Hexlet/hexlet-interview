@@ -26,7 +26,7 @@
       "sign_up": "Регистрация",
       "sign_out": "Выйти",
       "github_auth": "Войти через Github",
-      "github_auth_err": "Что-то пошло нитак при попытке авторизовать вас через Github",
+      "github_auth_err": "Что-то пошло нe так при попытке авторизовать вас через Github",
       "email": "Email",
       "password": "Пароль",
       "password_confirmation": "Подтверждение пароля",
