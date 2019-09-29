@@ -16,7 +16,7 @@
     "confirmpassword should not be empty": "Подтверждение пароля не может быть пустым",
     "registration_error_password_mismatch": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!",
     "registration_error_existing_user": "Ошибка регистрации, пользователь с таким email уже зарегистрирован"
-},
+  },
   "users": {
     "form": {
       "invalid_credentials": "Неправильный Email или пароль.",
@@ -35,7 +35,7 @@
       "login_success": "Вы успешно вошли в систему!",
       "login_error": "Ошибка входа в систему",
       "registration_success": "Регистрация успешно завершена"
-      }
+    }
   },
   "interview": {
     "request_accepted": "Ваша заявка принята",
