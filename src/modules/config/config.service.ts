@@ -1,11 +1,29 @@
 import * as dotenv from 'dotenv';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+export interface MailParams {
+  host: string;
+  port: number;
+  user: string;
+  pass: string;
+  fromMail: string;
+}
+
 export class ConfigService {
   constructor(filePath?: string) {
     if (filePath) {
       dotenv.config({ path: filePath });
     }
+  }
+
+  get mailParams(): MailParams {
+    return {
+      host: process.env.MAIL_HOST,
+      port: Number(process.env.MAIL_PORT),
+      pass: process.env.MAIL_PASSWORD,
+      user: process.env.MAIL_USER,
+      fromMail: process.env.FROM_MAIL,
+    };
   }
 
   get dbParams(): TypeOrmModuleOptions {

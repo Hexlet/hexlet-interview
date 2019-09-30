@@ -49,8 +49,8 @@ export class UserService {
     });
   }
 
-  async verifyUser(user: User): Promise<void> {
+  async verify(user: User): Promise<void> {
     await this.repo.update(user, { verified: true, confirmationToken: null });
-    this.logger.log('User with id = ${user.id} successfully verified!');
+    this.logger.log(`User with id = ${user.id} successfully verified!`);
   }
 }
