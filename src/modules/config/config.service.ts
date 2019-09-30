@@ -2,6 +2,14 @@ import * as dotenv from 'dotenv';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
 
+export interface MailParams {
+  host: string;
+  port: number;
+  user: string;
+  pass: string;
+  fromMail: string;
+}
+
 export class ConfigService {
   constructor() {
     if (process.env.NODE_ENV !== 'production') {
@@ -10,6 +18,16 @@ export class ConfigService {
       const envFilePath = join(__dirname, '../../..', envFileName);
       dotenv.config({path: envFilePath});
     }
+  }
+
+  get mailParams(): MailParams {
+    return {
+      host: process.env.MAIL_HOST,
+      port: Number(process.env.MAIL_PORT),
+      pass: process.env.MAIL_PASSWORD,
+      user: process.env.MAIL_USER,
+      fromMail: process.env.FROM_MAIL,
+    };
   }
 
   get dbParams(): TypeOrmModuleOptions {

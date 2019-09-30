@@ -54,9 +54,10 @@ export class AuthController {
       ...{ role: 'user' },
     });
 
-    await this.mailerService.sendVerifyLink(user.email, user.confirmationToken);
+    const link = `${req.headers.origin}/auth/verify/${user.confirmationToken}`;
+    await this.mailerService.sendVerifyLink(user.email, link);
 
-    // !!TODO need correct redirect url
+    (req as any).flash('success', i18n.__('users.form.need_mail_confirm'));
     return res.redirect('/');
   }
 
@@ -86,7 +87,7 @@ export class AuthController {
       throw new NotFoundException();
     }
 
-    await this.userService.verifyUser(user);
+    await this.userService.verify(user);
     (req as any).flash('success', i18n.__('users.form.registration_success'));
   }
 }
