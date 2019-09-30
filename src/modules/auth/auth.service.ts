@@ -18,7 +18,7 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user: User = await this.usersService.findOneByEmail(email);
     if (!user) {
-      this.logger.log('user ${email}  not found!');
+      this.logger.log(`user ${email}  not found!`);
       return null;
     }
     if (!(await comparePassword(user, pass))) {
