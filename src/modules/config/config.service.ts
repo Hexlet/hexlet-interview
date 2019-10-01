@@ -30,10 +30,10 @@ export class ConfigService {
 
   get mailParams(): MailParams {
     return {
-      host: process.env.MAIL_HOST,
-      port: Number(process.env.MAIL_PORT),
-      pass: process.env.MAIL_PASSWORD,
-      user: process.env.MAIL_USER,
+      host: process.env.MAILGUN_SMTP_SERVER,
+      port: Number(process.env.MAILGUN_SMTP_PORT),
+      pass: process.env.MAILGUN_SMTP_PASSWORD,
+      user: process.env.MAILGUN_SMTP_LOGIN,
       fromMail: process.env.FROM_MAIL,
     };
   }
