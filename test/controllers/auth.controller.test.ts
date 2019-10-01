@@ -1,8 +1,9 @@
 import * as request from 'supertest';
+import * as nock from 'nock';
 import { User } from '../../src/modules/user/user.entity';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { createTestingApp } from '../app.testing';
-import { loadFixtures, clearDb } from '../fixtures.loader';
+import { clearDb, loadFixtures } from '../fixtures.loader';
 import { _ } from 'lodash';
 import { random } from 'faker';
 import { getRepository, Repository } from 'typeorm';
@@ -10,7 +11,6 @@ import { MailerService } from '../../src/modules/mailer/mailer.service';
 
 describe('Authorization test', () => {
   let app: INestApplication;
-  let users: { [key: string]: User };
   let userRepo: Repository<User>;
 
   const userData = {
@@ -39,8 +39,8 @@ describe('Authorization test', () => {
 
   beforeEach(async () => {
     app = await createTestingApp();
+    await loadFixtures();
     mailerService = app.get<MailerService>(MailerService);
-    users = (await loadFixtures()).User;
     userRepo = getRepository(User);
   });
 
@@ -146,7 +146,95 @@ describe('Authorization test', () => {
   it('GET auth/verify/:token return 404 if token is not exists', async () => {
     await request(app.getHttpServer())
       .get(`/auth/verify/${random.uuid()}`)
-      .expect(404);
+      .expect(HttpStatus.NOT_FOUND);
+  });
+
+  it('github auth url shoud redirect', async () => {
+    await request(app.getHttpServer())
+      .get('/auth/github')
+      .expect(HttpStatus.FOUND);
+  });
+
+  it('test new user repeated sign in with Github', async () => {
+    const newUserData = {
+      id: '123456',
+      login: 'whoami',
+      name: 'John Galt',
+      email: 'johngalt@gmail.com',
+    };
+    nock('https://github.com')
+      .post('/login/oauth/access_token')
+      .twice()
+      .reply(200, {
+        access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
+        token_type: 'bearer',
+      });
+
+    nock('https://api.github.com')
+      .get(/\/user*/)
+      .times(4)
+      .reply(200, newUserData);
+    // first login creates user.
+    await request(app.getHttpServer())
+      .get('/auth/github/callback')
+      .query({ code: 'somecode' })
+      .expect(HttpStatus.FOUND);
+    const createdUser = await userRepo.findOne({
+      where: { githubUid: newUserData.id },
+    });
+    expect(createdUser.email).toEqual(newUserData.email);
+    // second login finds user in db.
+    await request(app.getHttpServer())
+      .get('/auth/github/callback')
+      .query({ code: 'somecode' })
+      .expect(HttpStatus.FOUND);
+  });
+
+  it('test Github auth for user than already exist with local auth', async () => {
+    const existGithubUserData = {
+      id: '123456',
+      login: 'kuzya',
+      name: 'Kuzma Prutkov',
+      email: existingUserData.email,
+    };
+
+    nock('https://github.com')
+      .post('/login/oauth/access_token')
+      .reply(200, {
+        access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
+        token_type: 'bearer',
+      });
+    nock('https://api.github.com')
+      .get(/\/user*/)
+      .twice()
+      .reply(200, existGithubUserData);
+
+    await request(app.getHttpServer())
+      .get('/auth/github/callback')
+      .query({ code: 'somecode' })
+      .expect(HttpStatus.FOUND);
+
+    // first login with github shoud add githubUid to user
+    const createdUser = await userRepo.findOne({
+      where: { email: existGithubUserData.email },
+    });
+    expect(createdUser.githubUid).toEqual(existGithubUserData.id);
+  });
+
+  it('shoud fail with bad response', async () => {
+    nock('https://github.com')
+      .post('/login/oauth/access_token')
+      .reply(200, {
+        access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
+        token_type: 'bearer',
+      });
+    nock('https://api.github.com')
+      .get('/user')
+      .reply(403);
+    await request(app.getHttpServer())
+      .get('/auth/github/callback')
+      .query({ code: 'somecode' })
+      .expect(HttpStatus.UNAUTHORIZED);
   });
 
   afterEach(async () => {

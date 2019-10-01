@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
+import { GitHubStrategy } from './github.strategy';
 import { UserModule } from '../user/user.module';
+import { ConfigModule } from '../config/config.module';
 import { PassportModule } from '@nestjs/passport';
 import { UserService } from '../user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,8 +18,15 @@ import { MailerModule } from '../mailer/mailer.module';
     UserModule,
     PassportModule,
     MailerModule,
+    ConfigModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, UserService, SessionSerializer],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    GitHubStrategy,
+    UserService,
+    SessionSerializer,
+  ],
 })
 export class AuthModule {}

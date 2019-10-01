@@ -3,6 +3,7 @@ import {
   UnauthorizedExceptionFilter,
   ForbiddenExceptionFilter,
   BadRequestExceptionFilter,
+  GitHubUnauthorizedExceptionFilter,
 } from './modules/auth/filters';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
@@ -26,6 +27,7 @@ export const bootstrapApp = (app: NestExpressApplication) => {
   app.useGlobalFilters(new ForbiddenExceptionFilter());
   app.useGlobalFilters(new UnauthorizedExceptionFilter());
   app.useGlobalFilters(new BadRequestExceptionFilter());
+  app.useGlobalFilters(new GitHubUnauthorizedExceptionFilter());
   app.use(i18n.init);
   app.use((req, res, next) => {
     res.setLocale('ru');

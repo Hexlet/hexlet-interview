@@ -5,7 +5,7 @@ block content
     .row
       .justify-content-center
         h1.display-4.mb-2 #{__('users.form.sign_in')}
-        form(method='POST' action='/auth/sign_in')
+        form(method='POST' action='/auth/sign_in').mb-4
           div.form-group
             label(for='email') #{__('users.form.email')}
             input.form-control(type='text' placeholder='test@example.com' name='username' value=(req && req.username) || '')
@@ -13,3 +13,6 @@ block content
             label(for='password') #{__('users.form.password')}
             input.form-control(type='password' id='password' placeholder='password' name='password')
           button.btn.btn-primary(type='submit') #{__('users.form.sign_in')}
+        a.btn.btn-outline-primary.btn-block.mt-3(href='/auth/github')
+          i.fab.fa-github.mr-2
+          | #{__('users.form.github_auth')}

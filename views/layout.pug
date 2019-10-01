@@ -1,5 +1,5 @@
 doctype html
-html(lang='ru').h-100
+html(lang='ru')
 
   head
     meta(charset='utf-8')
@@ -11,7 +11,7 @@ html(lang='ru').h-100
     title #{__('app.title')}
     block head
 
-  body.d-flex.flex-column
+  body.d-flex.flex-column.min-vh-100
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
       a.navbar-brand(href="/").mr-5 HexletInterview
       .collapse.navbar-collapse

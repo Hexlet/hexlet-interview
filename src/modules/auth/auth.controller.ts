@@ -13,7 +13,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { LoginGuard } from './guards';
+import { LoginGuard, GithubGuard } from './guards';
 import { UserService } from '../user/user.service';
 import { UserCreateDto } from '../user/dto/user.create.dto';
 import * as i18n from 'i18n';
@@ -89,5 +89,20 @@ export class AuthController {
 
     await this.userService.verify(user);
     (req as any).flash('success', i18n.__('users.form.registration_success'));
+  }
+
+  @Get('github')
+  @UseGuards(GithubGuard)
+  initGitHubLogin() {
+    return {};
+  }
+
+  @Get('github/callback')
+  @UseGuards(GithubGuard)
+  gitHubLoginCb(@Req() req: any, @Res() res: Response) {
+    req.flash('success', i18n.__('users.form.login_success'));
+    const redirectTo = req.session.redirectTo || '/';
+    delete req.session.redirectTo;
+    res.redirect(redirectTo);
   }
 }

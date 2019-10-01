@@ -24,12 +24,25 @@ export class UserService {
     });
   }
 
+  findOneBySocialUid(provider: string, uid: string): Promise<User> {
+    return this.repo.findOne(
+      {
+        select: ['id', 'firstname', 'lastname', 'email', 'password'],
+        where: { [`${provider}Uid`]: uid },
+      },
+    );
+  }
+
   createAndSave(userCreateDto: UserCreateDto): Promise<User> {
     const newUser = this.repo.create(userCreateDto);
     if (newUser) {
       return this.repo.save(newUser);
     }
     return null;
+  }
+
+  addSocialUid(user: User, provider: string, uid: string) {
+    return this.repo.update(user.id, { [`${provider}Uid`]: uid });
   }
 
   async update(id: number, user: User) {

@@ -16,7 +16,7 @@ export class ConfigService {
       const env = process.env.NODE_ENV || 'development';
       const envFileName = env === 'production' ? undefined : `${env}.env`;
       const envFilePath = join(__dirname, '../../..', envFileName);
-      dotenv.config({path: envFilePath});
+      dotenv.config({ path: envFilePath });
     }
   }
 
@@ -28,6 +28,10 @@ export class ConfigService {
       user: process.env.MAIL_USER,
       fromMail: process.env.FROM_MAIL,
     };
+  }
+
+  get(key: string): string {
+    return process.env[key];
   }
 
   get dbParams(): TypeOrmModuleOptions {
