@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
@@ -6,6 +6,8 @@ import { UserCreateDto } from './dto/user.create.dto';
 
 @Injectable()
 export class UserService {
+  private readonly logger = new Logger(UserService.name);
+
   constructor(
     @InjectRepository(User)
     private readonly repo: Repository<User>,
@@ -17,7 +19,7 @@ export class UserService {
 
   findOneByEmail(email: string): Promise<User> {
     return this.repo.findOne({
-      select: ['id', 'firstname', 'lastname', 'email', 'password'],
+      select: ['id', 'firstname', 'lastname', 'email', 'password', 'verified'],
       where: { email },
     });
   }
@@ -36,5 +38,17 @@ export class UserService {
 
   async delete(id: number) {
     await this.repo.delete(id);
+  }
+
+  async findOneByToken(token: string): Promise<User | undefined> {
+    return this.repo.findOne({
+      select: ['id', 'email'],
+      where: { token },
+    });
+  }
+
+  async verifyUser(user: User): Promise<void> {
+    await this.repo.update(user, { verified: true, token: null });
+    this.logger.log('User with id = ${user.id} successfully verified!');
   }
 }

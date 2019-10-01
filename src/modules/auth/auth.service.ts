@@ -20,6 +20,10 @@ export class AuthService {
       this.logger.log('user found, password mismatch!');
       return null;
     }
+    if (!user.verified) {
+      this.logger.log('user still not verified by email!');
+      return null;
+    }
 
     const { password, ...result } = user;
     this.logger.log('user found, authentificated');

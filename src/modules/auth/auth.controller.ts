@@ -8,16 +8,23 @@ import {
   UseGuards,
   Body,
   BadRequestException,
+  NotFoundException,
+  Redirect,
+  Param,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { LoginGuard } from './guards';
 import { UserService } from '../user/user.service';
 import { UserCreateDto } from '../user/dto/user.create.dto';
 import * as i18n from 'i18n';
+import { MailerService } from '../mailer/mailer.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(public userService: UserService) {}
+  constructor(
+    public userService: UserService,
+    public mailerService: MailerService,
+  ) {}
 
   @Post('/sign_in')
   @UseGuards(LoginGuard)
@@ -42,9 +49,15 @@ export class AuthController {
       throw new BadRequestException('registration_error_existing_user');
     }
 
-    await this.userService.createAndSave({ ...userDto, ...{ role: 'user' } });
-    (req as any).flash('success', i18n.__('users.form.registration_success'));
-    return res.redirect('/auth/sign_in');
+    const user = await this.userService.createAndSave({
+      ...userDto,
+      ...{ role: 'user' },
+    });
+
+    await this.mailerService.sendVerifyLink(user.email, user.token);
+
+    // !!TODO need correct redirect url
+    return res.redirect('/');
   }
 
   @Get('sign_out')
@@ -63,5 +76,17 @@ export class AuthController {
   @Render('auth/sign_up')
   showSignUp() {
     return {};
+  }
+
+  @Redirect('/auth/sign_in')
+  @Get('verify/:token')
+  async verifyToken(@Req() req: Request, @Param('token') token: string) {
+    const user = await this.userService.findOneByToken(token);
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    await this.userService.verifyUser(user);
+    (req as any).flash('success', i18n.__('users.form.registration_success'));
   }
 }

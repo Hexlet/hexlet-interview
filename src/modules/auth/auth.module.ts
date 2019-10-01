@@ -8,9 +8,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../user/user.entity';
 import { SessionSerializer } from './session.serializer';
 import { AuthController } from './auth.controller';
+import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), UserModule, PassportModule],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    UserModule,
+    PassportModule,
+    MailerModule,
+  ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, UserService, SessionSerializer],
 })

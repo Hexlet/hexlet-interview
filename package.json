@@ -14,7 +14,7 @@
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "lint:fix": "tslint -p tsconfig.json -c tslint.json --fix",
     "test": "jest --runInBand",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --verbose=false",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "migration:run": "npm run typeorm migration:run",
     "migration:generate": "npm run typeorm migration:create -- -n",
