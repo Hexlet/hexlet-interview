@@ -10,6 +10,14 @@ export interface MailParams {
   fromMail: string;
 }
 
+export interface MailParams {
+  host: string;
+  port: number;
+  user: string;
+  pass: string;
+  fromMail: string;
+}
+
 export class ConfigService {
   constructor() {
     if (process.env.NODE_ENV !== 'production') {
