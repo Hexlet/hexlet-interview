@@ -16,11 +16,11 @@
     "confirmpassword should not be empty": "Password confirmation should not be empty",
     "registration_error_password_mismatch": "Registration error, password and password confirmation mismatch!",
     "registration_error_existing_user": "Registration error, user already exists"
-
   },
   "users": {
     "form": {
       "invalid_credentials": "Invalid email or password",
+      "need_mail_confirm": "Confirm email",
       "sign_in": "Sign In",
       "sign_up": "Sign Up",
       "sign_out": "Sign Out",
