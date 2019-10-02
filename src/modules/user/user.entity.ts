@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { hashPassword } from '../../common/utils/password';
 import { Interview } from '../interview/interview.entity';
+import * as uuidGenerate from 'uuid/v4';
 
 @Entity('user')
 export class User {
@@ -46,6 +47,14 @@ export class User {
   })
   enabled: boolean;
 
+  @Column({
+    default: false,
+  })
+  verified: boolean;
+
+  @Column('uuid', { name: 'confirmation_token', nullable: true })
+  confirmationToken: string | null;
+
   @OneToMany(type => Interview, interview => interview.interviewee)
   interviews: Interview[];
 
@@ -59,5 +68,10 @@ export class User {
       this.password = await hashPassword(this.password);
     }
     this.enabled = true;
+  }
+
+  @BeforeInsert()
+  public async createToken(): Promise<void> {
+    this.confirmationToken = uuidGenerate();
   }
 }

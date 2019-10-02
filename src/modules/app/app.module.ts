@@ -6,8 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { InterviewModule } from '../interview/interview.module';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
-import { APP_GUARD } from '@nestjs/core';
-import { RoleGuard } from '../auth/guards/role.guard';
+import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
   imports: [
@@ -20,6 +19,7 @@ import { RoleGuard } from '../auth/guards/role.guard';
     InterviewModule,
     AuthModule,
     ConfigModule,
+    MailerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

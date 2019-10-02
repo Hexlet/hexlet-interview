@@ -25,6 +25,10 @@ export class AuthService {
       this.logger.log('user found, password mismatch!');
       return null;
     }
+    if (!user.verified) {
+      this.logger.log('user still not verified by email!');
+      return null;
+    }
 
     this.logger.log('user found, authentificated');
     return sanitizeUser(user);
@@ -34,12 +38,15 @@ export class AuthService {
     provider: string,
     uid: string,
     info: {
-      email: string,
-      name: string,
+      email: string;
+      name: string;
     },
   ): Promise<any> {
     const { email, name } = info;
-    const userBySocialUid: User = await this.usersService.findOneBySocialUid(provider, uid);
+    const userBySocialUid: User = await this.usersService.findOneBySocialUid(
+      provider,
+      uid,
+    );
     if (userBySocialUid) {
       this.logger.log(`user found by ${provider} uid`);
       return sanitizeUser(userBySocialUid);
@@ -53,7 +60,7 @@ export class AuthService {
     const newUser = await this.usersService.createAndSave({
       email,
       firstname: name,
-      ...{role: 'user'},
+      ...{ role: 'user' },
       [`${provider}Uid`]: uid,
     });
     this.logger.log(`new user created by ${provider} profile`);
