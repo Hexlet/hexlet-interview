@@ -11,6 +11,16 @@ describe('#interview', () => {
   let interviewRepo: Repository<Interview>;
   let users: {[key: string]: User};
 
+  const adminAuthInfo = {
+    username: 'admin@admin.com',
+    password: 'admin',
+  };
+
+  const userAuthInfo = {
+    username: 'kprutkov@gmail.com',
+    password: '12345',
+  };
+
   beforeEach(async () => {
     app = await createTestingApp();
     users = (await loadFixtures()).User;
@@ -18,11 +28,6 @@ describe('#interview', () => {
   });
 
   it('show all interviews', async () => {
-    const kozma = users.kozma;
-    const userAuthInfo = {
-      username: kozma.email,
-      password: '12345',
-    };
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send(userAuthInfo)
@@ -37,11 +42,6 @@ describe('#interview', () => {
       .get('/auth/sign_out')
       .expect(HttpStatus.FOUND);
 
-    const admin = users.admin;
-    const adminAuthInfo = {
-      username: admin.email,
-      password: 'admin',
-    };
     const responseAdmin = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send(adminAuthInfo)
