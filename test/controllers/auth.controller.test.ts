@@ -17,9 +17,9 @@ describe('Authorization test', () => {
     userRepo = getRepository(User);
   });
 
-  it('GET protected page without authorization', async () => {
+  it('Get protected page without authorization', async () => {
     await request(app.getHttpServer())
-      .get('/user')
+      .get('/interview/new')
       .expect(HttpStatus.FOUND)
       .expect('Location', '/auth/sign_in');
   });
@@ -32,12 +32,11 @@ describe('Authorization test', () => {
     };
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
-      .send(authInfo);
-
-    expect(response.status).toBe(HttpStatus.FOUND);
+      .send(authInfo)
+      .expect(HttpStatus.FOUND);
 
     await request(app.getHttpServer())
-      .get('/user')
+      .get('/interview/new')
       .set('Cookie', response.header['set-cookie'])
       .expect(HttpStatus.OK);
 
@@ -46,17 +45,17 @@ describe('Authorization test', () => {
       .expect(HttpStatus.FOUND);
 
     await request(app.getHttpServer())
-      .get('/user')
+      .get('/interview/new')
       .expect(HttpStatus.FOUND)
       .expect('Location', '/auth/sign_in');
   });
 
   it('test disallow invalid credentials', async () => {
     const authInfo = {username: 'invadiemail@email.ru', password: '1234'};
-    const response = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/auth/sign_in')
-      .send(authInfo);
-    expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
+      .send(authInfo)
+      .expect(HttpStatus.UNAUTHORIZED);
   });
 
   it('test register existing user', async () => {
@@ -68,10 +67,10 @@ describe('Authorization test', () => {
       confirmpassword: '1234',
     };
 
-    const response = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/auth/sign_up')
-      .send(userData);
-    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      .send(userData)
+      .expect(HttpStatus.BAD_REQUEST);
   });
 
   it('test register user with good data', async () => {
@@ -88,24 +87,28 @@ describe('Authorization test', () => {
       password: '1234',
     };
 
-    const responseLoginUnexistingUser = await request(app.getHttpServer())
+    request(app.getHttpServer())
       .post('/auth/sign_in')
-      .send(authInfo);
-    expect(responseLoginUnexistingUser.status).toBe(HttpStatus.UNAUTHORIZED);
+      .send(authInfo)
+      .expect(HttpStatus.UNAUTHORIZED)
+      .expect('Location', '/auth/sugn_in');
 
-    const response = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/auth/sign_up')
-      .send(userData);
-    expect(response.status).toBe(HttpStatus.FOUND);
+      .send(userData)
+      .expect(HttpStatus.FOUND)
+      .expect('Location', '/auth/sign_in');
 
     const authInfo1 = {
       username: 'kprutkov@gmail.com',
       password: '12345',
     };
-    const resp = await request(app.getHttpServer())
+
+    await request(app.getHttpServer())
       .post('/auth/sign_in')
-      .send(authInfo1);
-    expect(resp.status).toBe(HttpStatus.FOUND);
+      .send(authInfo1)
+      .expect(HttpStatus.FOUND)
+      .expect('Location', '/');
   });
 
   it('test register user with invalid data', async () => {
@@ -117,10 +120,10 @@ describe('Authorization test', () => {
       confirmpassword: '',
     };
 
-    const response = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/auth/sign_up')
-      .send(userData);
-    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      .send(userData)
+      .expect(HttpStatus.BAD_REQUEST);
   });
 
   it('github auth url shoud redirect', async () => {

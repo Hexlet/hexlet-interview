@@ -13,11 +13,16 @@ import { InterviewCreateDto } from './dto/interview.create.dto';
 import { Response } from 'express';
 import { AuthenticatedGuard } from '../auth/guards';
 import * as i18n from 'i18n';
+import { Role } from '../auth/role.decorator';
+import { RoleGuard } from '../auth/guards/role.guard';
 
 @Controller('interview')
+@UseGuards(RoleGuard)
 export class InterviewController {
   constructor(public service: InterviewService) {}
 
+  @UseGuards(AuthenticatedGuard)
+  @Role('admin')
   @Get()
   @Render('interview/index')
   async findAll(): Promise<any> {

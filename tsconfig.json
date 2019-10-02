@@ -8,7 +8,7 @@
     "baseUrl": "./",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "declaration": false
   }
 }

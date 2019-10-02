@@ -17,7 +17,7 @@ export class UserService {
 
   findOneByEmail(email: string): Promise<User> {
     return this.repo.findOne({
-      select: ['id', 'firstname', 'lastname', 'email', 'password'],
+      select: ['id', 'role', 'firstname', 'lastname', 'email', 'password'],
       where: { email },
     });
   }
@@ -25,7 +25,7 @@ export class UserService {
   findOneBySocialUid(provider: string, uid: string): Promise<User> {
     return this.repo.findOne(
       {
-        select: ['id', 'firstname', 'lastname', 'email', 'password'],
+        select: ['id', 'role', 'firstname', 'lastname', 'email', 'password'],
         where: { [`${provider}Uid`]: uid },
       },
     );
