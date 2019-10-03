@@ -1,6 +1,6 @@
 import * as request from 'supertest';
-import { createTestingApp } from '../app.testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
+import { createTestingApp } from '../app.testing';
 import { clearDb } from '../fixtures.loader';
 
 describe('#main', () => {

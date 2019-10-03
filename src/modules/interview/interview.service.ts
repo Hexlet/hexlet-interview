@@ -1,10 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 import { Interview } from './interview.entity';
 import { PastInterview } from './past-interview.entity';
-import { Repository } from 'typeorm';
 import { InterviewCreateDto } from './dto/interview.create.dto';
 import { User } from '../user/user.entity';
-import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class InterviewService {
@@ -14,22 +14,22 @@ export class InterviewService {
     private readonly pastInterviewRepo: Repository<PastInterview>,
   ) {}
 
-  async findAll() {
-    return await this.repo.find({ relations: ['interviewee'] });
+  findAll(): Promise<Interview[]> {
+    return this.repo.find({ relations: ['interviewee'] });
   }
 
-  async findOne() {
-    return await this.repo.findOne();
+  findOne(): Promise<Interview> {
+    return this.repo.findOne();
   }
 
-  async create(createDto: InterviewCreateDto, user: User) {
+  create(createDto: InterviewCreateDto, user: User): Promise<Interview> {
     const entity = { ...createDto, ...{ interviewee: user } };
     const interview = this.repo.create(entity);
 
-    return await interview.save();
+    return interview.save();
   }
 
-  async getPast() {
+  getPast(): Promise<PastInterview[]> {
     // merge real passed interview with interviews which was in past before this werb-service
     return this.pastInterviewRepo.find();
   }

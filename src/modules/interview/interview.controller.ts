@@ -8,11 +8,11 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { Response } from 'express';
+import * as i18n from 'i18n';
 import { InterviewService } from './interview.service';
 import { InterviewCreateDto } from './dto/interview.create.dto';
-import { Response } from 'express';
 import { AuthenticatedGuard } from '../auth/guards';
-import * as i18n from 'i18n';
 import { Role } from '../auth/role.decorator';
 import { RoleGuard } from '../auth/guards/role.guard';
 
@@ -45,7 +45,7 @@ export class InterviewController {
     @Req() req: any,
     @Res() res: Response,
   ): Promise<any> {
-    this.service.create(interviewCreateDto, req.user);
+    await this.service.create(interviewCreateDto, req.user);
 
     req.flash('success', i18n.__('interview.request_accepted'));
     res.redirect('/');

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from './../src/modules/app/app.module';
-import { bootstrap } from './bootstrap';
 import { INestApplication } from '@nestjs/common';
+import { AppModule } from '../src/modules/app/app.module';
+import { bootstrap } from './bootstrap';
 import { MailerService } from '../src/modules/mailer/mailer.service';
 import { mailerServiceMock } from './mocks/mailer.mock';
 

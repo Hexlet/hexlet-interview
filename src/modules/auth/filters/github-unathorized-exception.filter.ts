@@ -4,10 +4,10 @@ import {
   ArgumentsHost,
   HttpStatus,
 } from '@nestjs/common';
-import { GitHubUnauthorizedException } from '../../../utils/custom-errors';
 import * as i18n from 'i18n';
 
 import { Request, Response } from 'express';
+import { GitHubUnauthorizedException } from '../../../utils/custom-errors';
 
 @Catch(GitHubUnauthorizedException)
 export class GitHubUnauthorizedExceptionFilter implements ExceptionFilter {

@@ -91,6 +91,7 @@ export class seedPastInterview1569001287252 implements MigrationInterface {
     );
     await pastInterviewRepo.save(interviewsData);
   }
+
   public async down(queryRunner: QueryRunner): Promise<any> {
     const pastInterviewRepo = queryRunner.manager.getRepository(
       'past_interview',

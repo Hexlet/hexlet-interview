@@ -1,10 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '../config/config.service';
 import { createTransport, Transporter } from 'nodemailer';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class MailerService {
   private readonly logger = new Logger(MailerService.name);
+
   private transporter: Transporter;
 
   constructor(private readonly configService: ConfigService) {
@@ -29,10 +30,10 @@ export class MailerService {
       });
 
       this.logger.log(`Message sent to ${email} with id ${info.messageId}`);
-
       return true;
     } catch (error) {
       this.logger.error(error);
     }
+    return false;
   }
 }
