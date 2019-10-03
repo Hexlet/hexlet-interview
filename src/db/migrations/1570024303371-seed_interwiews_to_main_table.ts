@@ -1,4 +1,6 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner, Repository } from 'typeorm';
+import { User } from '../../modules/user/user.entity';
+import { Interview } from '../../modules/interview/interview.entity';
 
 const interviewsData = [
   {
@@ -8,7 +10,6 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/YrXJzD2E6NU',
     date: '2016-03-02 00:00:00',
-    createdAt: `${new Date()}`,
   },
   {
     interviewer: 'Кирилл Мокевнин',
@@ -17,7 +18,6 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/H8OZ3B2_X3U',
     date: '2016-03-11 00:00:00',
-    createdAt: `${new Date()}`,
   },
   {
     interviewer: 'Кирилл Мокевнин',
@@ -26,7 +26,6 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/QirXa-T8C2k',
     date: '2016-03-25 00:00:00',
-    createdAt: `${new Date()}`,
   },
   {
     interviewer: 'Данил Письменный',
@@ -35,7 +34,6 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/YstIUUh6aFU',
     date: '2016-04-22 00:00:00',
-    createdAt: `${new Date()}`,
   },
   {
     interviewer: 'Антон Сергеев',
@@ -44,7 +42,6 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/C8SlKzeLAgQ',
     date: '2016-05-06 00:00:00',
-    createdAt: `${new Date()}`,
   },
   {
     interviewer: 'Кирилл Мокевнин',
@@ -53,7 +50,6 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/JERUf-xKU1o',
     date: '2018-06-25 00:00:00',
-    createdAt: `${new Date()}`,
   },
   {
     interviewer: 'Кирилл Мокевнин',
@@ -62,7 +58,6 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/HM42MlWbhFI',
     date: '2018-09-07 00:00:00',
-    createdAt: `${new Date()}`,
   },
   {
     interviewer: 'Егор Бугаенко',
@@ -71,7 +66,6 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/UUhB4rVlIoU',
     date: '2018-12-07 00:00:00',
-    createdAt: `${new Date()}`,
   },
   {
     interviewer: 'Василий Васильков',
@@ -80,21 +74,65 @@ const interviewsData = [
     position: 'Junior',
     videoLink: 'https://youtu.be/boDeUHdsfAI',
     date: '2018-12-15 00:00:00',
-    createdAt: `${new Date()}`,
+  },
+  {
+    interviewer: 'Алексей Пирогов',
+    interviewee: 'Евгений Губа',
+    profession: 'PHP',
+    position: 'Middle',
+    videoLink: 'https://youtu.be/PmhdRXq1QBE',
+    date: '2019-09-30 19:00:00',
   },
 ];
 
-export class seedPastInterview1569001287252 implements MigrationInterface {
+const getUser = async (repo: Repository<User>, name: string, role: string) => {
+  const [firstname, lastname] = name.split(' ');
+  const userData = {
+    firstname,
+    lastname,
+    role,
+    enabled: false,
+    archival: true,
+  };
+  const existingUser = await repo.findOne(userData);
+  if (existingUser) {
+    return existingUser;
+  }
+  const newUser = await repo.save(userData);
+  return newUser;
+};
+
+export class seedInterwiewsToMainTable1570024303371
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
-    const pastInterviewRepo = queryRunner.manager.getRepository(
-      'past_interview',
+    await queryRunner.query(
+      'ALTER TABLE "user" ALTER COLUMN "email" DROP NOT NULL',
     );
-    await pastInterviewRepo.save(interviewsData);
+    const interviewRepo = queryRunner.manager.getRepository(Interview);
+    const userRepo = queryRunner.manager.getRepository(User);
+
+    for (const interview of interviewsData) {
+      const {
+        interviewee: intervieweeName,
+        interviewer: interviewerName,
+        ...rest
+      } = interview;
+      const interviewee = await getUser(userRepo, intervieweeName, 'user');
+      const interviewer = await getUser(
+        userRepo,
+        interviewerName,
+        'interviewer',
+      );
+      await interviewRepo.save({
+        ...rest,
+        interviewee,
+        interviewer,
+        state: 'happened',
+        createdAt: `${new Date()}`,
+        updatedAt: `${new Date()}`,
+      });
+    }
   }
-  public async down(queryRunner: QueryRunner): Promise<any> {
-    const pastInterviewRepo = queryRunner.manager.getRepository(
-      'past_interview',
-    );
-    await pastInterviewRepo.clear();
-  }
+
+  public async down(): Promise<any> {}
 }

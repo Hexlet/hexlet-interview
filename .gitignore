@@ -19,6 +19,8 @@ npm-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
+.vim/
+Makefile.local
 
 .vscode/*
 !.vscode/settings.json
