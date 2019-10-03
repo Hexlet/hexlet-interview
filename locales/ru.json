@@ -67,5 +67,9 @@
       "about-description": "Например, ссылка на резюме или профиль на гитхабе",
       "send-request": "Отправить заявку"
     }
-  }
+  },
+  "error": {
+    "back-home": "Back home",
+    "not-found": "The page you are looking for was not found."
+  }  
 }
