@@ -1,10 +1,7 @@
 extends ../layout
 
 block content
-  .container
-    .row
-      .col-md-12
-        .error-template
-          h1 Oops!
-          h2 404 Not Found
-        .error-details Sorry, an error has occured, Requested page not found!
+  .container.text-center
+    h1.display-1 404
+    .mb-4.lead #{__('error.not-found')}
+    a(href="/" class="btn btn-link") #{__('error.back-home')}

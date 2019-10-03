@@ -65,5 +65,9 @@
       "about-description": "Link to your CV or Github profile",
       "send-request": "Send request"
     }
+  },
+  "error": {
+    "back-home": "Back home",
+    "not-found": "The page you are looking for was not found."
   }
 }
