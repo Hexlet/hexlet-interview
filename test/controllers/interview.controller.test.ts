@@ -8,7 +8,6 @@ import { loadFixtures, clearDb } from '../fixtures.loader';
 
 describe('#interview', () => {
   let app: INestApplication;
-  let interviewRepo: Repository<Interview>;
   let userRepo: Repository<User>;
   let users: {[key: string]: User};
 
@@ -25,7 +24,6 @@ describe('#interview', () => {
   beforeEach(async () => {
     app = await createTestingApp();
     users = (await loadFixtures()).User;
-    interviewRepo = getRepository(Interview);
     userRepo = getRepository(User);
   });
 
@@ -53,7 +51,7 @@ describe('#interview', () => {
           .get('/interview')
           .set('Cookie', res.header['set-cookie'])
           .expect(HttpStatus.OK);
-      })
+      });
   });
 
   it('create new interview', async () => {

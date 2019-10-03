@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import { createTestingApp } from '../app.testing';
+import { createTestingApp, mailStub } from '../app.testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { clearDb } from '../fixtures.loader';
 
