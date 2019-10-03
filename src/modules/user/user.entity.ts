@@ -55,7 +55,7 @@ export class User {
   @Column('uuid', { name: 'confirmation_token', nullable: true })
   confirmationToken: string | null;
 
-  @OneToMany(type => Interview, interview => interview.interviewee)
+  @OneToMany(() => Interview, interview => interview.interviewee)
   interviews: Interview[];
 
   toString() {

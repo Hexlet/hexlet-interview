@@ -27,4 +27,7 @@ db-console-test:
 fixtures-load:
 	npm run fixtures:load
 
+reset-db:
+	npm run schema:drop && npm run migration:run && npm run fixtures:load
+
 .PHONY: test

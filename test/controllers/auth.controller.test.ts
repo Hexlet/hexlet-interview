@@ -137,6 +137,7 @@ describe('Authorization test', () => {
       name: 'John Galt',
       email: 'johngalt@gmail.com',
     };
+
     nock('https://github.com')
       .post('/login/oauth/access_token')
       .twice()
@@ -149,15 +150,19 @@ describe('Authorization test', () => {
       .get(/\/user*/)
       .times(4)
       .reply(200, newGithubUserData);
+
     // first login creates user.
     await request(app.getHttpServer())
       .get('/auth/github/callback')
       .query({ code: 'somecode' })
       .expect(HttpStatus.FOUND);
+
     const createdUser = await userRepo.findOne({
       where: { githubUid: newGithubUserData.id },
     });
+
     expect(createdUser.email).toEqual(newGithubUserData.email);
+
     // second login finds user in db.
     await request(app.getHttpServer())
       .get('/auth/github/callback')
@@ -179,6 +184,7 @@ describe('Authorization test', () => {
         access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
         token_type: 'bearer',
       });
+
     nock('https://api.github.com')
       .get(/\/user*/)
       .twice()
@@ -203,9 +209,11 @@ describe('Authorization test', () => {
         access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
         token_type: 'bearer',
       });
+
     nock('https://api.github.com')
       .get('/user')
       .reply(403);
+
     await request(app.getHttpServer())
       .get('/auth/github/callback')
       .query({ code: 'somecode' })
