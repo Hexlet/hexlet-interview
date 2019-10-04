@@ -76,7 +76,7 @@ const interviewsData = [
     interviewer: 'Василий Васильков',
     interviewee: 'Тимур Маликин',
     profession: 'Java',
-    position: 'Junior',
+    position: 'Middle',
     videoLink: 'https://youtu.be/boDeUHdsfAI',
     date: '2018-12-15 00:00:00',
   },
