@@ -50,7 +50,7 @@ export class addInterviewerAsForeignKey1570024268340
     await queryRunner.query(
       'ALTER TABLE "user" ALTER COLUMN "email" SET NOT NULL',
     );
-    await queryRunner.dropColumn('user', 'archival');
+    await queryRunner.dropColumn('user', 'archived');
     await queryRunner.addColumn(
       'interview',
       new TableColumn({
