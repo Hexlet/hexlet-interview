@@ -54,7 +54,7 @@ export class AuthController {
       ...{ role: 'user' },
     });
 
-    const link = `${req.headers.origin}/auth/verify/${user.confirmationToken}`;
+    const link = `${req.get('host')}/auth/verify/${user.confirmationToken}`;
     await this.mailerService.sendVerifyLink(user.email, link);
 
     (req as any).flash('success', i18n.__('users.form.need_mail_confirm'));

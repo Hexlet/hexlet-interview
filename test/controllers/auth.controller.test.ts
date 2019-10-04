@@ -3,10 +3,9 @@ import * as nock from 'nock';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { random } from 'faker';
 import { getRepository, Repository } from 'typeorm';
+import { createTestingApp, mailStub } from '../app.testing';
 import { clearDb, loadFixtures } from '../fixtures.loader';
-import { createTestingApp } from '../app.testing';
 import { User } from '../../src/modules/user/user.entity';
-import { MailerService } from '../../src/modules/mailer/mailer.service';
 
 describe('Authorization test', () => {
   let app: INestApplication;
@@ -19,6 +18,7 @@ describe('Authorization test', () => {
     password: '1234',
     confirmpassword: '1234',
   };
+
   const existingUserData = {
     firstname: 'Koзьма',
     lastname: 'Прутков',
@@ -26,99 +26,77 @@ describe('Authorization test', () => {
     password: '12345',
     confirmpassword: '12345',
   };
+
   const existingUserAuthInfo = {
     username: existingUserData.email,
     password: existingUserData.password,
   };
+
   const newUserAuthInfo = {
     username: newUserData.email,
     password: newUserData.password,
   };
-  let mailerService: MailerService;
 
   beforeEach(async () => {
     app = await createTestingApp();
     await loadFixtures();
-    mailerService = app.get<MailerService>(MailerService);
     userRepo = getRepository(User);
   });
 
-  it('Get protected page without authorization', async () => {
-    await request(app.getHttpServer())
+  it('get protected page without authorization will redirect to sign in', async () => {
+    return request(app.getHttpServer())
       .get('/interview/new')
       .expect(HttpStatus.FOUND)
       .expect('Location', '/auth/sign_in');
   });
 
-  it('test valid credentials, login, logout', async () => {
-    const response = await request(app.getHttpServer())
+  it('login with valid credentials', async () => {
+    return request(app.getHttpServer())
       .post('/auth/sign_in')
       .send(existingUserAuthInfo)
-      .expect(HttpStatus.FOUND);
-
-    await request(app.getHttpServer())
-      .get('/interview/new')
-      .set('Cookie', response.header['set-cookie'])
-      .expect(HttpStatus.OK);
-
-    await request(app.getHttpServer())
-      .get('/auth/sign_out')
-      .expect(HttpStatus.FOUND);
-
-    await request(app.getHttpServer())
-      .get('/interview/new')
       .expect(HttpStatus.FOUND)
-      .expect('Location', '/auth/sign_in');
+      .then(res => {
+        request(app.getHttpServer())
+          .get('/interview/new')
+          .set('Cookie', res.header['set-cookie'])
+          .expect(HttpStatus.OK);
+      });
   });
 
-  it('test disallow invalid credentials', async () => {
-    const authInfo = { username: 'invadiemail@email.ru', password: '1234' };
-    await request(app.getHttpServer())
+  it('login with invalid credentials', async () => {
+    return request(app.getHttpServer())
       .post('/auth/sign_in')
-      .send(authInfo)
+      .send({ username: 'invadidemail@email.ru', password: 'not_exists' })
       .expect(HttpStatus.UNAUTHORIZED);
   });
 
   it('test register existing user', async () => {
-    await request(app.getHttpServer())
+    return request(app.getHttpServer())
       .post('/auth/sign_up')
       .send(existingUserData)
       .expect(HttpStatus.BAD_REQUEST);
   });
 
-  it('test register user with good data', async () => {
-    request(app.getHttpServer())
-      .post('/auth/sign_in')
-      .send(newUserAuthInfo)
-      .expect(HttpStatus.UNAUTHORIZED)
-      .expect('Location', '/auth/sign_in');
-
+  it('register user should send email with verification link', async () => {
     await request(app.getHttpServer())
       .post('/auth/sign_up')
       .send(newUserData)
-      .expect(HttpStatus.FOUND)
       .expect('Location', '/');
 
-    await request(app.getHttpServer())
-      .post('/auth/sign_in')
-      .send(existingUserAuthInfo)
-      .expect(HttpStatus.FOUND)
-      .expect('Location', '/');
+    const user = await userRepo.findOne({ email: newUserData.email });
+    expect(user).toBeDefined();
+    expect(user.verified).toBeFalsy();
+
+    const mails = mailStub.sentMail;
+    expect(mails.length).toEqual(1);
+
+    const mail = mails[0];
+    expect(mail.data.to).toEqual(newUserData.email);
+    expect(mail.data.html.includes(user.confirmationToken)).toBeTruthy();
   });
 
-  it('register new user should not to be finished if verify link has never be activated', async () => {
-    await request(app.getHttpServer())
-      .post('/auth/sign_up')
-      .send(newUserData);
-
-    await request(app.getHttpServer())
-      .post('/auth/sign_up')
-      .send(newUserData)
-      .expect(HttpStatus.BAD_REQUEST);
-  });
-
-  it('GET auth/verify/:token return 404 if token is not exists', async () => {
-    await request(app.getHttpServer())
+  it('GET auth/verify/:token return 404 if token does not exists', async () => {
+    return request(app.getHttpServer())
       .get(`/auth/verify/${random.uuid()}`)
       .expect(HttpStatus.NOT_FOUND);
   });
