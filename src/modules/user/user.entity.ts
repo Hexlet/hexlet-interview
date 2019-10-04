@@ -52,6 +52,11 @@ export class User {
   })
   verified: boolean;
 
+  @Column({
+    default: false,
+  })
+  archived: boolean;
+
   @Column('uuid', { name: 'confirmation_token', nullable: true })
   confirmationToken: string | null;
 

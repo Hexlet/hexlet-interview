@@ -10,8 +10,6 @@ import { User } from '../user/user.entity';
 export class InterviewService {
   constructor(
     @InjectRepository(Interview) private readonly repo: Repository<Interview>,
-    @InjectRepository(PastInterview)
-    private readonly pastInterviewRepo: Repository<PastInterview>,
   ) {}
 
   findAll(): Promise<Interview[]> {
@@ -29,8 +27,11 @@ export class InterviewService {
     return interview.save();
   }
 
-  getPast(): Promise<PastInterview[]> {
-    // merge real passed interview with interviews which was in past before this werb-service
-    return this.pastInterviewRepo.find();
+  async getPast() {
+    return this.repo.find({
+      where: { state: 'passed' },
+      relations: ['interviewee', 'interviewer'],
+      order: { date: 'DESC' },
+    });
   }
 }

@@ -18,12 +18,13 @@ export class Interview extends BaseEntity {
   @Column()
   state: string;
 
-  @Column()
-  interviewer: string;
-
   @ManyToOne(type => User, user => user.interviews)
   @JoinColumn({ name: 'interviewee_id' })
   interviewee: User;
+
+  @ManyToOne(type => User, user => user.interviews)
+  @JoinColumn({ name: 'interviewer_id' })
+  interviewer: User;
 
   @Column()
   profession: string;
