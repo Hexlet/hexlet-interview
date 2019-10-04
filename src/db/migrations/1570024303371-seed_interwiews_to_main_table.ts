@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// need await in a loop instead of Promise.all(..) to avoid race condition:
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { MigrationInterface, QueryRunner, Repository } from 'typeorm';
 import { User } from '../../modules/user/user.entity';
 import { Interview } from '../../modules/interview/interview.entity';
@@ -85,7 +90,11 @@ const interviewsData = [
   },
 ];
 
-const getUser = async (repo: Repository<User>, name: string, role: string) => {
+const getUser = async (
+  repo: Repository<User>,
+  name: string,
+  role: string,
+): Promise<User> => {
   const [firstname, lastname] = name.split(' ');
   const userData = {
     firstname,
@@ -105,12 +114,8 @@ const getUser = async (repo: Repository<User>, name: string, role: string) => {
 export class seedInterwiewsToMainTable1570024303371
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.query(
-      'ALTER TABLE "user" ALTER COLUMN "email" DROP NOT NULL',
-    );
     const interviewRepo = queryRunner.manager.getRepository(Interview);
     const userRepo = queryRunner.manager.getRepository(User);
-
     for (const interview of interviewsData) {
       const {
         interviewee: intervieweeName,

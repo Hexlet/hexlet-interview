@@ -6,9 +6,9 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
+import * as uuidGenerate from 'uuid/v4';
 import { hashPassword } from '../../common/utils/password';
 import { Interview } from '../interview/interview.entity';
-import * as uuidGenerate from 'uuid/v4';
 
 @Entity('user')
 export class User {
@@ -60,7 +60,7 @@ export class User {
   @Column('uuid', { name: 'confirmation_token', nullable: true })
   confirmationToken: string | null;
 
-  @OneToMany(type => Interview, interview => interview.interviewee)
+  @OneToMany(() => Interview, interview => interview.interviewee)
   interviews: Interview[];
 
   toString() {

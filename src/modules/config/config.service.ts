@@ -10,14 +10,6 @@ export interface MailParams {
   fromMail: string;
 }
 
-export interface MailParams {
-  host: string;
-  port: number;
-  user: string;
-  pass: string;
-  fromMail: string;
-}
-
 export class ConfigService {
   constructor() {
     if (process.env.NODE_ENV !== 'production') {
@@ -47,9 +39,9 @@ export class ConfigService {
 
     const commonOptions = {
       synchronize: false,
-      entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
+      entities: [`${__dirname}/../../**/*.entity{.ts,.js}`],
       migrationsRun: true,
-      migrations: [__dirname + '/../../db/migrations/**/*{.ts,.js}'],
+      migrations: [`${__dirname}/../../db/migrations/**/*{.ts,.js}`],
       cli: {
         migrationsDir: 'src/db/migrations',
       },

@@ -42,6 +42,7 @@ export class addInterviewerAsForeignKey1570024268340
     );
     await queryRunner.dropTable('past_interview');
   }
+
   public async down(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.query(
       'ALTER TABLE "user" ALTER COLUMN "enabled" TYPE integer USING CASE WHEN enabled=false THEN 0 ELSE 1 END',

@@ -1,8 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
 import { comparePassword } from '../../common/utils/password';
-import { Logger } from '@nestjs/common';
 
 function sanitizeUser(user: User) {
   const { password, githubUid, ...result } = user;
