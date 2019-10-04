@@ -24,6 +24,8 @@ export class MailerService {
       this.logger.log(`Message sent to ${email}`);
       return true;
     } catch (error) {
+      console.log(error);
+      this.logger.error(this.config.mailParams);
       this.logger.error(error);
     }
     return false;

@@ -14,6 +14,7 @@ import { ConfigService } from '../config/config.service';
           host: config.mailParams.host,
           port: config.mailParams.port,
           secure: config.mailParams.secure,
+          requireTLS: config.mailParams.requireTLS,
           auth: {
             user: config.mailParams.user,
             pass: config.mailParams.pass,
