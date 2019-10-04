@@ -22,15 +22,16 @@ export class MailerService implements OnModuleInit {
 
   async sendVerifyLink(email: string, link: string): Promise<boolean> {
     try {
+      const html = `<a href="${link}">Confirm email</a>`;
       await this.transporter.sendMail({
         from: this.config.mailParams.fromMail,
         to: email,
         subject: 'Verification link for Hexlet-inteview',
         text: 'Confirm email',
-        html: `<a href="${link}">Confirm email</a>`,
+        html,
       });
 
-      this.logger.log(`Message sent to ${email}`);
+      this.logger.log(`Message sent to ${email}`, JSON.stringify({ html }));
       return true;
     } catch (error) {
       this.logger.error(error);
