@@ -7,6 +7,7 @@ export interface MailParams {
   port: number;
   user: string;
   pass: string;
+  secure: boolean;
   fromMail: string;
 }
 
@@ -22,10 +23,11 @@ export class ConfigService {
 
   get mailParams(): MailParams {
     return {
-      host: process.env.MAILGUN_SMTP_SERVER,
-      port: Number(process.env.MAILGUN_SMTP_PORT),
-      pass: process.env.MAILGUN_SMTP_PASSWORD,
-      user: process.env.MAILGUN_SMTP_LOGIN,
+      host: process.env.MAIL_HOST,
+      port: Number(process.env.MAIL_PORT),
+      pass: process.env.MAIL_AUTH_PASSWORD,
+      user: process.env.MAIL_AUTH_USER,
+      secure: process.env.MAIL_SECURE === 'true',
       fromMail: process.env.FROM_MAIL,
     };
   }

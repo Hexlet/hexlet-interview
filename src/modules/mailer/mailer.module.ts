@@ -9,17 +9,19 @@ import { ConfigService } from '../config/config.service';
   providers: [
     {
       provide: MailerService,
-      useFactory: (configService: ConfigService) => {
-        const transporter = createTransport({
-          host: configService.mailParams.host,
-          port: configService.mailParams.port,
+      useFactory: (config: ConfigService): MailerService => {
+        console.log(config.mailParams)
+        const transporter: Transporter = createTransport({
+          host: config.mailParams.host,
+          port: config.mailParams.port,
+          secure: config.mailParams.secure,
           auth: {
-            user: configService.mailParams.user,
-            pass: configService.mailParams.pass,
+            user: config.mailParams.user,
+            pass: config.mailParams.pass,
           },
         });
 
-        return new MailerService(transporter, configService);
+        return new MailerService(transporter, config);
       },
       inject: [ConfigService],
     },
