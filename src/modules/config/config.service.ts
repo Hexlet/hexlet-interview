@@ -30,7 +30,7 @@ export class ConfigService {
       user: process.env.MAIL_AUTH_USER,
       secure: process.env.MAIL_SECURE === 'true',
       requireTLS: process.env.MAIL_SECURE === 'true',
-      fromMail: process.env.FROM_MAIL,
+      fromMail: process.env.MAIL_FROM,
     };
   }
 

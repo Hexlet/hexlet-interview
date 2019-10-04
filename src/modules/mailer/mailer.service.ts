@@ -14,11 +14,10 @@ export class MailerService implements OnModuleInit {
   async onModuleInit(): Promise<void> {
     try {
       await this.transporter.verify();
+      this.logger.log('Mail server ready...');
     } catch (e) {
-      console.log(e);
+      this.logger.error(e);
     }
-
-    console.log('Mail server ready...');
   }
 
   async sendVerifyLink(email: string, link: string): Promise<boolean> {
@@ -34,8 +33,6 @@ export class MailerService implements OnModuleInit {
       this.logger.log(`Message sent to ${email}`);
       return true;
     } catch (error) {
-      console.log(error);
-      this.logger.error(this.config.mailParams);
       this.logger.error(error);
     }
     return false;
