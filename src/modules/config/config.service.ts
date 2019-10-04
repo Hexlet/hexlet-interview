@@ -8,6 +8,7 @@ export interface MailParams {
   user: string;
   pass: string;
   secure: boolean;
+  requireTLS: boolean;
   fromMail: string;
 }
 
@@ -28,6 +29,7 @@ export class ConfigService {
       pass: process.env.MAIL_AUTH_PASSWORD,
       user: process.env.MAIL_AUTH_USER,
       secure: process.env.MAIL_SECURE === 'true',
+      requireTLS: process.env.MAIL_SECURE === 'true',
       fromMail: process.env.FROM_MAIL,
     };
   }
