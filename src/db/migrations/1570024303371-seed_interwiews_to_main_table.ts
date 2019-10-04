@@ -92,7 +92,7 @@ const getUser = async (repo: Repository<User>, name: string, role: string) => {
     lastname,
     role,
     enabled: false,
-    archival: true,
+    archived: true,
   };
   const existingUser = await repo.findOne(userData);
   if (existingUser) {
@@ -127,7 +127,7 @@ export class seedInterwiewsToMainTable1570024303371
         ...rest,
         interviewee,
         interviewer,
-        state: 'happened',
+        state: 'passed',
         createdAt: `${new Date()}`,
         updatedAt: `${new Date()}`,
       });

@@ -28,7 +28,7 @@ export class InterviewService {
 
   async getPast() {
     return this.repo.find({
-      where: { state: 'happened' },
+      where: { state: 'passed' },
       relations: ['interviewee', 'interviewer'],
       order: { date: 'DESC' },
     });

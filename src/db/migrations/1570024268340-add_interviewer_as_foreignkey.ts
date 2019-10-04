@@ -29,7 +29,7 @@ export class addInterviewerAsForeignKey1570024268340
     await queryRunner.addColumn(
       'user',
       new TableColumn({
-        name: 'archival',
+        name: 'archived',
         type: 'boolean',
         isNullable: true,
       }),

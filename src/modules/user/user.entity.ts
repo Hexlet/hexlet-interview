@@ -55,7 +55,7 @@ export class User {
   @Column({
     default: false,
   })
-  archival: boolean;
+  archived: boolean;
 
   @Column('uuid', { name: 'confirmation_token', nullable: true })
   confirmationToken: string | null;
