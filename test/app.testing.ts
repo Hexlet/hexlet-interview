@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as mockTransport from 'nodemailer-mock-transport';
+import { createTransport } from 'nodemailer';
 import { AppModule } from '../src/modules/app/app.module';
 import { bootstrap } from './bootstrap';
 import { MailerService } from '../src/modules/mailer/mailer.service';
 import { ConfigService } from '../src/modules/config/config.service';
-import { createTransport } from 'nodemailer';
 
 const mockMailTransport = mockTransport();
 export const createTestingApp = async (): Promise<INestApplication> => {
@@ -15,7 +15,10 @@ export const createTestingApp = async (): Promise<INestApplication> => {
     .overrideProvider(MailerService)
     .useFactory({
       factory: (configService: ConfigService) => {
-        return new MailerService(createTransport(mockMailTransport), configService);
+        return new MailerService(
+          createTransport(mockMailTransport),
+          configService,
+        );
       },
       inject: [ConfigService],
     })
@@ -29,4 +32,4 @@ export const createTestingApp = async (): Promise<INestApplication> => {
   return app;
 };
 
-export const mailStub: { sentMail: {data: any}[] } = mockMailTransport;
+export const mailStub: { sentMail: { data: any }[] } = mockMailTransport;

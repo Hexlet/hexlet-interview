@@ -1,10 +1,10 @@
 import * as request from 'supertest';
 import * as nock from 'nock';
 import { HttpStatus, INestApplication } from '@nestjs/common';
-import { createTestingApp, mailStub } from '../app.testing';
-import { clearDb, loadFixtures } from '../fixtures.loader';
 import { random } from 'faker';
 import { getRepository, Repository } from 'typeorm';
+import { createTestingApp, mailStub } from '../app.testing';
+import { clearDb, loadFixtures } from '../fixtures.loader';
 import { User } from '../../src/modules/user/user.entity';
 
 describe('Authorization test', () => {
@@ -56,7 +56,8 @@ describe('Authorization test', () => {
       .send(existingUserAuthInfo)
       .expect(HttpStatus.FOUND)
       .then(res => {
-        request(app.getHttpServer()).get('/interview/new')
+        request(app.getHttpServer())
+          .get('/interview/new')
           .set('Cookie', res.header['set-cookie'])
           .expect(HttpStatus.OK);
       });

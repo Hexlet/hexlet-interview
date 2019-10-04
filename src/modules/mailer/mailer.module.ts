@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { createTransport, Transporter } from 'nodemailer';
 import { MailerService } from './mailer.service';
 import { ConfigModule } from '../config/config.module';
-import { createTransport, Transporter } from 'nodemailer';
 import { ConfigService } from '../config/config.service';
 
 @Module({
@@ -22,7 +22,8 @@ import { ConfigService } from '../config/config.service';
         return new MailerService(transporter, configService);
       },
       inject: [ConfigService],
-    }],
+    },
+  ],
   exports: [MailerService],
 })
 export class MailerModule {}
