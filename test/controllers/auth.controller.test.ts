@@ -1,11 +1,11 @@
 import * as request from 'supertest';
 import * as nock from 'nock';
-import { User } from '../../src/modules/user/user.entity';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { createTestingApp, mailStub } from '../app.testing';
 import { clearDb, loadFixtures } from '../fixtures.loader';
 import { random } from 'faker';
 import { getRepository, Repository } from 'typeorm';
+import { User } from '../../src/modules/user/user.entity';
 
 describe('Authorization test', () => {
   let app: INestApplication;
@@ -88,8 +88,10 @@ describe('Authorization test', () => {
 
     const mails = mailStub.sentMail;
     expect(mails.length).toEqual(1);
-    expect(mails[0].data.to).toEqual(newUserData.email);
-    expect(mails[0].data.html.includes(user.confirmationToken)).toBeTruthy();
+
+    const mail = mails[0];
+    expect(mail.data.to).toEqual(newUserData.email);
+    expect(mail.data.html.includes(user.confirmationToken)).toBeTruthy();
   });
 
   it('GET auth/verify/:token return 404 if token does not exists', async () => {
@@ -115,10 +117,7 @@ describe('Authorization test', () => {
     nock('https://github.com')
       .post('/login/oauth/access_token')
       .twice()
-      .reply(200, {
-        access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
-        token_type: 'bearer',
-      });
+      .reply(200);
 
     nock('https://api.github.com')
       .get(/\/user*/)
@@ -154,10 +153,7 @@ describe('Authorization test', () => {
 
     nock('https://github.com')
       .post('/login/oauth/access_token')
-      .reply(200, {
-        access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
-        token_type: 'bearer',
-      });
+      .reply(200);
 
     nock('https://api.github.com')
       .get(/\/user*/)
@@ -176,13 +172,10 @@ describe('Authorization test', () => {
     expect(createdUser.githubUid).toEqual(existGithubUserData.id);
   });
 
-  it('shoud fail with bad response', async () => {
+  it('should fail with bad response', async () => {
     nock('https://github.com')
       .post('/login/oauth/access_token')
-      .reply(200, {
-        access_token: 'e72e16c7e42f292c6912e7710c838347ae178b4a',
-        token_type: 'bearer',
-      });
+      .reply(200);
 
     nock('https://api.github.com')
       .get('/user')
@@ -195,7 +188,7 @@ describe('Authorization test', () => {
   });
 
   afterEach(async () => {
-    await app.close();
     await clearDb();
+    await app.close();
   });
 });

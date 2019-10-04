@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   db:
-    image: postgres:alpine
+    image: postgres:11.5-alpine
     environment:
       POSTGRES_DB: interview
       POSTGRES_PASSWORD: test
@@ -14,7 +14,7 @@ services:
     container_name: hexlet-interview-db
 
   db_test:
-    image: postgres:alpine
+    image: postgres:11.5-alpine
     ports:
       - 15025:5432
     environment:

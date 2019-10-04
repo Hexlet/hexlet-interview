@@ -1,11 +1,4 @@
 import { ValidationPipe } from '@nestjs/common';
-import {
-  UnauthorizedExceptionFilter,
-  ForbiddenExceptionFilter,
-  BadRequestExceptionFilter,
-  GitHubUnauthorizedExceptionFilter,
-  NotFoundExceptionFilter,
-} from './modules/auth/filters';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as i18n from 'i18n';
@@ -14,11 +7,18 @@ import * as passport from 'passport';
 import * as flash from 'express-flash';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
+import {
+  UnauthorizedExceptionFilter,
+  ForbiddenExceptionFilter,
+  BadRequestExceptionFilter,
+  GitHubUnauthorizedExceptionFilter,
+  NotFoundExceptionFilter,
+} from './modules/auth/filters';
 
 i18n.configure({
   locales: ['ru', 'en'],
   defaultLocale: 'ru',
-  directory: __dirname + '/../locales',
+  directory: `${__dirname}/../locales`,
   objectNotation: true,
   updateFiles: false,
 });

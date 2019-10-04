@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
 import { Repository } from 'typeorm';
+import { User } from './user.entity';
 import { UserCreateDto } from './dto/user.create.dto';
 
 @Injectable()
@@ -19,18 +19,24 @@ export class UserService {
 
   findOneByEmail(email: string): Promise<User> {
     return this.repo.findOne({
-      select: ['id', 'role', 'firstname', 'lastname', 'email', 'password', 'verified'],
+      select: [
+        'id',
+        'role',
+        'firstname',
+        'lastname',
+        'email',
+        'password',
+        'verified',
+      ],
       where: { email },
     });
   }
 
   findOneBySocialUid(provider: string, uid: string): Promise<User> {
-    return this.repo.findOne(
-      {
-        select: ['id', 'role', 'firstname', 'lastname', 'email', 'password'],
-        where: { [`${provider}Uid`]: uid },
-      },
-    );
+    return this.repo.findOne({
+      select: ['id', 'role', 'firstname', 'lastname', 'email', 'password'],
+      where: { [`${provider}Uid`]: uid },
+    });
   }
 
   createAndSave(userCreateDto: UserCreateDto): Promise<User> {

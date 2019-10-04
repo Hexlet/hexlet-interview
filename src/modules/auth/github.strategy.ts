@@ -14,7 +14,7 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
       clientID: configService.get('GITHUB_CLIENT_ID'),
       clientSecret: configService.get('GITHUB_CLIENT_SECRET'),
       callbackURL: `${configService.get('HOST')}/auth/github/callback`,
-      scope: [ 'user:email' ],
+      scope: ['user:email'],
     });
   }
 
@@ -23,7 +23,7 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
       id,
       displayName,
       username,
-      emails: [ { value: email } ],
+      emails: [{ value: email }],
     } = profile;
     const name = displayName || username;
     const user = await this.authService.findOrCreateUserBySocialUid(

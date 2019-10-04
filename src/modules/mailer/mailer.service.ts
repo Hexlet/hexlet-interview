@@ -22,10 +22,10 @@ export class MailerService {
       });
 
       this.logger.log(`Message sent to ${email}`);
-
       return true;
     } catch (error) {
       this.logger.error(error);
     }
+    return false;
   }
 }

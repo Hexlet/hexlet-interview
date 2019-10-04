@@ -13,10 +13,10 @@ import {
   Param,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
+import * as i18n from 'i18n';
 import { LoginGuard, GithubGuard } from './guards';
 import { UserService } from '../user/user.service';
 import { UserCreateDto } from '../user/dto/user.create.dto';
-import * as i18n from 'i18n';
 import { MailerService } from '../mailer/mailer.service';
 
 @Controller('auth')
