@@ -1,3 +1,3 @@
-export const loginAs = () => {
+export const loginAs = (): number => {
   return 1;
 };

@@ -6,9 +6,9 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
+import * as uuidGenerate from 'uuid/v4';
 import { hashPassword } from '../../common/utils/password';
 import { Interview } from '../interview/interview.entity';
-import * as uuidGenerate from 'uuid/v4';
 
 @Entity('user')
 export class User {
