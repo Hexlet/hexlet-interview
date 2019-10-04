@@ -26,7 +26,7 @@ export class InterviewController {
   @Get()
   @Render('interview/index')
   async findAll(): Promise<any> {
-    const interviews = await this.service.findAll();
+    const interviews = await this.service.findAll({ state: 'new' });
 
     return { interviews };
   }

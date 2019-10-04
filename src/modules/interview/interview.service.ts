@@ -12,8 +12,8 @@ export class InterviewService {
     @InjectRepository(Interview) private readonly repo: Repository<Interview>,
   ) {}
 
-  findAll(): Promise<Interview[]> {
-    return this.repo.find({ relations: ['interviewee'] });
+  findAll(where: Partial<Interview>): Promise<Interview[]> {
+    return this.repo.find({ relations: ['interviewee'], where });
   }
 
   findOne(): Promise<Interview> {
