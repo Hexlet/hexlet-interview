@@ -22,7 +22,7 @@ export class MailerService implements OnModuleInit {
 
   async sendVerifyLink(email: string, link: string): Promise<boolean> {
     try {
-      const html = `<a href="${link}">Confirm email</a>`;
+      const html = `<a href="${link}">${link}</a>`;
       await this.transporter.sendMail({
         from: this.config.mailParams.fromMail,
         to: email,
