@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private readonly usersService: UserService) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
-    const user: User = await this.usersService.findOneByEmail(email);
+    const user = await this.usersService.findOneByEmail(email);
     if (!user) {
       this.logger.log(`user ${email}  not found!`);
       return null;
@@ -42,7 +42,7 @@ export class AuthService {
     },
   ): Promise<any> {
     const { email, name } = info;
-    const userBySocialUid: User = await this.usersService.findOneBySocialUid(
+    const userBySocialUid = await this.usersService.findOneBySocialUid(
       provider,
       uid,
     );
@@ -50,7 +50,7 @@ export class AuthService {
       this.logger.log(`user found by ${provider} uid`);
       return sanitizeUser(userBySocialUid);
     }
-    const userByEmail: User = await this.usersService.findOneByEmail(email);
+    const userByEmail = await this.usersService.findOneByEmail(email);
     if (userByEmail) {
       await this.usersService.addSocialUid(userByEmail, provider, uid);
       this.logger.log(`user found by ${email}, uid saved to user account`);

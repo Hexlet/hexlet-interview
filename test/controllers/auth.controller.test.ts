@@ -83,7 +83,7 @@ describe('Authorization test', () => {
       .send(newUserData)
       .expect('Location', '/');
 
-    const user = await userRepo.findOne({ email: newUserData.email });
+    const user = (await userRepo.findOne({ email: newUserData.email }))!;
     expect(user).toBeDefined();
     expect(user.verified).toBeFalsy();
 
@@ -131,9 +131,9 @@ describe('Authorization test', () => {
       .query({ code: 'somecode' })
       .expect(HttpStatus.FOUND);
 
-    const createdUser = await userRepo.findOne({
+    const createdUser = (await userRepo.findOne({
       where: { githubUid: newGithubUserData.id },
-    });
+    }))!;
 
     expect(createdUser.email).toEqual(newGithubUserData.email);
 
@@ -167,9 +167,9 @@ describe('Authorization test', () => {
       .expect(HttpStatus.FOUND);
 
     // first login with github shoud add githubUid to user
-    const createdUser = await userRepo.findOne({
+    const createdUser = (await userRepo.findOne({
       where: { email: existGithubUserData.email },
-    });
+    }))!;
     expect(createdUser.githubUid).toEqual(existGithubUserData.id);
   });
 

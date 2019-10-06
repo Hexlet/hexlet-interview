@@ -17,7 +17,7 @@ export class UserService {
     return this.repo.find();
   }
 
-  findOneByEmail(email: string): Promise<User> {
+  findOneByEmail(email: string): Promise<User | undefined> {
     return this.repo.findOne({
       select: [
         'id',
@@ -32,7 +32,7 @@ export class UserService {
     });
   }
 
-  findOneBySocialUid(provider: string, uid: string): Promise<User> {
+  findOneBySocialUid(provider: string, uid: string): Promise<User | undefined> {
     return this.repo.findOne({
       select: ['id', 'role', 'firstname', 'lastname', 'email', 'password'],
       where: { [`${provider}Uid`]: uid },
@@ -41,10 +41,8 @@ export class UserService {
 
   createAndSave(userCreateDto: UserCreateDto): Promise<User> {
     const newUser = this.repo.create(userCreateDto);
-    if (newUser) {
-      return this.repo.save(newUser);
-    }
-    return null;
+
+    return this.repo.save(newUser);
   }
 
   addSocialUid(user: User, provider: string, uid: string) {

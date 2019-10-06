@@ -15,7 +15,7 @@ export class InterviewService {
     return this.repo.find({ relations: ['interviewee'], where });
   }
 
-  findOne(): Promise<Interview> {
+  findOne(): Promise<Interview | undefined> {
     return this.repo.findOne();
   }
 

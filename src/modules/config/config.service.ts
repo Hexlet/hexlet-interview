@@ -1,6 +1,9 @@
-import * as dotenv from 'dotenv';
+import { parse, DotenvParseOutput } from 'dotenv';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
+import { readFileSync } from 'fs';
+
+type Env = 'production' | 'test' | 'development';
 
 export interface MailParams {
   host: string;
@@ -13,34 +16,37 @@ export interface MailParams {
 }
 
 export class ConfigService {
+  env: Env;
+  private readonly envConfig: DotenvParseOutput;
+
   constructor() {
-    if (process.env.NODE_ENV !== 'production') {
-      const env = process.env.NODE_ENV || 'development';
-      const envFileName = env === 'production' ? undefined : `${env}.env`;
-      const envFilePath = join(__dirname, '../../..', envFileName);
-      dotenv.config({ path: envFilePath });
-    }
+    this.env = (process.env.NODE_ENV || 'development') as Env;
+    const envFileName = this.env === 'production' ? '.env' : `${this.env}.env`;
+    const envFilePath = join(__dirname, '../../..', envFileName);
+    this.envConfig = parse(readFileSync(envFilePath));
+  }
+
+  get(key: string): string {
+    return this.envConfig[key];
+  }
+
+  get appPort(): number {
+    return Number(this.get('PORT')) || 3000;
   }
 
   get mailParams(): MailParams {
     return {
-      host: process.env.MAIL_HOST,
-      port: Number(process.env.MAIL_PORT),
-      pass: process.env.MAIL_AUTH_PASSWORD,
-      user: process.env.MAIL_AUTH_USER,
-      secure: process.env.MAIL_SECURE === 'true',
-      requireTLS: process.env.MAIL_SECURE === 'true',
-      fromMail: process.env.MAIL_FROM,
+      host: this.get('MAIL_HOST'),
+      port: Number(this.get('MAIL_PORT')),
+      pass: this.get('MAIL_AUTH_PASSWORD'),
+      user: this.get('MAIL_AUTH_USER'),
+      secure: this.get('MAIL_SECURE') === 'true',
+      requireTLS: this.get('MAIL_SECURE') === 'true',
+      fromMail: this.get('MAIL_FROM'),
     };
   }
 
-  get(key: string): string {
-    return process.env[key];
-  }
-
   get dbParams(): TypeOrmModuleOptions {
-    const env = process.env.NODE_ENV || 'development';
-
     const commonOptions = {
       synchronize: false,
       entities: [`${__dirname}/../../**/*.entity{.ts,.js}`],
@@ -50,42 +56,42 @@ export class ConfigService {
         migrationsDir: 'src/db/migrations',
       },
       keepConnectionAlive: true,
-      logging: !!process.env.DB_LOGGING,
+      logging: !!this.get('DB_LOGGING'),
     };
 
     const test: TypeOrmModuleOptions = {
+      ...commonOptions,
       type: 'postgres',
       host: 'localhost',
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      ...commonOptions,
+      port: Number(this.get('DB_PORT')),
+      username: this.get('DB_USER'),
+      password: this.get('DB_PASSWORD'),
+      database: this.get('DB_NAME'),
     };
 
     const development: TypeOrmModuleOptions = {
+      ...commonOptions,
       type: 'postgres',
       host: 'localhost',
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      ...commonOptions,
+      port: Number(this.get('DB_PORT')),
+      username: this.get('DB_USER'),
+      password: this.get('DB_PASSWORD'),
+      database: this.get('DB_NAME'),
     };
 
     const production: TypeOrmModuleOptions = {
-      type: 'postgres',
-      url: process.env.DATABASE_URL,
-      logging: true,
       ...commonOptions,
+      type: 'postgres',
+      url: this.get('DATABASE_URL'),
+      logging: true,
     };
 
-    const configs: { [key: string]: TypeOrmModuleOptions } = {
+    const configs: { [key in Env]: TypeOrmModuleOptions } = {
       development,
       test,
       production,
     };
 
-    return configs[env];
+    return configs[this.env];
   }
 }

@@ -12,7 +12,7 @@ import { getConnection, getRepository } from 'typeorm';
 
 export const loadFixtures = async (): Promise<any> => {
   const fixturesPath = path.resolve(__dirname, './fixtures');
-  const connection = await getConnection('default');
+  const connection = getConnection();
 
   const loader = new Loader();
   loader.load(path.resolve(fixturesPath));
@@ -36,7 +36,7 @@ export const loadFixtures = async (): Promise<any> => {
 };
 
 export const clearDb = async () => {
-  const connection = await getConnection('default');
+  const connection = getConnection();
   await connection.dropDatabase();
   await connection.close();
 };
