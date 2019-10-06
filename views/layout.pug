@@ -15,9 +15,10 @@ html(lang='ru')
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
       a.navbar-brand(href="/").mr-5 HexletInterview
       .collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-          li.nav-item
-            a.nav-link(href="/interview") #{__('app.interview_requests')}
+        if userRole === 'admin'
+          ul.navbar-nav.mr-auto
+            li.nav-item
+              a.nav-link(href="/interview") #{__('app.interview_requests')}
         ul.navbar-nav.ml-auto
           if login
             li.nav-item

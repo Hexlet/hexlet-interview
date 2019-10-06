@@ -2,7 +2,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { Interview } from './interview.entity';
-import { PastInterview } from './past-interview.entity';
 import { InterviewCreateDto } from './dto/interview.create.dto';
 import { User } from '../user/user.entity';
 
@@ -37,7 +36,7 @@ export class InterviewService {
 
   async getComing(): Promise<Interview[]> {
     return this.repo.find({
-      where: { state: 'wait_for_interviewer' },
+      where: { state: 'coming' },
       relations: ['interviewee', 'interviewer'],
       order: { date: 'DESC' },
     });

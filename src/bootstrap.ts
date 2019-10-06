@@ -62,6 +62,7 @@ export const bootstrapApp = (app: NestExpressApplication) => {
   app.use((req, res, next) => {
     res.locals.login = req.isAuthenticated();
     res.locals.user = req.user;
+    res.locals.userRole = req.user ? req.user.role : 'guest';
     next();
   });
   app.useStaticAssets(join(__dirname, '..', 'public'));
