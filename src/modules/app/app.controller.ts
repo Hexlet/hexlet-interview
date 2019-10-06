@@ -19,15 +19,15 @@ export class AppController {
       },
     );
 
-    return {
-      comingInterviews: [
-        {
-          interviewer: 'Vasiliy Ivanov',
-          interviewee: 'Petr Sidorov',
-          videoLink: 'https://youtube.com',
-        },
-      ],
-      pastInterviews,
-    };
+    const comingInterviews = (await this.interviewService.getComing()).map(
+      interview => {
+        return {
+          ...interview,
+          ...{ preview: getPreviewFromVideoLink(interview.videoLink) },
+        };
+      },
+    );
+
+    return { comingInterviews, pastInterviews };
   }
 }

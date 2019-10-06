@@ -27,9 +27,17 @@ export class InterviewService {
     return interview.save();
   }
 
-  async getPast() {
+  async getPast(): Promise<Interview[]> {
     return this.repo.find({
       where: { state: 'passed' },
+      relations: ['interviewee', 'interviewer'],
+      order: { date: 'DESC' },
+    });
+  }
+
+  async getComing(): Promise<Interview[]> {
+    return this.repo.find({
+      where: { state: 'wait_for_interviewer' },
       relations: ['interviewee', 'interviewer'],
       order: { date: 'DESC' },
     });
