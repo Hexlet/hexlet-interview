@@ -1,7 +1,7 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { InterviewService } from '../interview/interview.service';
-import { getPreviewFromVideoLink } from '../../utils/youtube-preview.util';
 import { Interview } from '../interview/interview.entity';
+import { getPreviewFromVideoLink } from '../../common/utils/youtube-preview.util';
 
 @Controller()
 export class AppController {

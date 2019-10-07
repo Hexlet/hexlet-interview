@@ -3,9 +3,8 @@ import { Response } from 'express';
 import * as i18n from 'i18n';
 import { InterviewService } from './interview.service';
 import { InterviewCreateDto } from './dto/interview.create.dto';
-import { AuthenticatedGuard } from '../auth/guards';
 import { Role } from '../auth/role.decorator';
-import { RoleGuard } from '../auth/guards/role.guard';
+import { RoleGuard, AuthenticatedGuard } from '../../common/guards';
 
 @Controller('interview')
 @UseGuards(RoleGuard)
