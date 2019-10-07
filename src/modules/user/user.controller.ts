@@ -1,20 +1,10 @@
-import {
-  Body,
-  Render,
-  Controller,
-  Get,
-  Request,
-  Post,
-  Param,
-  Res,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Render, Controller, Get, Post, Param, Res, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserCreateDto } from './dto/user.create.dto';
 import { AuthenticatedGuard } from '../auth/guards';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { Role } from '../auth/role.decorator';
+import { User } from './user.entity';
 
 @Controller('user')
 @UseGuards(RoleGuard)
@@ -25,7 +15,7 @@ export class UserController {
   @Role('admin')
   @Get('/')
   @Render('user/index')
-  async getUsers(@Request() req) {
+  async getUsers(): Promise<{ users: User[] }> {
     const users = await this.service.findAll();
     return { users };
   }
@@ -33,7 +23,7 @@ export class UserController {
   @Get('/new')
   @Role('admin')
   @Render('user/new')
-  new() {
+  new(): {} {
     return {};
   }
 

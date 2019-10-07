@@ -1,11 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import {
-  BeforeInsert,
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
+import { BeforeInsert, Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import * as uuidGenerate from 'uuid/v4';
 import { hashPassword } from '../../common/utils/password';
 import { Interview } from '../interview/interview.entity';
@@ -63,7 +57,7 @@ export class User {
   @OneToMany(() => Interview, interview => interview.interviewee)
   interviews: Interview[];
 
-  toString() {
+  toString(): string {
     return `${this.firstname} ${this.lastname}`;
   }
 

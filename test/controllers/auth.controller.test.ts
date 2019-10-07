@@ -80,7 +80,7 @@ describe('Authorization test', () => {
 
     const user = await userRepo.findOne({ email: newUserData.email });
     expect(user).toBeDefined();
-    expect(user!.verified).toBeFalsy();
+    expect(user!.verified).toBeFalsy(); // es
 
     const mails = mailStub.sentMail;
     expect(mails.length).toEqual(1);

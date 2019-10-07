@@ -1,16 +1,11 @@
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  ForbiddenException,
-} from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, ForbiddenException } from '@nestjs/common';
 import * as i18n from 'i18n';
 
 import { Request, Response } from 'express';
 
 @Catch(ForbiddenException)
 export class ForbiddenExceptionFilter implements ExceptionFilter {
-  catch(exception: ForbiddenException, host: ArgumentsHost) {
+  catch(exception: ForbiddenException, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request: any = ctx.getRequest<Request>();

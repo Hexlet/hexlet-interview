@@ -6,7 +6,7 @@ import { GitHubUnauthorizedException } from '../../../utils/custom-errors';
 export class GithubGuard extends AuthGuard('github') {
   private readonly logger = new Logger(GithubGuard.name);
 
-  async canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     try {
       const result = (await super.canActivate(context)) as boolean;
       const request = context.switchToHttp().getRequest();

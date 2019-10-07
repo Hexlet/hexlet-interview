@@ -6,10 +6,7 @@ import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class GitHubStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly configService: ConfigService,
-  ) {
+  constructor(private readonly authService: AuthService, private readonly configService: ConfigService) {
     super({
       clientID: configService.get('GITHUB_CLIENT_ID'),
       clientSecret: configService.get('GITHUB_CLIENT_SECRET'),
@@ -26,11 +23,7 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
       emails: [{ value: email }],
     } = profile;
     const name = displayName || username;
-    const user = await this.authService.findOrCreateUserBySocialUid(
-      'github',
-      id,
-      { email, name },
-    );
+    const user = await this.authService.findOrCreateUserBySocialUid('github', id, { email, name });
     return user;
   }
 }

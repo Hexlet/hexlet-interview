@@ -42,7 +42,7 @@ export class ConfigService {
       throw new Error(`Unknown config key ${key}`);
     }
 
-    return process.env[key]!;
+    return process.env[key]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
   }
 
   get dbParams(): TypeOrmModuleOptions {

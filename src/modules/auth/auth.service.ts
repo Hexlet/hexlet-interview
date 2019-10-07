@@ -3,10 +3,10 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
 import { comparePassword } from '../../common/utils/password';
 
-function sanitizeUser(user: User) {
+const sanitizeUser = (user: User): Partial<User> => {
   const { password, githubUid, ...result } = user;
   return result;
-}
+};
 
 @Injectable()
 export class AuthService {
@@ -42,10 +42,7 @@ export class AuthService {
     },
   ): Promise<any> {
     const { email, name } = info;
-    const userBySocialUid = await this.usersService.findOneBySocialUid(
-      provider,
-      uid,
-    );
+    const userBySocialUid = await this.usersService.findOneBySocialUid(provider, uid);
 
     if (userBySocialUid) {
       this.logger.log(`user found by ${provider} uid`);

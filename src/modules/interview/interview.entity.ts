@@ -18,11 +18,11 @@ export class Interview extends BaseEntity {
   @Column()
   state: string;
 
-  @ManyToOne(type => User, user => user.interviews)
+  @ManyToOne(() => User, user => user.interviews)
   @JoinColumn({ name: 'interviewee_id' })
   interviewee: User;
 
-  @ManyToOne(type => User, user => user.interviews)
+  @ManyToOne(() => User, user => user.interviews)
   @JoinColumn({ name: 'interviewer_id' })
   interviewer: User;
 
@@ -48,14 +48,14 @@ export class Interview extends BaseEntity {
   updatedAt: Date;
 
   @BeforeInsert()
-  setDefaults() {
+  setDefaults(): void {
     this.state = 'new';
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
 
   @BeforeUpdate()
-  updateUpdatedAt() {
+  updateUpdatedAt(): void {
     this.updatedAt = new Date();
   }
 }

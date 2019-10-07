@@ -2,7 +2,6 @@ import * as request from 'supertest';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { getRepository, Repository } from 'typeorm';
 import { User } from '../../src/modules/user/user.entity';
-import { Interview } from '../../src/modules/interview/interview.entity';
 import { createTestingApp } from '../app.testing';
 import { loadFixtures, clearDb } from '../fixtures.loader';
 
@@ -77,7 +76,7 @@ describe('#interview', () => {
       relations: ['interviews'],
     });
 
-    expect(reloadedUser.interviews.length).toEqual(1);
+    expect(reloadedUser!.interviews.length).toEqual(1);
   });
 
   afterEach(async () => {
