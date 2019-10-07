@@ -27,7 +27,8 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-underscore-dangle': ['error', {'allow': ['__']}],
     'import/no-cycle': 'off',
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    'no-non-null-assertion': 0,
   },
   'overrides': [{
     'files': ['**/migrations/**/*.ts'],

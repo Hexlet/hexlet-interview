@@ -15,10 +15,6 @@ export class InterviewService {
     return this.repo.find({ relations: ['interviewee'], where });
   }
 
-  findOne(): Promise<Interview> {
-    return this.repo.findOne();
-  }
-
   create(createDto: InterviewCreateDto, user: User): Promise<Interview> {
     const entity = { ...createDto, ...{ interviewee: user } };
     const interview = this.repo.create(entity);
