@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Render,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import * as i18n from 'i18n';
 import { InterviewService } from './interview.service';
@@ -34,17 +25,13 @@ export class InterviewController {
   @UseGuards(AuthenticatedGuard)
   @Get('/new')
   @Render('interview/new')
-  new() {
+  new(): {} {
     return {};
   }
 
   @UseGuards(AuthenticatedGuard)
   @Post()
-  async create(
-    @Body() interviewCreateDto: InterviewCreateDto,
-    @Req() req: any,
-    @Res() res: Response,
-  ): Promise<any> {
+  async create(@Body() interviewCreateDto: InterviewCreateDto, @Req() req: any, @Res() res: Response): Promise<any> {
     await this.service.create(interviewCreateDto, req.user);
 
     req.flash('success', i18n.__('interview.request_accepted'));

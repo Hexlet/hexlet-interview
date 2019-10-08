@@ -21,14 +21,11 @@ import { MailerService } from '../mailer/mailer.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    public userService: UserService,
-    public mailerService: MailerService,
-  ) {}
+  constructor(public userService: UserService, public mailerService: MailerService) {}
 
   @Post('/sign_in')
   @UseGuards(LoginGuard)
-  signIn(@Req() req: any, @Res() res: Response) {
+  signIn(@Req() req: any, @Res() res: Response): void {
     const redirectTo = req.session.redirectTo || '/';
     delete req.session.redirectTo;
 
@@ -36,11 +33,7 @@ export class AuthController {
   }
 
   @Post('/sign_up')
-  async signUp(
-    @Req() req: Request,
-    @Body() userDto: UserCreateDto,
-    @Res() res: Response,
-  ) {
+  async signUp(@Req() req: Request, @Body() userDto: UserCreateDto, @Res() res: Response): Promise<void> {
     if (userDto.password !== userDto.confirmpassword) {
       throw new BadRequestException('registration_error_password_mismatch');
     }
@@ -54,9 +47,7 @@ export class AuthController {
       ...{ role: 'user' },
     });
 
-    const link = `${req.protocol}://${req.get('host')}/auth/verify/${
-      user.confirmationToken
-    }`;
+    const link = `${req.protocol}://${req.get('host')}/auth/verify/${user.confirmationToken}`;
     await this.mailerService.sendVerifyLink(user.email, link);
 
     (req as any).flash('success', i18n.__('users.form.need_mail_confirm'));
@@ -64,26 +55,26 @@ export class AuthController {
   }
 
   @Get('sign_out')
-  signOut(@Req() req: Request, @Res() res: Response) {
+  signOut(@Req() req: Request, @Res() res: Response): void {
     req.logout();
     res.redirect('/');
   }
 
   @Get('sign_in')
   @Render('auth/sign_in')
-  showSignIn() {
+  showSignIn(): {} {
     return {};
   }
 
   @Get('sign_up')
   @Render('auth/sign_up')
-  showSignUp() {
+  showSignUp(): {} {
     return {};
   }
 
   @Redirect('/auth/sign_in')
   @Get('verify/:token')
-  async verifyToken(@Req() req: Request, @Param('token') token: string) {
+  async verifyToken(@Req() req: Request, @Param('token') token: string): Promise<void> {
     const user = await this.userService.findOneByConfirmationToken(token);
     if (!user) {
       throw new NotFoundException();
@@ -95,13 +86,13 @@ export class AuthController {
 
   @Get('github')
   @UseGuards(GithubGuard)
-  initGitHubLogin() {
+  initGitHubLogin(): {} {
     return {};
   }
 
   @Get('github/callback')
   @UseGuards(GithubGuard)
-  gitHubLoginCb(@Req() req: any, @Res() res: Response) {
+  gitHubLoginCb(@Req() req: any, @Res() res: Response): void {
     req.flash('success', i18n.__('users.form.login_success'));
     const redirectTo = req.session.redirectTo || '/';
     delete req.session.redirectTo;

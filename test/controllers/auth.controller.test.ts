@@ -32,11 +32,6 @@ describe('Authorization test', () => {
     password: existingUserData.password,
   };
 
-  const newUserAuthInfo = {
-    username: newUserData.email,
-    password: newUserData.password,
-  };
-
   beforeEach(async () => {
     app = await createTestingApp();
     await loadFixtures();
@@ -85,14 +80,14 @@ describe('Authorization test', () => {
 
     const user = (await userRepo.findOne({ email: newUserData.email }))!;
     expect(user).toBeDefined();
-    expect(user.verified).toBeFalsy();
+    expect(user!.verified).toBeFalsy(); // es
 
     const mails = mailStub.sentMail;
     expect(mails.length).toEqual(1);
 
     const mail = mails[0];
     expect(mail.data.to).toEqual(newUserData.email);
-    expect(mail.data.html.includes(user.confirmationToken)).toBeTruthy();
+    expect(mail.data.html.includes(user!.confirmationToken)).toBeTruthy();
   });
 
   it('GET auth/verify/:token return 404 if token does not exists', async () => {

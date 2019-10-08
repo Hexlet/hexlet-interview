@@ -7,9 +7,7 @@ import { User } from '../user/user.entity';
 
 @Injectable()
 export class InterviewService {
-  constructor(
-    @InjectRepository(Interview) private readonly repo: Repository<Interview>,
-  ) {}
+  constructor(@InjectRepository(Interview) private readonly repo: Repository<Interview>) {}
 
   findAll(where: Partial<Interview>): Promise<Interview[]> {
     return this.repo.find({ relations: ['interviewee'], where });

@@ -6,10 +6,7 @@ import { ConfigService } from '../config/config.service';
 export class MailerService implements OnModuleInit {
   private readonly logger = new Logger(MailerService.name);
 
-  constructor(
-    private readonly transporter: Transporter,
-    private readonly config: ConfigService,
-  ) {}
+  constructor(private readonly transporter: Transporter, private readonly config: ConfigService) {}
 
   async onModuleInit(): Promise<void> {
     try {
@@ -34,7 +31,7 @@ export class MailerService implements OnModuleInit {
       this.logger.log(`Message sent to ${email}`, JSON.stringify({ html }));
       return true;
     } catch (error) {
-      this.logger.error(error);
+      this.logger.error(JSON.stringify(error));
     }
     return false;
   }

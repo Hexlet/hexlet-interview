@@ -1,13 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import * as path from 'path';
-import {
-  Builder,
-  fixturesIterator,
-  Loader,
-  Parser,
-  Resolver,
-} from 'typeorm-fixtures-cli/dist';
+import { Builder, fixturesIterator, Loader, Parser, Resolver } from 'typeorm-fixtures-cli/dist';
 import { getConnection, getRepository } from 'typeorm';
 
 export const loadFixtures = async (): Promise<any> => {

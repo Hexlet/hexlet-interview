@@ -1,4 +1,4 @@
-export const datetime = (databaseType: string) => {
+export const datetime = (databaseType: string): string => {
   return {
     sqlite: 'datetime',
     postgres: 'timestamp',

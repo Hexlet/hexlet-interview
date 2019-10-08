@@ -13,20 +13,8 @@ import { AuthController } from './auth.controller';
 import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    UserModule,
-    PassportModule,
-    MailerModule,
-    ConfigModule,
-  ],
+  imports: [TypeOrmModule.forFeature([User]), UserModule, PassportModule, MailerModule, ConfigModule],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    LocalStrategy,
-    GitHubStrategy,
-    UserService,
-    SessionSerializer,
-  ],
+  providers: [AuthService, LocalStrategy, GitHubStrategy, UserService, SessionSerializer],
 })
 export class AuthModule {}

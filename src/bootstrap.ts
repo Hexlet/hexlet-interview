@@ -23,7 +23,7 @@ i18n.configure({
   updateFiles: false,
 });
 
-export const bootstrapApp = (app: NestExpressApplication) => {
+export const bootstrapApp = (app: NestExpressApplication): void => {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalFilters(new ForbiddenExceptionFilter());
   app.useGlobalFilters(new UnauthorizedExceptionFilter());
@@ -31,7 +31,7 @@ export const bootstrapApp = (app: NestExpressApplication) => {
   app.useGlobalFilters(new GitHubUnauthorizedExceptionFilter());
   app.useGlobalFilters(new NotFoundExceptionFilter());
   app.use(i18n.init);
-  app.use((req, res, next) => {
+  app.use((_, res, next) => {
     res.setLocale('ru');
     next();
   });

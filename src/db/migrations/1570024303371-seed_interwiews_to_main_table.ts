@@ -90,11 +90,7 @@ const interviewsData = [
   },
 ];
 
-const getUser = async (
-  repo: Repository<User>,
-  name: string,
-  role: string,
-): Promise<User> => {
+const getUser = async (repo: Repository<User>, name: string, role: string): Promise<User> => {
   const [firstname, lastname] = name.split(' ');
   const userData = {
     firstname,
@@ -111,23 +107,14 @@ const getUser = async (
   return newUser;
 };
 
-export class seedInterwiewsToMainTable1570024303371
-  implements MigrationInterface {
+export class seedInterwiewsToMainTable1570024303371 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const interviewRepo = queryRunner.manager.getRepository(Interview);
     const userRepo = queryRunner.manager.getRepository(User);
     for (const interview of interviewsData) {
-      const {
-        interviewee: intervieweeName,
-        interviewer: interviewerName,
-        ...rest
-      } = interview;
+      const { interviewee: intervieweeName, interviewer: interviewerName, ...rest } = interview;
       const interviewee = await getUser(userRepo, intervieweeName, 'user');
-      const interviewer = await getUser(
-        userRepo,
-        interviewerName,
-        'interviewer',
-      );
+      const interviewer = await getUser(userRepo, interviewerName, 'interviewer');
       await interviewRepo.save({
         ...rest,
         interviewee,

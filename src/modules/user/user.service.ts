@@ -19,15 +19,7 @@ export class UserService {
 
   findOneByEmail(email: string): Promise<User | undefined> {
     return this.repo.findOne({
-      select: [
-        'id',
-        'role',
-        'firstname',
-        'lastname',
-        'email',
-        'password',
-        'verified',
-      ],
+      select: ['id', 'role', 'firstname', 'lastname', 'email', 'password', 'verified'],
       where: { email },
     });
   }
@@ -41,25 +33,22 @@ export class UserService {
 
   createAndSave(userCreateDto: UserCreateDto): Promise<User> {
     const newUser = this.repo.create(userCreateDto);
-
     return this.repo.save(newUser);
   }
 
-  addSocialUid(user: User, provider: string, uid: string) {
-    return this.repo.update(user.id, { [`${provider}Uid`]: uid });
+  async addSocialUid(user: User, provider: string, uid: string): Promise<void> {
+    this.repo.update(user.id, { [`${provider}Uid`]: uid });
   }
 
-  async update(id: number, user: User) {
+  async update(id: number, user: User): Promise<void> {
     this.repo.update(id, user);
   }
 
-  async delete(id: number) {
-    await this.repo.delete(id);
+  async delete(id: number): Promise<void> {
+    this.repo.delete(id);
   }
 
-  async findOneByConfirmationToken(
-    confirmationToken: string,
-  ): Promise<User | undefined> {
+  async findOneByConfirmationToken(confirmationToken: string): Promise<User | undefined> {
     return this.repo.findOne({
       select: ['id', 'email'],
       where: { confirmationToken },

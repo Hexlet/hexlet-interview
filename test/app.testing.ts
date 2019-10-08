@@ -15,10 +15,7 @@ export const createTestingApp = async (): Promise<INestApplication> => {
     .overrideProvider(MailerService)
     .useFactory({
       factory: (configService: ConfigService) => {
-        return new MailerService(
-          createTransport(mockMailTransport),
-          configService,
-        );
+        return new MailerService(createTransport(mockMailTransport), configService);
       },
       inject: [ConfigService],
     })
