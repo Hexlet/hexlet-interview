@@ -23,3 +23,20 @@ mixin textarea(data, property, options)
       small.form-text.text-muted= options.small
     if formdata.errors[property]
       .invalid-feedback= formdata.errors[property].map(({ errorMsg }) => errorMsg).join('. ')
+
+mixin select(data, property, options)
+  - const formdata = helpers.prepareFormData(data);
+  - const label = options.label || property;
+  .form-group(class=(formdata.errors[property] && 'has-danger'))
+    label= label
+    select.custom-select(name=property class=`${helpers.getValidnessClassName(formdata, property)}`)
+      block
+    if options.small
+      small.form-text.text-muted= options.small
+    if formdata.errors[property]
+      .invalid-feedback= formdata.errors[property].map(({ errorMsg }) => errorMsg).join('. ')
+
+mixin option(value, name, options = {})
+  - const { selected = false, disabled = false , hidden = false } = options
+    option(value=`${value}`, selected=selected, disabled=disabled, hidden=hidden)= name
+

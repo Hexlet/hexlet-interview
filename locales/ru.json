@@ -10,6 +10,8 @@
   "validation": {
     "firstname should not be empty": "Имя не может быть пустым",
     "lastname should not be empty": "Фамилия не может быть пустой",
+    "profession should not be empty": "Поле \"Профессия\" не может быть пустым",
+    "position should not be empty": "Поле \"Позиция\" не может быть пустым",
     "email should not be empty": "Email не может быть пустым",
     "email must be an email": "В этом поле должен находиться email",
     "password should not be empty": "Пароль не может быть пустым",
