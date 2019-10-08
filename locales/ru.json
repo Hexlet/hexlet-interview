@@ -15,7 +15,8 @@
     "password should not be empty": "Пароль не может быть пустым",
     "confirmpassword should not be empty": "Подтверждение пароля не может быть пустым",
     "registration_error_password_mismatch": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!",
-    "registration_error_existing_user": "Ошибка регистрации, пользователь с таким email уже зарегистрирован"
+    "registration_error_existing_user": "Ошибка регистрации, пользователь с таким email уже зарегистрирован",
+    "description should not be empty": "Описание не может быть пустым"
   },
   "users": {
     "form": {

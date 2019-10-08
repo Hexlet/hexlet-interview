@@ -7,5 +7,6 @@ export class InterviewCreateDto {
   @IsNotEmpty()
   readonly position: string;
 
-  readonly description?: string;
+  @IsNotEmpty()
+  readonly description: string;
 }

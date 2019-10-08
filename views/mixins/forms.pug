@@ -1,0 +1,25 @@
+mixin input(data, property, options)
+  - const formdata = helpers.prepareFormData(data);
+  - const type = options.as || 'text';
+  - const label = options.label || property;
+  - const placeholder = options.placeholder || label;
+  - const value = formdata.values[property] ? formdata.values[property] : '';
+  .form-group(class=(formdata.errors[property] && 'has-danger'))
+    label= label
+    input.form-control(name=property class=`${helpers.getValidnessClassName(formdata, property)}` type=type value=`${value}`, placeholder=placeholder)
+    if options.help
+      small= options.help
+    if formdata.errors[property]
+      .invalid-feedback= formdata.errors[property].map(({ errorMsg }) => errorMsg).join('. ')
+
+mixin textarea(data, property, options)
+  - const formdata = helpers.prepareFormData(data);
+  - const label = options.label || property;
+  - const value = formdata.values[property] ? formdata.values[property] : '';
+  .form-group(class=(formdata.errors[property] && 'has-danger'))
+    label= label
+    textarea.form-control(name=property class=`${helpers.getValidnessClassName(formdata, property)}`)= `${value}`
+    if options.small
+      small.form-text.text-muted= options.small
+    if formdata.errors[property]
+      .invalid-feedback= formdata.errors[property].map(({ errorMsg }) => errorMsg).join('. ')

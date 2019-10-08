@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Post, Render, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res, UseGuards, UseFilters } from '@nestjs/common';
 import { Response } from 'express';
 import * as i18n from 'i18n';
 import { InterviewService } from './interview.service';
 import { InterviewCreateDto } from './dto/interview.create.dto';
 import { Role } from '../auth/role.decorator';
 import { RoleGuard, AuthenticatedGuard } from '../../common/guards';
+import { BadRequestExceptionFilter } from '../../common/filters/bad-request-exception.filter';
 
 @Controller('interview')
 @UseGuards(RoleGuard)
@@ -29,6 +30,7 @@ export class InterviewController {
   }
 
   @UseGuards(AuthenticatedGuard)
+  @UseFilters(new BadRequestExceptionFilter({ template: 'interview/new' }))
   @Post()
   async create(@Body() interviewCreateDto: InterviewCreateDto, @Req() req: any, @Res() res: Response): Promise<any> {
     await this.service.create(interviewCreateDto, req.user);

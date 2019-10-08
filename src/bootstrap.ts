@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import * as _ from 'lodash';
 import * as i18n from 'i18n';
 import * as Session from 'express-session';
 import * as passport from 'passport';
@@ -10,10 +11,10 @@ import * as rateLimit from 'express-rate-limit';
 import {
   UnauthorizedExceptionFilter,
   ForbiddenExceptionFilter,
-  BadRequestExceptionFilter,
   GitHubUnauthorizedExceptionFilter,
   NotFoundExceptionFilter,
-} from './modules/auth/filters';
+} from './common/filters';
+import viewHelpers from './common/utils/view.helpers';
 
 i18n.configure({
   locales: ['ru', 'en'],
@@ -25,13 +26,12 @@ i18n.configure({
 
 export const bootstrapApp = (app: NestExpressApplication): void => {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalFilters(new NotFoundExceptionFilter());
   app.useGlobalFilters(new ForbiddenExceptionFilter());
   app.useGlobalFilters(new UnauthorizedExceptionFilter());
-  app.useGlobalFilters(new BadRequestExceptionFilter());
   app.useGlobalFilters(new GitHubUnauthorizedExceptionFilter());
-  app.useGlobalFilters(new NotFoundExceptionFilter());
   app.use(i18n.init);
-  app.use((_, res, next) => {
+  app.use((_req, res, next) => {
     res.setLocale('ru');
     next();
   });
@@ -60,6 +60,8 @@ export const bootstrapApp = (app: NestExpressApplication): void => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use((req, res, next) => {
+    res.locals._ = _;
+    res.locals.helpers = viewHelpers;
     res.locals.login = req.isAuthenticated();
     res.locals.user = req.user;
     res.locals.userRole = req.user ? req.user.role : 'guest';

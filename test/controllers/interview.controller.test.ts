@@ -68,6 +68,7 @@ describe('#interview', () => {
       .send({
         profession: 'Backend PHP Developer',
         position: 'Junior',
+        description: "I'm definityly good developer",
       })
       .expect(HttpStatus.FOUND)
       .expect('Location', '/');

@@ -11,13 +11,15 @@ import {
   NotFoundException,
   Redirect,
   Param,
+  UseFilters,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 import * as i18n from 'i18n';
-import { LoginGuard, GithubGuard } from './guards';
+import { LoginGuard, GithubGuard } from '../../common/guards';
 import { UserService } from '../user/user.service';
 import { UserCreateDto } from '../user/dto/user.create.dto';
 import { MailerService } from '../mailer/mailer.service';
+import { BadRequestExceptionFilter } from '../../common/filters/bad-request-exception.filter';
 
 @Controller('auth')
 export class AuthController {
@@ -28,11 +30,11 @@ export class AuthController {
   signIn(@Req() req: any, @Res() res: Response): void {
     const redirectTo = req.session.redirectTo || '/';
     delete req.session.redirectTo;
-
     res.redirect(redirectTo);
   }
 
   @Post('/sign_up')
+  @UseFilters(new BadRequestExceptionFilter({ template: 'auth/sign_up' }))
   async signUp(@Req() req: Request, @Body() userDto: UserCreateDto, @Res() res: Response): Promise<void> {
     if (userDto.password !== userDto.confirmpassword) {
       throw new BadRequestException('registration_error_password_mismatch');

@@ -6,6 +6,7 @@ block content
       .col-lg-5.col-md-8.mx-auto
         h1 #{__('interview.request')}
         form(method='POST' action='/interview')
+          // TODO: остальные поля тоже переделать на миксины с отображением ошибок.
           .form-group
             label(for='profession') #{__('interview.form.profession')}
             select.form-control(name='profession')
@@ -23,8 +24,9 @@ block content
               option #{__('interview.middle')}
               option #{__('interview.senior')}
             small.form-text.text-muted #{__('interview.form.position-description')}
-          .form-group
-            label(for='about') #{__('interview.form.about')}
-            textarea.form-control(name='description')
-            small.form-text.text-muted #{__('interview.form.about-description')}
+          +textarea(formdata, 'description', {
+            as: 'textarea',
+            label: __('interview.form.about'),
+            small: __('interview.form.about-description'),
+          })
           button.btn.btn-primary(type='submit') #{__('interview.form.send-request')}
