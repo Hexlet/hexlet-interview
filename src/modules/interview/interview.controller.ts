@@ -30,7 +30,7 @@ export class InterviewController {
   }
 
   @UseGuards(AuthenticatedGuard)
-  @UseFilters(new BadRequestExceptionFilter({ template: 'interview/new' }))
+  @UseFilters(new BadRequestExceptionFilter('interview/new'))
   @Post()
   async create(@Body() interviewCreateDto: InterviewCreateDto, @Req() req: any, @Res() res: Response): Promise<any> {
     await this.service.create(interviewCreateDto, req.user);
