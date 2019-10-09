@@ -8,7 +8,7 @@ block content
         form(method='POST' action='/interview')
           +select(formdata, 'profession', {
             label: __('interview.form.profession'),
-            small: __('interview.form.professsion-description')
+            help: __('interview.form.professsion-description')
           })
             +option(null, __('interview.profession'), {
               selected: true,
@@ -21,7 +21,7 @@ block content
             +option(__('interview.python'), __('interview.python'))
           +select(formdata, 'position', {
             label: __('interview.form.position'),
-            small: __('interview.form.position-description')
+            help: __('interview.form.position-description')
           })
             +option(null, __('interview.position'), {
               selected: true,
@@ -32,8 +32,7 @@ block content
             +option(__('interview.middle'), __('interview.middle'))
             +option(__('interview.senior'), __('interview.senior'))
           +textarea(formdata, 'description', {
-            as: 'textarea',
             label: __('interview.form.about'),
-            small: __('interview.form.about-description'),
+            help: __('interview.form.about-description'),
           })
           button.btn.btn-primary(type='submit') #{__('interview.form.send-request')}

@@ -1,14 +1,16 @@
-import * as _ from 'lodash';
+import * as i18n from 'i18n';
+import { FormData } from './form-data';
 
-const prepareFormData = (data): any => data || { values: {}, errors: {} };
-
-const getValidnessClassName = (formdata, property): string => {
-  if (_.isEmpty(formdata.errors)) return '';
-  if (formdata.errors[property]) return 'is-invalid';
+const getValidnessClassName = (hasErrors: boolean, hasThisPropertyErrors: boolean): string => {
+  if (!hasErrors) return '';
+  if (hasThisPropertyErrors) return 'is-invalid';
   return 'is-valid';
 };
 
+const joinErrorMessages = (errors: string[]): string => errors.map(err => i18n.__(`validation.${err}`)).join('. ');
+
 export default {
-  prepareFormData,
   getValidnessClassName,
+  FormData,
+  joinErrorMessages,
 };

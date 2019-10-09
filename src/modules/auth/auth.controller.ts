@@ -37,11 +37,11 @@ export class AuthController {
   @UseFilters(new BadRequestExceptionFilter('auth/sign_up'))
   async signUp(@Req() req: Request, @Body() userDto: UserCreateDto, @Res() res: Response): Promise<void> {
     if (userDto.password !== userDto.confirmpassword) {
-      throw new BadRequestException('registration_error_password_mismatch');
+      throw new BadRequestException(i18n.__('validation.registration_error_password_mismatch'));
     }
 
     if (await this.userService.findOneByEmail(userDto.email)) {
-      throw new BadRequestException('registration_error_existing_user');
+      throw new BadRequestException(i18n.__('validation.registration_error_existing_user'));
     }
 
     const user = await this.userService.createAndSave({

@@ -1,42 +1,42 @@
-mixin input(data, property, options)
-  - const formdata = helpers.prepareFormData(data);
+mixin input(formdata = new helpers.FormData(), property, options)
   - const type = options.as || 'text';
-  - const label = options.label || property;
   - const placeholder = options.placeholder || label;
-  - const value = formdata.values[property] ? formdata.values[property] : '';
+  - const hasPropertyError = formdata.hasPropertyError(property);
+  - const validClass = helpers.getValidnessClassName(formdata.hasErrors(), hasPropertyError);
+  - const value = formdata.getPropertyValue(property);
   .form-group(class=(formdata.errors[property] && 'has-danger'))
-    label= label
-    input.form-control(name=property class=`${helpers.getValidnessClassName(formdata, property)}` type=type value=`${value}`, placeholder=placeholder)
+    label= options.label
+    input.form-control(name=property class=validClass type=type value=value, placeholder=placeholder)
     if options.help
       small= options.help
-    if formdata.errors[property]
-      .invalid-feedback= formdata.errors[property].map(({ errorMsg }) => errorMsg).join('. ')
+    if hasPropertyError
+      .invalid-feedback= helpers.joinErrorMessages(formdata.getPropertyErrorMessages(property))
 
-mixin textarea(data, property, options)
-  - const formdata = helpers.prepareFormData(data);
-  - const label = options.label || property;
-  - const value = formdata.values[property] ? formdata.values[property] : '';
+mixin textarea(formdata = new helpers.FormData(), property, options)
+  - const hasPropertyError = formdata.hasPropertyError(property);
+  - const validClass = helpers.getValidnessClassName(formdata.hasErrors(), hasPropertyError);
+  - const value = formdata.getPropertyValue(property);
   .form-group(class=(formdata.errors[property] && 'has-danger'))
-    label= label
-    textarea.form-control(name=property class=`${helpers.getValidnessClassName(formdata, property)}`)= `${value}`
-    if options.small
-      small.form-text.text-muted= options.small
-    if formdata.errors[property]
-      .invalid-feedback= formdata.errors[property].map(({ errorMsg }) => errorMsg).join('. ')
+    label= options.label
+    textarea.form-control(name=property class=validClass)= value
+    if options.help
+      small.form-text.text-muted= options.help
+    if hasPropertyError
+      .invalid-feedback= helpers.joinErrorMessages(formdata.getPropertyErrorMessages(property))
 
-mixin select(data, property, options)
-  - const formdata = helpers.prepareFormData(data);
-  - const label = options.label || property;
+mixin select(formdata = new helpers.FormData(), property, options)
+  - const hasPropertyError = formdata.hasPropertyError(property);
+  - const validClass = helpers.getValidnessClassName(formdata.hasErrors(), hasPropertyError);
   .form-group(class=(formdata.errors[property] && 'has-danger'))
-    label= label
-    select.custom-select(name=property class=`${helpers.getValidnessClassName(formdata, property)}`)
+    label= options.label
+    select.custom-select(name=property class=validClass)
       block
-    if options.small
-      small.form-text.text-muted= options.small
-    if formdata.errors[property]
-      .invalid-feedback= formdata.errors[property].map(({ errorMsg }) => errorMsg).join('. ')
+    if options.help
+      small.form-text.text-muted= options.help
+    if hasPropertyError
+      .invalid-feedback= helpers.joinErrorMessages(formdata.getPropertyErrorMessages(property))
 
 mixin option(value, name, options = {})
   - const { selected = false, disabled = false , hidden = false } = options
-    option(value=`${value}`, selected=selected, disabled=disabled, hidden=hidden)= name
+    option(value=value, selected=selected, disabled=disabled, hidden=hidden)= name
 

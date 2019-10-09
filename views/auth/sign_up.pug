@@ -8,9 +8,11 @@ block content
         form(method='POST' action='/auth/sign_up')
           +input(formdata, 'firstname', {
             label: __('users.form.first_name'),
+            placeholder: __('users.form.first_name'),
           })
           +input(formdata, 'lastname', {
             label: __('users.form.last_name'),
+            placeholder: __('users.form.last_name'),
           })
           +input(formdata, 'email', {
             label: __('users.form.email'),
