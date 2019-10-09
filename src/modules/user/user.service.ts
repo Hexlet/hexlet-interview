@@ -37,7 +37,7 @@ export class UserService {
   }
 
   async addSocialUid(user: User, provider: string, uid: string): Promise<void> {
-    this.repo.update(user.id, { [`${provider}Uid`]: uid });
+    await this.repo.update(user.id, { [`${provider}Uid`]: uid });
   }
 
   async update(id: number, user: User): Promise<void> {

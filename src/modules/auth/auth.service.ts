@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private readonly usersService: UserService) {}
 
-  async validateUser(email: string, pass: string): Promise<any> {
+  async validateUser(email: string, pass: string): Promise<Partial<User> | null> {
     const user = await this.usersService.findOneByEmail(email);
     if (!user) {
       this.logger.log(`user ${email}  not found!`);
@@ -40,7 +40,7 @@ export class AuthService {
       email: string;
       name: string;
     },
-  ): Promise<any> {
+  ): Promise<Partial<User>> {
     const { email, name } = info;
     const userBySocialUid = await this.usersService.findOneBySocialUid(provider, uid);
 

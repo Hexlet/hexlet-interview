@@ -1,4 +1,5 @@
 import { Body, Render, Controller, Get, Post, Param, Res, Delete, UseGuards } from '@nestjs/common';
+import { Response } from 'express';
 import { UserService } from './user.service';
 import { UserCreateDto } from './dto/user.create.dto';
 import { AuthenticatedGuard } from '../auth/guards';
@@ -29,14 +30,14 @@ export class UserController {
 
   @Post()
   @Role('admin')
-  async create(@Res() res, @Body() userCreateDto: UserCreateDto): Promise<any> {
+  async create(@Res() res: Response, @Body() userCreateDto: UserCreateDto): Promise<void> {
     await this.service.createAndSave(userCreateDto);
     return res.redirect('user');
   }
 
   @Role('admin')
   @Delete(':id/delete')
-  async delete(@Res() res, @Param('id') id): Promise<any> {
+  async delete(@Res() res: Response, @Param('id') id: number): Promise<void> {
     await this.service.delete(id);
     return res.redirect('user');
   }

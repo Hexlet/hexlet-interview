@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '../config/config.service';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class GitHubStrategy extends PassportStrategy(Strategy) {
@@ -15,7 +16,7 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(accessToken, refreshToken, profile): Promise<any> {
+  async validate(accessToken, refreshToken, profile): Promise<Partial<User>> {
     const {
       id,
       displayName,

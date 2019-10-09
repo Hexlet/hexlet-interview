@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 import { BeforeInsert, Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import * as uuidGenerate from 'uuid/v4';
+import uuidGenerate from 'uuid/v4';
 import { hashPassword } from '../../common/utils/password';
 import { Interview } from '../interview/interview.entity';
 

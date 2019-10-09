@@ -1,4 +1,4 @@
-import * as request from 'supertest';
+import request from 'supertest';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { getRepository, Repository } from 'typeorm';
 import { User } from '../../src/modules/user/user.entity';

@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { User } from '../../modules/user/user.entity';
 
 export function hashPassword(password: string): Promise<string> {
