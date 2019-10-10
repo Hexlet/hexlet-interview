@@ -6,25 +6,33 @@ block content
       .col-lg-5.col-md-8.mx-auto
         h1 #{__('interview.request')}
         form(method='POST' action='/interview')
-          .form-group
-            label(for='profession') #{__('interview.form.profession')}
-            select.form-control(name='profession')
-              option #{__('interview.js-frontend')}
-              option #{__('interview.js-backend')}
-              option #{__('interview.php')}
-              option #{__('interview.java')}
-              option #{__('interview.python')}
-            small.form-text.text-muted #{__('interview.form.professsion-description')}
-          .form-group
-            label(for='level') #{__('interview.form.position')}
-            select.form-control(name='position')
-              option #{__('interview.intern')}
-              option #{__('interview.junior')}
-              option #{__('interview.middle')}
-              option #{__('interview.senior')}
-            small.form-text.text-muted #{__('interview.form.position-description')}
-          .form-group
-            label(for='about') #{__('interview.form.about')}
-            textarea.form-control(name='description')
-            small.form-text.text-muted #{__('interview.form.about-description')}
+          +select(formdata, 'profession', {
+            label: __('interview.form.profession'),
+            help: __('interview.form.professsion-description')
+          })
+            +option(null, __('interview.profession'), {
+              selected: true,
+              disabled: true,
+            })
+            +option(__('interview.js-frontend'), __('interview.js-frontend'))
+            +option(__('interview.js-backend'), __('interview.js-backend'))
+            +option(__('interview.php'), __('interview.php'))
+            +option(__('interview.java'), __('interview.java'))
+            +option(__('interview.python'), __('interview.python'))
+          +select(formdata, 'position', {
+            label: __('interview.form.position'),
+            help: __('interview.form.position-description')
+          })
+            +option(null, __('interview.position'), {
+              selected: true,
+              disabled: true,
+            })
+            +option(__('interview.intern'), __('interview.intern'))
+            +option(__('interview.junior'), __('interview.junior'))
+            +option(__('interview.middle'), __('interview.middle'))
+            +option(__('interview.senior'), __('interview.senior'))
+          +textarea(formdata, 'description', {
+            label: __('interview.form.about'),
+            help: __('interview.form.about-description'),
+          })
           button.btn.btn-primary(type='submit') #{__('interview.form.send-request')}

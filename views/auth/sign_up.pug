@@ -6,19 +6,26 @@ block content
       .justify-content-center
         h1.display-4.mb-2 #{__('users.form.sign_up')}
         form(method='POST' action='/auth/sign_up')
-          div.form-group
-            label(for='firstname') #{__('users.form.first_name')}
-            input.form-control(type='text' id='firstname' placeholder='First name' name='firstname' value=(req && req.firstname))
-          div.form-group
-            label(for='lastname') #{__('users.form.last_name')}
-            input.form-control(type='text' id='lastname' placeholder='Last name' name='lastname' value=(req && req.lastname))
-          div.form-group
-            label(for='email') #{__('users.form.email')}
-            input.form-control(type='text' id='email' placeholder='Email' name='email' value=(req && req.email))
-          div.form-group
-            label(for='password') #{__('users.form.password')}
-            input.form-control(type='password' id='password' placeholder='Password' name='password')
-          div.form-group
-            label(for='confirmpassword') #{__('users.form.password_confirmation')}
-            input.form-control(type='password' id='confirmpassword' placeholder='Confirm password' name='confirmpassword')
+          +input(formdata, 'firstname', {
+            label: __('users.form.first_name'),
+            placeholder: __('users.form.first_name'),
+          })
+          +input(formdata, 'lastname', {
+            label: __('users.form.last_name'),
+            placeholder: __('users.form.last_name'),
+          })
+          +input(formdata, 'email', {
+            label: __('users.form.email'),
+            placeholder: 'Email',
+          })
+          +input(formdata, 'password', {
+            label: __('users.form.password'),
+            placeholder: 'Password',
+            as: 'password',
+          })
+          +input(formdata, 'confirmpassword', {
+            label: __('users.form.password'),
+            placeholder: 'Confirm password',
+            as: 'password',
+          })
           button.btn.btn-primary(type='submit') Register
