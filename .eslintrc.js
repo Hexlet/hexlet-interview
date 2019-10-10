@@ -24,14 +24,17 @@ module.exports = {
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
     // TODO fix move for separate files
-    '@typescript-eslint/no-explicit-any': 'off',
+    // '@typescript-eslint/no-explicit-any': 'off',
     'import/prefer-default-export': 'off',
     'class-methods-use-this': 'off',
     'no-underscore-dangle': ['error', {'allow': ['__']}],
     'import/no-cycle': 'off',
     'prettier/prettier': 'error',
     'no-non-null-assertion': 0,
-    'max-len': ["error", { "code": 120 }]
+    'max-len': ['error', { "code": 120 }],
+    "no-unused-vars": "off",
+    '@typescript-eslint/no-unused-vars': ['error', { 'ignoreRestSiblings': true }],
+    '@typescript-eslint/no-non-null-assertion': 'off'
   },
   'overrides': [{
     'files': ['**/migrations/**/*.ts'],

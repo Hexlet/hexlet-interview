@@ -14,7 +14,7 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
-import * as i18n from 'i18n';
+import i18n from 'i18n';
 import { LoginGuard, GithubGuard } from '../../common/guards';
 import { UserService } from '../user/user.service';
 import { UserCreateDto } from '../user/dto/user.create.dto';
@@ -27,9 +27,10 @@ export class AuthController {
 
   @Post('/sign_in')
   @UseGuards(LoginGuard)
-  signIn(@Req() req: any, @Res() res: Response): void {
-    const redirectTo = req.session.redirectTo || '/';
-    delete req.session.redirectTo;
+  signIn(@Req() req: Request, @Res() res: Response): void {
+    const storedRedirect = req.session && req.session.redirectTo;
+    const redirectTo = storedRedirect || '/';
+    delete req.session!.redirectTo;
     res.redirect(redirectTo);
   }
 
@@ -52,7 +53,7 @@ export class AuthController {
     const link = `${req.protocol}://${req.get('host')}/auth/verify/${user.confirmationToken}`;
     await this.mailerService.sendVerifyLink(user.email, link);
 
-    (req as any).flash('success', i18n.__('users.form.need_mail_confirm'));
+    req.flash('success', i18n.__('users.form.need_mail_confirm'));
     return res.redirect('/');
   }
 
@@ -83,7 +84,7 @@ export class AuthController {
     }
 
     await this.userService.verify(user);
-    (req as any).flash('success', i18n.__('users.form.registration_success'));
+    req.flash('success', i18n.__('users.form.registration_success'));
   }
 
   @Get('github')
@@ -94,10 +95,10 @@ export class AuthController {
 
   @Get('github/callback')
   @UseGuards(GithubGuard)
-  gitHubLoginCb(@Req() req: any, @Res() res: Response): void {
+  gitHubLoginCb(@Req() req: Request, @Res() res: Response): void {
     req.flash('success', i18n.__('users.form.login_success'));
-    const redirectTo = req.session.redirectTo || '/';
-    delete req.session.redirectTo;
+    const redirectTo = req.session!.redirectTo || '/';
+    delete req.session!.redirectTo;
     res.redirect(redirectTo);
   }
 }

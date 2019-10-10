@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as mockTransport from 'nodemailer-mock-transport';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import mockTransport from 'nodemailer-mock-transport';
 import { createTransport } from 'nodemailer';
 import { AppModule } from '../src/modules/app/app.module';
 import { bootstrap } from './bootstrap';
@@ -8,7 +8,7 @@ import { MailerService } from '../src/modules/mailer/mailer.service';
 import { ConfigService } from '../src/modules/config/config.service';
 
 const mockMailTransport = mockTransport();
-export const createTestingApp = async (): Promise<INestApplication> => {
+export const createTestingApp = async (): Promise<NestExpressApplication> => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [AppModule],
   })
@@ -21,7 +21,7 @@ export const createTestingApp = async (): Promise<INestApplication> => {
     })
     .compile();
 
-  const app = moduleFixture.createNestApplication();
+  const app: NestExpressApplication = moduleFixture.createNestApplication();
   bootstrap(app);
 
   await app.init();
@@ -29,4 +29,4 @@ export const createTestingApp = async (): Promise<INestApplication> => {
   return app;
 };
 
-export const mailStub: { sentMail: { data: any }[] } = mockMailTransport;
+export const mailStub: { sentMail: { data: object }[] } = mockMailTransport;

@@ -1,13 +1,13 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
-import * as _ from 'lodash';
-import * as i18n from 'i18n';
-import * as Session from 'express-session';
-import * as passport from 'passport';
-import * as flash from 'express-flash';
-import * as helmet from 'helmet';
-import * as rateLimit from 'express-rate-limit';
+import _ from 'lodash';
+import i18n from 'i18n';
+import Session from 'express-session';
+import passport from 'passport';
+import flash from 'express-flash';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import {
   UnauthorizedExceptionFilter,
   ForbiddenExceptionFilter,

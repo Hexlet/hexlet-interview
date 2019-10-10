@@ -1,5 +1,5 @@
-import * as request from 'supertest';
-import * as nock from 'nock';
+import request from 'supertest';
+import nock from 'nock';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { random } from 'faker';
 import { getRepository, Repository } from 'typeorm';

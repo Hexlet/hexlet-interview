@@ -15,7 +15,7 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
 
     response.status(HttpStatus.BAD_REQUEST);
     if (typeof errors === `string`) {
-      (request as any).flash('error', errors);
+      request.flash('error', errors);
       response.render(this.template, { formdata: new FormData(values) });
       return;
     }
