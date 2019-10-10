@@ -6,8 +6,7 @@ block content
       .col-lg-5.col-md-8.mx-auto
         h1 #{__('interview.request')}
         form(method='POST' action='/interview')
-          +select(formdata, {
-            property: 'profession',
+          +select('profession', {
             label: __('interview.form.profession'),
             help: __('interview.form.professsion-description'),
             choices: [
@@ -18,8 +17,7 @@ block content
               { value: __('interview.python'), name: __('interview.python') },
             ]
           })
-          +select(formdata, {
-            property: 'position',
+          +select('position', {
             label: __('interview.form.position'),
             help: __('interview.form.position-description'),
             choices: [
@@ -29,8 +27,8 @@ block content
               { value: __('interview.senior'), name: __('interview.senior') },
             ]
           })
-          +textarea(formdata, 'description', {
+          +textarea('description', {
             label: __('interview.form.about'),
             help: __('interview.form.about-description'),
           })
-          button.btn.btn-primary(type='submit') #{__('interview.form.send-request')}
+          button.btn.btn-primary(type='submit')= __('interview.form.send-request')

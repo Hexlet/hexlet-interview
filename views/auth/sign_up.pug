@@ -6,26 +6,26 @@ block content
       .justify-content-center
         h1.display-4.mb-2 #{__('users.form.sign_up')}
         form(method='POST' action='/auth/sign_up')
-          +input(formdata, 'firstname', {
+          +input('firstname', {
             label: __('users.form.first_name'),
             placeholder: __('users.form.first_name'),
           })
-          +input(formdata, 'lastname', {
+          +input('lastname', {
             label: __('users.form.last_name'),
             placeholder: __('users.form.last_name'),
           })
-          +input(formdata, 'email', {
+          +input('email', {
             label: __('users.form.email'),
-            placeholder: 'Email',
+            placeholder: 'email',
           })
-          +input(formdata, 'password', {
+          +input('password', {
             label: __('users.form.password'),
-            placeholder: 'Password',
+            placeholder: 'password',
             as: 'password',
           })
-          +input(formdata, 'confirmpassword', {
-            label: __('users.form.password'),
-            placeholder: 'Confirm password',
+          +input('confirmpassword', {
+            label: __('users.form.password_confirmation'),
+            placeholder: 'password',
             as: 'password',
           })
-          button.btn.btn-primary(type='submit') Register
+          button.btn.btn-primary(type='submit')= __('users.form.sign_up_action')
