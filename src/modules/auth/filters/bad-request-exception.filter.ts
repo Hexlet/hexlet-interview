@@ -1,5 +1,5 @@
 import { ExceptionFilter, Catch, ArgumentsHost, BadRequestException, HttpStatus } from '@nestjs/common';
-import * as i18n from 'i18n';
+import i18n from 'i18n';
 
 import { Request, Response } from 'express';
 
@@ -8,7 +8,7 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
   catch(exception: BadRequestException, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const request: any = ctx.getRequest<Request>();
+    const request = ctx.getRequest<Request>();
 
     let errorMessage = '';
     if (exception.message.message[0].constraints) {

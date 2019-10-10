@@ -1,10 +1,10 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import * as path from 'path';
+import path from 'path';
 import { Builder, fixturesIterator, Loader, Parser, Resolver } from 'typeorm-fixtures-cli/dist';
 import { getConnection, getRepository } from 'typeorm';
 
-export const loadFixtures = async (): Promise<any> => {
+export const loadFixtures = async (): Promise<object> => {
   const fixturesPath = path.resolve(__dirname, './fixtures');
   const connection = await getConnection('default');
 
@@ -17,6 +17,7 @@ export const loadFixtures = async (): Promise<any> => {
 
   const entities = {};
   for (const fixture of fixturesIterator(fixtures)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const entity: any = await builder.build(fixture);
     const entityName = entity.constructor.name;
     const entitySaved = await getRepository(entityName).save(entity);

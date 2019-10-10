@@ -1,4 +1,4 @@
-import * as request from 'supertest';
+import request from 'supertest';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { createTestingApp } from '../app.testing';
 import { clearDb } from '../fixtures.loader';

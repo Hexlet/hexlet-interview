@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "lib": ["es5", "es6"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",

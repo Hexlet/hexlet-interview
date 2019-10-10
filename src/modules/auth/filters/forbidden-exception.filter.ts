@@ -1,5 +1,5 @@
 import { ExceptionFilter, Catch, ArgumentsHost, ForbiddenException } from '@nestjs/common';
-import * as i18n from 'i18n';
+import i18n from 'i18n';
 
 import { Request, Response } from 'express';
 
@@ -8,9 +8,9 @@ export class ForbiddenExceptionFilter implements ExceptionFilter {
   catch(exception: ForbiddenException, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const request: any = ctx.getRequest<Request>();
+    const request = ctx.getRequest<Request>();
 
-    request.session.redirectTo = request.url;
+    request.session!.redirectTo = request.url;
     request.flash('warn', i18n.__('users.form.please_sign_in'));
     response.redirect('/auth/sign_in');
   }
