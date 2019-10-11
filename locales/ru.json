@@ -28,6 +28,7 @@
       "need_mail_confirm": "Подтвердите email, указанный при регистрации",
       "sign_in": "Войти",
       "sign_up": "Регистрация",
+      "sign_up_action": "Зарегистрироваться",
       "sign_out": "Выйти",
       "github_auth": "Войти через Github",
       "github_auth_err": "Что-то пошло нe так при попытке авторизовать вас через Github",
