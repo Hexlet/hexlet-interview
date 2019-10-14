@@ -35,7 +35,7 @@ export class InterviewController {
   @Get()
   @Render('interview/index')
   async findAll(): Promise<{ interviews: Interview[] }> {
-    const interviews = await this.interviewService.getApplication();
+    const interviews = await this.interviewService.getApplications();
     return { interviews };
   }
 
@@ -66,7 +66,8 @@ export class InterviewController {
   @Role('admin')
   @Get(':id/assignment')
   @Render('interview/assignment')
-  async getAssignment(@Param('id') id: string): Promise<{ interview: Interview; interviewers: User[] }> {
+  async getAssignment(@Param('id') id: number): Promise<{ interview: Interview; interviewers: User[] }> {
+    // FIXME: move entities obtain and check to custom decorator. https://docs.nestjs.com/custom-decorators
     const interview = await this.interviewService.getOne(id);
     if (!interview) {
       throw new NotFoundException();

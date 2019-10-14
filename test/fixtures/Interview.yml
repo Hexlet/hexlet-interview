@@ -1,0 +1,14 @@
+entity: Interview
+items:
+  application:
+    state: 'application'
+    interviewee: '@kozma'
+    profession: 'PHP'
+    position: 'intern'
+  coming:
+    state: 'coming'
+    interviewee: '@kozma'
+    interviewer: '@interviewer'
+    profession: 'Python'
+    position: 'intern'
+    date: '2019-12-15 00:00:00'

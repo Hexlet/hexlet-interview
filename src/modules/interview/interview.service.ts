@@ -9,7 +9,7 @@ import { User } from '../user/user.entity';
 export class InterviewService {
   constructor(@InjectRepository(Interview) private readonly interviewRepo: Repository<Interview>) {}
 
-  async getApplication(): Promise<Interview[]> {
+  async getApplications(): Promise<Interview[]> {
     return this.interviewRepo.find({
       where: { state: 'application' },
       relations: ['interviewee'],
@@ -33,14 +33,14 @@ export class InterviewService {
     });
   }
 
-  async getOne(id: string): Promise<Interview | undefined> {
+  async getOne(id: number): Promise<Interview | undefined> {
     return this.interviewRepo.findOne(id, {
       relations: ['interviewee', 'interviewer'],
     });
   }
 
   addApplication(interviewApplicationDto: InterviewApplicationDto, user: User): Promise<Interview> {
-    const entity = { ...interviewApplicationDto, interviewee: user };
+    const entity = { ...interviewApplicationDto, interviewee: user, state: 'application' };
     const interview = this.interviewRepo.create(entity);
     return interview.save();
   }

@@ -3,8 +3,15 @@
 import path from 'path';
 import { Builder, fixturesIterator, Loader, Parser, Resolver } from 'typeorm-fixtures-cli/dist';
 import { getConnection, getRepository } from 'typeorm';
+import { User } from '../src/modules/user/user.entity';
+import { Interview } from '../src/modules/interview/interview.entity';
 
-export const loadFixtures = async (): Promise<object> => {
+interface Fixtures {
+  User: { [key: string]: User };
+  Interview: { [key: string]: Interview };
+}
+
+export const loadFixtures = async (): Promise<Fixtures> => {
   const fixturesPath = path.resolve(__dirname, './fixtures');
   const connection = await getConnection('default');
 

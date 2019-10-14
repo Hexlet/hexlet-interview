@@ -15,8 +15,9 @@ export class Interview extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  // FIXME: maybe need enum type? and set db column?
   @Column()
-  state: 'application' | 'coming' | 'passed' | 'canceled';
+  state: string; // 'application' | 'coming' | 'passed' | 'canceled';
 
   @ManyToOne(() => User, user => user.interviews)
   @JoinColumn({ name: 'interviewee_id' })
@@ -49,7 +50,7 @@ export class Interview extends BaseEntity {
 
   @BeforeInsert()
   setDefaults(): void {
-    this.state = 'application';
+    // this.state = 'application';
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
