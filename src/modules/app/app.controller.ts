@@ -13,7 +13,7 @@ export class AppController {
     const pastInterviews = (await this.interviewService.getPast()).map(interview => {
       return {
         ...interview,
-        ...{ preview: getPreviewFromVideoLink(interview.videoLink) },
+        preview: getPreviewFromVideoLink(interview.videoLink),
       } as InterviewWithPreview;
     });
 

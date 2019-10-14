@@ -59,4 +59,10 @@ export class UserService {
     await this.repo.update(user, { verified: true, confirmationToken: null });
     this.logger.log(`User with id = ${user.id} successfully verified!`);
   }
+
+  getInterviewers(): Promise<User[]> {
+    return this.repo.find({
+      where: { role: 'interviewer' },
+    });
+  }
 }

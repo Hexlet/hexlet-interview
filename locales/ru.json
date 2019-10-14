@@ -43,7 +43,7 @@
     }
   },
   "interview": {
-    "request_accepted": "Ваша заявка принята",
+    "application_accepted": "Ваша заявка принята",
     "interviewer": "Собеседующий",
     "interviewee": "Собеседуемый",
     "description": "Описание",
@@ -60,6 +60,8 @@
     "junior": "Junior",
     "middle": "Middle",
     "senior": "Senior",
+    "data": "Дата",
+    "actions": "Действия",
     "form": {
       "name": "Ваше имя",
       "name-description": "Чтобы собеседующий знал, как к вам обращаться",
@@ -70,6 +72,11 @@
       "about": "О себе",
       "about-description": "Например, ссылка на резюме или профиль на гитхабе",
       "send-request": "Отправить заявку"
+    },
+    "assignment": {
+      "title": "Назначьте собеседующего и дату интервью",
+      "select-interviewer": "Выберите интервьюера",
+      "assign": "Назначить"
     }
   },
   "error": {

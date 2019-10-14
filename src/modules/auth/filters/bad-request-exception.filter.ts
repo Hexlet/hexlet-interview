@@ -7,6 +7,7 @@ import { Request, Response } from 'express';
 export class BadRequestExceptionFilter implements ExceptionFilter {
   catch(exception: BadRequestException, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
+    console.log(ctx);
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
@@ -21,6 +22,7 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
     request.flash('error', i18n.__(`validation.${errorMessage}`));
 
     // make sure your view called in accordance with url structure
+    // FIXME: решение не работает для роутов, с динамически формируемым url. Нужно придумать что то другое.
     return response.render(request.url.replace(/^\/+/, ''), {
       req: request.body,
     });

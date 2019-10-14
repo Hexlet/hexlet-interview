@@ -16,7 +16,7 @@ export class Interview extends BaseEntity {
   id: number;
 
   @Column()
-  state: string;
+  state: 'application' | 'coming' | 'passed' | 'canceled';
 
   @ManyToOne(() => User, user => user.interviews)
   @JoinColumn({ name: 'interviewee_id' })
@@ -49,7 +49,7 @@ export class Interview extends BaseEntity {
 
   @BeforeInsert()
   setDefaults(): void {
-    this.state = 'new';
+    this.state = 'application';
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

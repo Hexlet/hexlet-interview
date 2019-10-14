@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  .container
+    .row.pt-5
+      .col-lg-6.col-md-8.mx-auto
+        h1.h4 #{__('interview.assignment.title')}:
+        .card.my-4
+          .card-body
+            div
+              .font-weight-light #{__('interview.interviewee')}:
+              .h5 #{interview.interviewee}
+            .d-flex.mt-2
+              div.mr-4
+                .font-weight-light #{__('interview.profession')}:
+                .h5 #{interview.profession}
+              div
+                .font-weight-light #{__('interview.position')}:
+                .h5 #{interview.position}
+            if interview.description
+              div.mt-2
+                .font-weight-light #{__('interview.description')}:
+                .p #{interview.description}
+        form(method='POST' action=`/interview/${interview.id}/assignment`)
+          +select('interviewer', {
+            label: __('interview.interviewer'),
+            help: __('interview.form.professsion-description'),
+            choices: [
+              { name: __('interview.assignment.select-interviewer'), selectedDefault: true, disabled: true },
+              ...interviewers.map(interviewer => ({ value: interviewer.id, name: interviewer }))
+              ],
+          })
+          +input('date', {
+            label: __('interview.data'),
+            as: 'datetime-local',
+            placeholder: 'yyyy-MM-ddThh:mm'
+          })
+          +input('videoLink', {
+            label: __('interview.videoLink'),
+            placeholder: 'https://youtu.be/...'
+          })
+          button.mt-2.btn.btn-primary(type='submit') #{__('interview.assignment.assign')}
