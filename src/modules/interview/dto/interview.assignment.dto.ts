@@ -2,7 +2,7 @@ import { IsNotEmpty, IsISO8601 } from 'class-validator';
 
 export class InterviewAssignmentDto {
   @IsNotEmpty()
-  readonly interviewer: string;
+  readonly interviewerId: string;
 
   @IsNotEmpty()
   @IsISO8601()

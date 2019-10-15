@@ -105,15 +105,10 @@ describe('#interview', () => {
       .expect(HttpStatus.OK);
 
     await request(app.getHttpServer())
-      .get(`/interview/4004/assignment`)
-      .set('Cookie', response.header['set-cookie'])
-      .expect(HttpStatus.NOT_FOUND);
-
-    await request(app.getHttpServer())
       .post(`/interview/${application.id}/assignment`)
       .set('Cookie', response.header['set-cookie'])
       .send({
-        interviewer: interviewer.id,
+        interviewerId: String(interviewer.id),
         date: '2019-11-10 00:00:00',
         videoLink: 'https://youtu.be/YrXJzD2',
       })
@@ -121,6 +116,40 @@ describe('#interview', () => {
       .expect('Location', '/');
     const numberOfComingInterviewsAfter = (await interviewRepo.find({ state: 'coming' })).length;
     expect(numberOfComingInterviewsAfter).toEqual(numberOfComingInterviewsBefore + 1);
+  });
+
+  it('assign interview should fail', async () => {
+    const { admin } = users;
+    const { application } = interviews;
+    const numberOfComingInterviewsBefore = (await interviewRepo.find({ state: 'coming' })).length;
+    const response = await request(app.getHttpServer())
+      .post('/auth/sign_in')
+      .send({
+        username: admin.email,
+        password: 'admin',
+      });
+
+    await request(app.getHttpServer())
+      .get(`/interview/4004/assignment`)
+      .set('Cookie', response.header['set-cookie'])
+      .expect(HttpStatus.NOT_FOUND);
+
+    await request(app.getHttpServer())
+      .get(`/interview/${application.id}/assignment`)
+      .set('Cookie', response.header['set-cookie'])
+      .expect(HttpStatus.OK);
+
+    await request(app.getHttpServer())
+      .post(`/interview/${application.id}/assignment`)
+      .set('Cookie', response.header['set-cookie'])
+      .send({
+        interviewerId: '404',
+        date: '2019-11-10 00:00:00',
+        videoLink: 'https://youtu.be/YrXJzD2',
+      })
+      .expect(HttpStatus.BAD_REQUEST);
+    const numberOfComingInterviewsAfter = (await interviewRepo.find({ state: 'coming' })).length;
+    expect(numberOfComingInterviewsAfter).toEqual(numberOfComingInterviewsBefore);
   });
 
   afterEach(async () => {

@@ -66,24 +66,32 @@ export class InterviewController {
   @Role('admin')
   @Get(':id/assignment')
   @Render('interview/assignment')
-  async getAssignment(@Param('id') id: number): Promise<{ interview: Interview; interviewers: User[] }> {
-    // FIXME: move entities obtain and check to custom decorator. https://docs.nestjs.com/custom-decorators
+  async getAssignment(
+    @Param('id') id: number,
+    @Req() req: Request,
+  ): Promise<{ interview: Interview; interviewers: User[] }> {
     const interview = await this.interviewService.getOne(id);
     if (!interview) {
       throw new NotFoundException();
     }
     const interviewers = await this.userService.getInterviewers();
-    return { interview, interviewers };
+    const renderData = { interview, interviewers };
+    req.session!.savedRenderData = renderData;
+    return renderData;
   }
 
   @UseGuards(AuthenticatedGuard)
   @Role('admin')
-  // FIXME: current error render implementation not supports forms with additional data.
-  // (like { interview, interviewers } here)
-  // @UseFilters(new BadRequestExceptionFilter('interview/assignment'))
+  @UseFilters(new BadRequestExceptionFilter('interview/assignment'))
   @Post(':id/assignment')
-  async assign(@Param('id') id: number, @Body() dto: InterviewAssignmentDto, @Res() res: Response): Promise<void> {
+  async assign(
+    @Param('id') id: number,
+    @Body() dto: InterviewAssignmentDto,
+    @Res() res: Response,
+    @Req() req: Request,
+  ): Promise<void> {
     await this.interviewService.assign(id, dto);
+    delete req.session!.savedRenderData;
     res.redirect('/');
   }
 }

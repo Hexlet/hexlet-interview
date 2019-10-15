@@ -17,6 +17,10 @@ export class UserService {
     return this.repo.find();
   }
 
+  findOneById(id: number): Promise<User | undefined> {
+    return this.repo.findOne({ id });
+  }
+
   findOneByEmail(email: string): Promise<User | undefined> {
     return this.repo.findOne({
       select: ['id', 'role', 'firstname', 'lastname', 'email', 'password', 'verified'],

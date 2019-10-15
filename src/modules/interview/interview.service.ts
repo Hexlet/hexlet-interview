@@ -1,13 +1,17 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { Interview } from './interview.entity';
 import { InterviewApplicationDto, InterviewAssignmentDto } from './dto';
+import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
 
 @Injectable()
 export class InterviewService {
-  constructor(@InjectRepository(Interview) private readonly interviewRepo: Repository<Interview>) {}
+  constructor(
+    @InjectRepository(Interview) private readonly interviewRepo: Repository<Interview>,
+    public userService: UserService,
+  ) {}
 
   async getApplications(): Promise<Interview[]> {
     return this.interviewRepo.find({
@@ -47,6 +51,16 @@ export class InterviewService {
 
   async assign(id: number, interviewAssignmentDto: InterviewAssignmentDto): Promise<Interview> {
     const toUpdate = await this.interviewRepo.findOne(id);
-    return this.interviewRepo.save({ ...toUpdate, ...interviewAssignmentDto, state: 'coming' });
+    const { interviewerId, ...assignData } = interviewAssignmentDto;
+    const interviewer = await this.userService.findOneById(Number(interviewerId));
+    if (!interviewer) {
+      throw new BadRequestException("Can't find such user");
+    }
+    return this.interviewRepo.save({
+      ...toUpdate,
+      ...assignData,
+      interviewer,
+      state: 'coming',
+    });
   }
 }

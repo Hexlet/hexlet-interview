@@ -36,7 +36,7 @@ mixin select(property, options)
     select.custom-select(name=property class=validClass)
       for choice  in choices
         - const { value: choiceValue, name, selectedDefault, disabled , hidden } = choice
-        - const valueSelected = choiceValue === value
+        - const valueSelected = String(choiceValue) === String(value)
         - const isDefaultSelectedApply = !value && selectedDefault
         - const selected = valueSelected || isDefaultSelectedApply
         option(value=choiceValue, selected=selected, disabled=disabled, hidden=hidden)= name

@@ -29,8 +29,8 @@ block content
                 if comingInterviews && comingInterviews.length > 0
                   each interview in comingInterviews
                     tr
-                      td.p-3.align-middle.text-center #{interview.interviewer}
-                      td.p-3.align-middle.text-center #{interview.interviewee}
+                      td.p-3.align-middle.text-center #{interview.interviewer.fullName}
+                      td.p-3.align-middle.text-center #{interview.interviewee.fullName}
                       td.p-3.align-middle.text-center
                         a(href=interview.videoLink) #{interview.videoLink}
 
@@ -47,8 +47,8 @@ block content
                 if pastInterviews && pastInterviews.length > 0
                   each interview in pastInterviews
                     tr
-                      td.p-2.align-middle.text-nowrap.text-center #{interview.interviewer}
-                      td.p-3.align-middle.text-nowrap.text-center #{interview.interviewee}
+                      td.p-2.align-middle.text-nowrap.text-center #{interview.interviewer.fullName}
+                      td.p-3.align-middle.text-nowrap.text-center #{interview.interviewee.fullName}
                       td.p-3.align-middle.text-nowrap.text-center
                         a(href=interview.videoLink)
                           img(src=interview.preview, width='200').img-thumbnail

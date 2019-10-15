@@ -17,7 +17,7 @@ block content
             if interviews.length > 0
               each interview in interviews
                 tr
-                  td.p-3.align-middle.text-nowrap #{interview.interviewee}
+                  td.p-3.align-middle.text-nowrap #{interview.interviewee.fullName}
                   td.p-3.align-middle.text-nowrap #{interview.profession}
                   td.p-3.align-middle.text-nowrap #{interview.position}
                   td.p-3.align-middle #{interview.description}

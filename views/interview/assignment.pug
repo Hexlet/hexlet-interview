@@ -9,7 +9,7 @@ block content
           .card-body
             div
               .font-weight-light #{__('interview.interviewee')}:
-              .h5 #{interview.interviewee}
+              .h5 #{interview.interviewee.fullName}
             .d-flex.mt-2
               div.mr-4
                 .font-weight-light #{__('interview.profession')}:
@@ -22,12 +22,12 @@ block content
                 .font-weight-light #{__('interview.description')}:
                 .p #{interview.description}
         form(method='POST' action=`/interview/${interview.id}/assignment`)
-          +select('interviewer', {
+          +select('interviewerId', {
             label: __('interview.interviewer'),
             help: __('interview.form.professsion-description'),
             choices: [
               { name: __('interview.assignment.select-interviewer'), selectedDefault: true, disabled: true },
-              ...interviewers.map(interviewer => ({ value: interviewer.id, name: interviewer }))
+              ...interviewers.map(interviewer => ({ value: interviewer.id, name: interviewer.fullName }))
               ],
           })
           +input('date', {
