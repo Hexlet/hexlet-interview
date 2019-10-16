@@ -21,7 +21,7 @@ block content
               div.mt-2
                 .font-weight-light #{__('interview.description')}:
                 .p #{interview.description}
-        form(method='POST' action=`/interview/${interview.id}/assignment`)
+        form(method='POST' action=`/interview/manage/${interview.id}/assignment`)
           +select('interviewerId', {
             label: __('interview.interviewer'),
             help: __('interview.form.professsion-description'),

@@ -1,52 +1,24 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Render,
-  Req,
-  Res,
-  Param,
-  UseGuards,
-  UseFilters,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res, UseGuards, UseFilters } from '@nestjs/common';
 import { Response, Request } from 'express';
 import i18n from 'i18n';
 import { InterviewService } from './interview.service';
 import { UserService } from '../user/user.service';
-import { InterviewApplicationDto, InterviewAssignmentDto } from './dto';
-import { Role } from '../auth/role.decorator';
-import { RoleGuard, AuthenticatedGuard } from '../../common/guards';
+import { InterviewApplicationDto } from './dto';
+import { AuthenticatedGuard } from '../../common/guards';
 import { BadRequestExceptionFilter } from '../../common/filters/bad-request-exception.filter';
 import { User } from '../user/user.entity';
-import { Interview } from './interview.entity';
 
 @Controller('interview')
-@UseGuards(RoleGuard)
+@UseGuards(AuthenticatedGuard)
 export class InterviewController {
-  private readonly logger = new Logger(InterviewController.name);
-
   constructor(public interviewService: InterviewService, public userService: UserService) {}
 
-  @UseGuards(AuthenticatedGuard)
-  @Role('admin')
-  @Get()
-  @Render('interview/index')
-  async findAll(): Promise<{ interviews: Interview[] }> {
-    const interviews = await this.interviewService.getApplications();
-    return { interviews };
-  }
-
-  @UseGuards(AuthenticatedGuard)
-  @Get('/new')
+  @Get('/application')
   @Render('interview/application')
   getApplictionForm(): {} {
     return {};
   }
 
-  @UseGuards(AuthenticatedGuard)
   @UseFilters(new BadRequestExceptionFilter('interview/application'))
   @Post()
   async addApplication(
@@ -60,38 +32,5 @@ export class InterviewController {
       req.flash('success', i18n.__('interview.application_accepted'));
       res.redirect('/');
     }
-  }
-
-  @UseGuards(AuthenticatedGuard)
-  @Role('admin')
-  @Get(':id/assignment')
-  @Render('interview/assignment')
-  async getAssignment(
-    @Param('id') id: number,
-    @Req() req: Request,
-  ): Promise<{ interview: Interview; interviewers: User[] }> {
-    const interview = await this.interviewService.getOne(id);
-    if (!interview) {
-      throw new NotFoundException();
-    }
-    const interviewers = await this.userService.getInterviewers();
-    const renderData = { interview, interviewers };
-    req.session!.savedRenderData = renderData;
-    return renderData;
-  }
-
-  @UseGuards(AuthenticatedGuard)
-  @Role('admin')
-  @UseFilters(new BadRequestExceptionFilter('interview/assignment'))
-  @Post(':id/assignment')
-  async assign(
-    @Param('id') id: number,
-    @Body() dto: InterviewAssignmentDto,
-    @Res() res: Response,
-    @Req() req: Request,
-  ): Promise<void> {
-    await this.interviewService.assign(id, dto);
-    delete req.session!.savedRenderData;
-    res.redirect('/');
   }
 }

@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, FindConditions, FindManyOptions } from 'typeorm';
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { Interview } from './interview.entity';
 import { InterviewApplicationDto, InterviewAssignmentDto } from './dto';
@@ -13,27 +13,13 @@ export class InterviewService {
     public userService: UserService,
   ) {}
 
-  async getApplications(): Promise<Interview[]> {
-    return this.interviewRepo.find({
-      where: { state: 'application' },
-      relations: ['interviewee'],
+  get(options: FindConditions<Interview> & FindManyOptions<Interview>): Promise<Interview[]> {
+    const defaultOptions = {
       order: { date: 'DESC' },
-    });
-  }
-
-  async getPast(): Promise<Interview[]> {
+    };
     return this.interviewRepo.find({
-      where: { state: 'passed' },
-      relations: ['interviewee', 'interviewer'],
-      order: { date: 'DESC' },
-    });
-  }
-
-  async getComing(): Promise<Interview[]> {
-    return this.interviewRepo.find({
-      where: { state: 'coming' },
-      relations: ['interviewee', 'interviewer'],
-      order: { date: 'DESC' },
+      ...defaultOptions,
+      ...options,
     });
   }
 

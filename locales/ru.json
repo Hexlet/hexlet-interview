@@ -3,9 +3,11 @@
   "app": {
     "want_to_interview": "Хочу собеседоваться",
     "title": "Собеседования онлайн",
-    "interview_requests": "Заявки",
+    "manage_interviews": "Управлять интервью",
+    "application_interviews": "Заявки",
     "coming_interviews": "Предстоящие интервью",
-    "past_interviews": "Прошедшие интервью"
+    "passed_interviews": "Прошедшие интервью",
+    "canceled_interviews": "Отменные интервью"
   },
   "validation": {
     "firstname should not be empty": "Имя не может быть пустым",
@@ -77,6 +79,14 @@
       "title": "Назначьте собеседующего и дату интервью",
       "select-interviewer": "Выберите интервьюера",
       "assign": "Назначить"
+    },
+    "application": "Заявки",
+    "coming": "Предстоящие",
+    "passed": "Состоявшиеся",
+    "canceled": "Отменные",
+    "action-names": {
+      "assignment": "Назначить собеседующего",
+      "canceling": "Отменить"
     }
   },
   "error": {

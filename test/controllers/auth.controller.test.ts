@@ -40,22 +40,20 @@ describe('Authorization test', () => {
 
   it('get protected page without authorization will redirect to sign in', async () => {
     return request(app.getHttpServer())
-      .get('/interview/new')
+      .get('/interview/application')
       .expect(HttpStatus.FOUND)
       .expect('Location', '/auth/sign_in');
   });
 
   it('login with valid credentials', async () => {
-    return request(app.getHttpServer())
+    const res = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send(existingUserAuthInfo)
-      .expect(HttpStatus.FOUND)
-      .then(res => {
-        request(app.getHttpServer())
-          .get('/interview/new')
-          .set('Cookie', res.header['set-cookie'])
-          .expect(HttpStatus.OK);
-      });
+      .expect(HttpStatus.FOUND);
+    return request(app.getHttpServer())
+      .get('/interview/application')
+      .set('Cookie', res.header['set-cookie'])
+      .expect(HttpStatus.OK);
   });
 
   it('login with invalid credentials', async () => {
@@ -139,7 +137,7 @@ describe('Authorization test', () => {
       .expect(HttpStatus.FOUND);
   });
 
-  it('test Github auth for user than already exist with local auth', async () => {
+  it('test Github auth for user that already exist with local auth', async () => {
     const existGithubUserData = {
       id: '123456',
       login: 'kuzya',

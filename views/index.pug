@@ -15,7 +15,7 @@ block content
                 i.far.fa-hand-point-right.mr-2
                 | Хотите просто проверить свои силы
           .row
-            a.mx-auto.btn.btn-success.btn-lg(href="/interview/new") #{__('app.want_to_interview')}
+            a.mx-auto.btn.btn-success.btn-lg(href="/interview/application") #{__('app.want_to_interview')}
       .row.mb-5
         h3.text-center.mx-auto.mb-4 #{__('app.coming_interviews')}
         .table-responsive.bg-white.shadow-sm
@@ -35,7 +35,7 @@ block content
                         a(href=interview.videoLink) #{interview.videoLink}
 
       .row.mb5
-        h3.text-center.mx-auto.mb-4 #{__('app.past_interviews')}
+        h3.text-center.mx-auto.mb-4 #{__('app.passed_interviews')}
         .table-responsive.bg-white.shadow-sm
           table.table.table-sm
             thead.thead-light
