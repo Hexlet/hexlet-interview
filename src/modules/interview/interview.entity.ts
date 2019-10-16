@@ -15,7 +15,7 @@ export class Interview extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // FIXME: maybe need enum type? and set db column?
+  // TODO: maybe need enum type? and set db column?
   @Column()
   state: string; // 'application' | 'coming' | 'passed' | 'canceled';
 
@@ -50,7 +50,6 @@ export class Interview extends BaseEntity {
 
   @BeforeInsert()
   setDefaults(): void {
-    // this.state = 'application';
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

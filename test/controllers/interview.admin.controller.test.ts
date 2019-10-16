@@ -90,7 +90,7 @@ describe('#interview', () => {
         videoLink: 'https://youtu.be/YrXJzD2',
       })
       .expect(HttpStatus.FOUND)
-      .expect('Location', '/');
+      .expect('Location', '/interview/manage/application');
     const numberOfComingInterviewsAfter = (await interviewRepo.find({ state: 'coming' })).length;
     expect(numberOfComingInterviewsAfter).toEqual(numberOfComingInterviewsBefore + 1);
   });

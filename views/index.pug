@@ -19,7 +19,7 @@ block content
       .row.mb-5
         h3.text-center.mx-auto.mb-4 #{__('app.coming_interviews')}
         .table-responsive.bg-white.shadow-sm
-          table.table.table-sm
+          table.table.table-sm.mb-0
             thead.thead-light
               tr
                 th.p-3.border-0.text-center.font-11em #{__('interview.interviewer')}
@@ -32,7 +32,11 @@ block content
                       td.p-3.align-middle.text-center #{interview.interviewer.fullName}
                       td.p-3.align-middle.text-center #{interview.interviewee.fullName}
                       td.p-3.align-middle.text-center
-                        a(href=interview.videoLink) #{interview.videoLink}
+                        if interview.videoLink
+                          a(href=interview.videoLink) #{interview.videoLink}
+                        else
+                          p #{__('coming_soon')}
+
 
       .row.mb5
         h3.text-center.mx-auto.mb-4 #{__('app.passed_interviews')}

@@ -23,7 +23,7 @@ export class InterviewService {
     });
   }
 
-  async getOne(id: number): Promise<Interview | undefined> {
+  async findOneById(id: number): Promise<Interview | undefined> {
     return this.interviewRepo.findOne(id, {
       relations: ['interviewee', 'interviewer'],
     });

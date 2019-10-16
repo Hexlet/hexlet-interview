@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsISO8601 } from 'class-validator';
+import { IsNotEmpty, IsISO8601, IsUrl } from 'class-validator';
+import { IsOptional } from '../../../common/validators/custom.validators';
 
 export class InterviewAssignmentDto {
   @IsNotEmpty()
@@ -8,5 +9,7 @@ export class InterviewAssignmentDto {
   @IsISO8601()
   readonly date: string;
 
-  readonly videoLink?: string;
+  @IsUrl()
+  @IsOptional()
+  readonly videoLink: string;
 }

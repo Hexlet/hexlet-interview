@@ -18,8 +18,8 @@ items:
     verified: true
   interviewer:
     role: interviewer
-    firstname: Kirill
-    lastname: Interviewer
+    firstname: Adam
+    lastname: Smith
     email: interviewer@boss.com
     password: 'e2e4'
     enabled: true

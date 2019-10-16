@@ -76,10 +76,6 @@ export class User {
     this.confirmationToken = uuidGenerate();
   }
 
-  // toString(): string {
-  //   return this.fullName;
-  // }
-
   toJSON(): object {
     return classToPlain(this);
   }

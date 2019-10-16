@@ -26,7 +26,7 @@ export class AppController {
     })).map(interview => {
       return {
         ...interview,
-        ...{ preview: getPreviewFromVideoLink(interview.videoLink) },
+        preview: getPreviewFromVideoLink(interview.videoLink),
       } as InterviewWithPreview;
     });
 

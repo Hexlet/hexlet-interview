@@ -1,5 +1,6 @@
 {
   "hello": "Привет!",
+  "coming_soon": "Скоро будет",
   "app": {
     "want_to_interview": "Хочу собеседоваться",
     "title": "Собеседования онлайн",
@@ -20,7 +21,11 @@
     "confirmpassword should not be empty": "Подтверждение пароля не может быть пустым",
     "registration_error_password_mismatch": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!",
     "registration_error_existing_user": "Ошибка регистрации, пользователь с таким email уже зарегистрирован",
-    "description should not be empty": "Описание не может быть пустым"
+    "description should not be empty": "Описание не может быть пустым",
+    "interviewerId should not be empty": "Необходимо указать интервьюера",
+    "date must be a valid ISO 8601 date string": "Необходимо указать в формату ISO 8601",
+    "date should not be empty": "Дата не может быть пустой",
+    "videoLink must be an URL address": "Должен быть указан URL адрес"
   },
   "users": {
     "form": {

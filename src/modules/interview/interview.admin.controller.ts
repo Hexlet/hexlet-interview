@@ -28,6 +28,7 @@ export class InterviewAdminController {
   constructor(public interviewService: InterviewService, public userService: UserService) {}
 
   @Get(':state')
+  // TODO: Add ability to set Role for whole controller not only route.
   @Role('admin')
   @Render('interview/manage')
   async findAll(@Param('state') state: string): Promise<{ interviews: Interview[]; options: object; state: string }> {
@@ -64,12 +65,14 @@ export class InterviewAdminController {
     @Param('id') id: number,
     @Req() req: Request,
   ): Promise<{ interview: Interview; interviewers: User[] }> {
-    const interview = await this.interviewService.getOne(id);
+    const interview = await this.interviewService.findOneById(id);
     if (!interview) {
       throw new NotFoundException();
     }
     const interviewers = await this.userService.getInterviewers();
     const renderData = { interview, interviewers };
+    // Save data for error render in BadRequestExceptionFilter.
+    // TODO: need some app level mechanism to store this.
     req.session!.savedRenderData = renderData;
     return renderData;
   }
@@ -85,7 +88,8 @@ export class InterviewAdminController {
     @Req() req: Request,
   ): Promise<void> {
     await this.interviewService.assign(id, dto);
+    // Delete data in case form was correctly processed.
     delete req.session!.savedRenderData;
-    res.redirect('/');
+    res.redirect('/interview/manage/application');
   }
 }
