@@ -6,7 +6,7 @@ import { Interview } from '../../src/modules/interview/interview.entity';
 import { createTestingApp } from '../app.testing';
 import { loadFixtures, clearDb } from '../fixtures.loader';
 
-describe('#interview', () => {
+describe('manage interview', () => {
   let app: INestApplication;
   let interviewRepo: Repository<Interview>;
   let users: { [key: string]: User };
