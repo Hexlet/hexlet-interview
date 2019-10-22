@@ -8,7 +8,7 @@
     "application_interviews": "Заявки",
     "coming_interviews": "Предстоящие интервью",
     "passed_interviews": "Прошедшие интервью",
-    "canceled_interviews": "Отменные интервью"
+    "canceled_interviews": "Отменённые интервью"
   },
   "validation": {
     "firstname should not be empty": "Имя не может быть пустым",
@@ -22,9 +22,10 @@
     "registration_error_password_mismatch": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!",
     "registration_error_existing_user": "Ошибка регистрации, пользователь с таким email уже зарегистрирован",
     "description should not be empty": "Описание не может быть пустым",
-    "interviewerId should not be empty": "Необходимо указать интервьюера",
+    "interviewerId should not be empty": "Необходимо указать собеседующего",
     "date must be a valid ISO 8601 date string": "Необходимо указать в формату ISO 8601",
     "date should not be empty": "Дата не может быть пустой",
+    "intervieweeId should not be empty": "Необходимо указать собеседуемого",
     "videoLink must be an URL address": "Должен быть указан URL адрес"
   },
   "users": {
@@ -56,6 +57,8 @@
     "description": "Описание",
     "videoLink": "Ссылка на трансляцию",
     "request": "Заявка на собеседование",
+    "new": "Создать новое интервью",
+    "edit": "Редактировать интервью",
     "profession": "Профессия",
     "js-frontend": "JavaScript frontend",
     "js-backend": "JavaScript backend",
@@ -78,19 +81,22 @@
       "position-description": "Оцените свой уровень в выбранной профессии",
       "about": "О себе",
       "about-description": "Например, ссылка на резюме или профиль на гитхабе",
-      "send-request": "Отправить заявку"
+      "send-request": "Отправить заявку",
+      "state": "Состояние"
     },
     "assignment": {
       "title": "Назначьте собеседующего и дату интервью",
       "select-interviewer": "Выберите интервьюера",
+      "select-interviewee": "Выберите интервьюируемого",
       "assign": "Назначить"
     },
     "application": "Заявки",
     "coming": "Предстоящие",
     "passed": "Состоявшиеся",
-    "canceled": "Отменные",
+    "canceled": "Отменённые",
     "action-names": {
       "assignment": "Назначить собеседующего",
+      "edit": "Редактировать",
       "canceling": "Отменить"
     }
   },

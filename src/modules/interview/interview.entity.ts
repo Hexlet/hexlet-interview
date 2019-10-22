@@ -25,7 +25,7 @@ export class Interview extends BaseEntity {
 
   @ManyToOne(() => User, user => user.interviews)
   @JoinColumn({ name: 'interviewer_id' })
-  interviewer: User;
+  interviewer: User | null;
 
   @Column()
   profession: string;

@@ -17,8 +17,9 @@ export class UserService {
     return this.repo.find();
   }
 
-  findOneById(id: number): Promise<User | undefined> {
-    return this.repo.findOne({ id });
+  findOneById(id: number, role?: string): Promise<User | undefined> {
+    const additionalOptions = role ? { role } : {};
+    return this.repo.findOne({ id, ...additionalOptions });
   }
 
   findOneByEmail(email: string): Promise<User | undefined> {
@@ -67,6 +68,12 @@ export class UserService {
   getInterviewers(): Promise<User[]> {
     return this.repo.find({
       where: { role: 'interviewer' },
+    });
+  }
+
+  getInterviewees(): Promise<User[]> {
+    return this.repo.find({
+      where: { role: 'user' },
     });
   }
 }
