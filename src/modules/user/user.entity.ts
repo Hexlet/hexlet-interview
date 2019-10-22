@@ -58,6 +58,9 @@ export class User {
   @OneToMany(() => Interview, interview => interview.interviewee)
   interviews: Interview[];
 
+  @OneToMany(() => Interview, interview => interview.interviewer)
+  interviewerAt: Interview[];
+
   @Expose()
   get fullName(): string {
     return this.lastname ? `${this.firstname} ${this.lastname}` : this.firstname;
