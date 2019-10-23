@@ -60,10 +60,10 @@ block content
           +select('state', {
             label: __('interview.form.state'),
             choices: [
-              { value: 'application', name: 'application' },
-              { value: 'coming', name: 'coming' },
-              { value: 'passed', name: 'passed' },
-              { value: 'canceled', name: 'canceled' },
+              { value: interviewState.WAIT_FOR_INTERVIEWER, name: interviewState.WAIT_FOR_INTERVIEWER },
+              { value: interviewState.COMING, name: interviewState.COMING },
+              { value: interviewState.PASSED, name: interviewState.PASSED },
+              { value: interviewState.CANCELED, name: interviewState.CANCELED },
             ]
           })
           button.btn.btn-primary(type='submit')= __(`interview.${formType}`)

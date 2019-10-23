@@ -1,7 +1,7 @@
 entity: Interview
 items:
   application:
-    state: 'application'
+    state: 'wait_for_interviewer'
     interviewee: '@kozma'
     profession: 'PHP'
     position: 'intern'

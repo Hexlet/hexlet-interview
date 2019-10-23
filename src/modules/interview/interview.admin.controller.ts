@@ -19,7 +19,7 @@ import { Role } from '../auth/role.decorator';
 import { RoleGuard, AuthenticatedGuard } from '../../common/guards';
 import { BadRequestExceptionFilter } from '../../common/filters/bad-request-exception.filter';
 import { User } from '../user/user.entity';
-import { Interview } from './interview.entity';
+import { Interview, interviewState } from './interview.entity';
 import { FormData } from '../../common/utils/form-data';
 import { prepareDate } from '../../common/utils/prepare-data.util';
 
@@ -70,7 +70,7 @@ export class InterviewAdminController {
   async getNew(@Req() req: Request): Promise<{ interviewees: User[]; interviewers: User[] }> {
     const interviewers = await this.userService.getInterviewers();
     const interviewees = await this.userService.getInterviewees();
-    const renderData = { interviewees, interviewers };
+    const renderData = { interviewees, interviewers, interviewState };
     req.session!.savedRenderData = renderData;
     return renderData;
   }
@@ -101,7 +101,7 @@ export class InterviewAdminController {
     });
     const interviewers = await this.userService.getInterviewers();
     const interviewees = await this.userService.getInterviewees();
-    const renderData = { editFormData, interviewees, interviewers, id };
+    const renderData = { editFormData, interviewees, interviewers, interviewState, id };
     req.session!.savedRenderData = renderData;
     return renderData;
   }
@@ -131,19 +131,19 @@ export class InterviewAdminController {
   async findAll(@Param('state') state: string): Promise<{ interviews: Interview[]; options: object; state: string }> {
     const stateOptions = {
       application: {
-        where: { state: 'application' },
+        where: { state: interviewState.WAIT_FOR_INTERVIEWER },
         relations: ['interviewee'],
       },
       coming: {
-        where: { state: 'coming' },
+        where: { state: interviewState.COMING },
         relations: ['interviewee', 'interviewer'],
       },
       passed: {
-        where: { state: 'passed' },
+        where: { state: interviewState.PASSED },
         relations: ['interviewee', 'interviewer'],
       },
       canceled: {
-        where: { state: 'canceled' },
+        where: { state: interviewState.CANCELED },
         relations: ['interviewee', 'interviewer'],
       },
     };

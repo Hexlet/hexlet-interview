@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsEnum, IsUrl } from 'class-validator';
 import { IsOptional } from '../../../common/validators/custom.validators';
+import { interviewState } from '../interview.entity';
 
 export class InterviewAddEditDto {
   @IsNotEmpty()
@@ -25,5 +26,6 @@ export class InterviewAddEditDto {
   readonly videoLink: string;
 
   @IsNotEmpty()
-  readonly state: string;
+  @IsEnum(interviewState)
+  readonly state: interviewState;
 }

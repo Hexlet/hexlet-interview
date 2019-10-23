@@ -2,7 +2,7 @@ import request from 'supertest';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { getRepository, Repository } from 'typeorm';
 import { User } from '../../src/modules/user/user.entity';
-import { Interview } from '../../src/modules/interview/interview.entity';
+import { Interview, interviewState } from '../../src/modules/interview/interview.entity';
 import { createTestingApp } from '../app.testing';
 import { loadFixtures, clearDb } from '../fixtures.loader';
 
@@ -85,7 +85,7 @@ describe('manage interview', () => {
   it('success interview assignment', async () => {
     const { admin, interviewer } = users;
     const { application } = interviews;
-    const numberOfComingInterviewsBefore = (await interviewRepo.find({ state: 'coming' })).length;
+    const numberOfComingInterviewsBefore = (await interviewRepo.find({ state: interviewState.COMING })).length;
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send({
@@ -108,7 +108,7 @@ describe('manage interview', () => {
       })
       .expect(HttpStatus.FOUND)
       .expect('Location', '/interview/manage/application');
-    const numberOfComingInterviewsAfter = (await interviewRepo.find({ state: 'coming' })).length;
+    const numberOfComingInterviewsAfter = (await interviewRepo.find({ state: interviewState.COMING })).length;
     expect(numberOfComingInterviewsAfter).toEqual(numberOfComingInterviewsBefore + 1);
   });
 
@@ -162,7 +162,7 @@ describe('manage interview', () => {
       intervieweeId: kozma.id,
       date: '2019-11-10 12:00:00',
       videoLink: 'https://youtu.be/YrXJzD2',
-      state: 'coming',
+      state: interviewState.COMING,
     };
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')

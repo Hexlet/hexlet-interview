@@ -10,14 +10,20 @@ import {
 } from 'typeorm';
 import { User } from '../user/user.entity';
 
+export enum interviewState {
+  WAIT_FOR_INTERVIEWER = 'wait_for_interviewer',
+  COMING = 'coming',
+  PASSED = 'passed',
+  CANCELED = 'canceled',
+}
+
 @Entity('interview')
 export class Interview extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // TODO: maybe need enum type? and set db column?
-  @Column()
-  state: string; // 'application' | 'coming' | 'passed' | 'canceled';
+  @Column({ type: 'varchar' })
+  state: interviewState;
 
   @ManyToOne(() => User, user => user.interviews)
   @JoinColumn({ name: 'interviewee_id' })
@@ -50,6 +56,7 @@ export class Interview extends BaseEntity {
 
   @BeforeInsert()
   setDefaults(): void {
+    this.state = this.state || interviewState.WAIT_FOR_INTERVIEWER;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

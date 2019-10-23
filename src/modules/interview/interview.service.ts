@@ -1,7 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindConditions, FindManyOptions } from 'typeorm';
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { Interview } from './interview.entity';
+import { Interview, interviewState } from './interview.entity';
 import { InterviewApplicationDto, InterviewAssignmentDto, InterviewAddEditDto } from './dto';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
@@ -67,7 +67,7 @@ export class InterviewService {
   }
 
   addApplication(interviewApplicationDto: InterviewApplicationDto, user: User): Promise<Interview> {
-    const entity = { ...interviewApplicationDto, interviewee: user, state: 'application' };
+    const entity = { ...interviewApplicationDto, interviewee: user };
     const interview = this.interviewRepo.create(entity);
     return interview.save();
   }
@@ -83,7 +83,7 @@ export class InterviewService {
       ...toUpdate,
       ...assignData,
       interviewer,
-      state: 'coming',
+      state: interviewState.COMING,
     });
   }
 }
