@@ -16,3 +16,12 @@ items:
     password: 'admin'
     enabled: true
     verified: true
+  interviewer:
+    role: interviewer
+    firstname: Adam
+    lastname: Smith
+    email: interviewer@boss.com
+    password: 'e2e4'
+    enabled: true
+    verified: true
+    archived: true

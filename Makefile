@@ -24,10 +24,10 @@ db-console:
 db-console-test:
 	docker-compose exec db_test psql -U test -d interview-test
 
+db-reset:
+	npm run schema:drop && npm run migration:run && npm run fixtures:load
+
 fixtures-load:
 	npm run fixtures:load
-
-reset-db:
-	npm run schema:drop && npm run migration:run && npm run fixtures:load
 
 .PHONY: test

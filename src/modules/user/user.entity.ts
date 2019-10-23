@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { classToPlain, Expose } from 'class-transformer';
 import { BeforeInsert, Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import uuidGenerate from 'uuid/v4';
 import { hashPassword } from '../../common/utils/password';
@@ -57,8 +58,12 @@ export class User {
   @OneToMany(() => Interview, interview => interview.interviewee)
   interviews: Interview[];
 
-  toString(): string {
-    return `${this.firstname} ${this.lastname}`;
+  @OneToMany(() => Interview, interview => interview.interviewer)
+  interviewerAt: Interview[];
+
+  @Expose()
+  get fullName(): string {
+    return this.lastname ? `${this.firstname} ${this.lastname}` : this.firstname;
   }
 
   @BeforeInsert()
@@ -72,5 +77,9 @@ export class User {
   @BeforeInsert()
   public async createToken(): Promise<void> {
     this.confirmationToken = uuidGenerate();
+  }
+
+  toJSON(): object {
+    return classToPlain(this);
   }
 }

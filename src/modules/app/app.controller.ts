@@ -10,17 +10,23 @@ export class AppController {
   @Get()
   @Render('index')
   async index(): Promise<{ comingInterviews: InterviewWithPreview[]; pastInterviews: InterviewWithPreview[] }> {
-    const pastInterviews = (await this.interviewService.getPast()).map(interview => {
+    const pastInterviews = (await this.interviewService.get({
+      where: { state: 'passed' },
+      relations: ['interviewee', 'interviewer'],
+    })).map(interview => {
       return {
         ...interview,
-        ...{ preview: getPreviewFromVideoLink(interview.videoLink) },
+        preview: getPreviewFromVideoLink(interview.videoLink),
       } as InterviewWithPreview;
     });
 
-    const comingInterviews = (await this.interviewService.getComing()).map(interview => {
+    const comingInterviews = (await this.interviewService.get({
+      where: { state: 'coming' },
+      relations: ['interviewee', 'interviewer'],
+    })).map(interview => {
       return {
         ...interview,
-        ...{ preview: getPreviewFromVideoLink(interview.videoLink) },
+        preview: getPreviewFromVideoLink(interview.videoLink),
       } as InterviewWithPreview;
     });
 

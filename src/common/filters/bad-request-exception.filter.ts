@@ -11,14 +11,15 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const values = request.body;
+    const { savedRenderData = {} } = request.session!;
     const { message: errors } = exception.message;
 
     response.status(HttpStatus.BAD_REQUEST);
     if (typeof errors === `string`) {
       request.flash('error', errors);
-      response.render(this.template, { badRequestFormData: new FormData(values) });
+      response.render(this.template, { ...savedRenderData, badRequestFormData: new FormData(values) });
       return;
     }
-    response.render(this.template, { badRequestFormData: new FormData(values, errors) });
+    response.render(this.template, { ...savedRenderData, badRequestFormData: new FormData(values, errors) });
   }
 }

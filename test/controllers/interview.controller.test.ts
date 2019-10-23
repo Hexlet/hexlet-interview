@@ -10,51 +10,18 @@ describe('#interview', () => {
   let userRepo: Repository<User>;
   let users: { [key: string]: User };
 
-  const adminAuthInfo = {
-    username: 'admin@admin.com',
-    password: 'admin',
-  };
-
-  const userAuthInfo = {
-    username: 'kprutkov@gmail.com',
-    password: '12345',
-  };
-
   beforeEach(async () => {
     app = await createTestingApp();
-    users = (await loadFixtures()).User;
+    const fixtures = await loadFixtures();
+    users = fixtures.User;
     userRepo = getRepository(User);
   });
 
-  it('cannot view interviews if not admin', async () => {
-    return request(app.getHttpServer())
-      .post('/auth/sign_in')
-      .send(userAuthInfo)
-      .expect(HttpStatus.FOUND)
-      .then(res => {
-        return request(app.getHttpServer())
-          .get('/interview')
-          .set('Cookie', res.header['set-cookie'])
-          .expect(HttpStatus.NOT_FOUND);
-      });
-  });
-
-  it('show all interviews', async () => {
-    return request(app.getHttpServer())
-      .post('/auth/sign_in')
-      .send(adminAuthInfo)
-      .expect(HttpStatus.FOUND)
-      .expect('Location', '/')
-      .then(res => {
-        return request(app.getHttpServer())
-          .get('/interview')
-          .set('Cookie', res.header['set-cookie'])
-          .expect(HttpStatus.OK);
-      });
-  });
-
-  it('create new interview', async () => {
+  it('create new interview application', async () => {
     const { kozma } = users;
+    const numberOfInterviewsBefore = (await userRepo.findOne(kozma.id, {
+      relations: ['interviews'],
+    }))!.interviews.length;
     const response = await request(app.getHttpServer())
       .post('/auth/sign_in')
       .send({
@@ -77,7 +44,7 @@ describe('#interview', () => {
       relations: ['interviews'],
     });
 
-    expect(reloadedUser!.interviews.length).toEqual(1);
+    expect(reloadedUser!.interviews.length).toEqual(numberOfInterviewsBefore + 1);
   });
 
   afterEach(async () => {

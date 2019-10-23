@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class InterviewCreateDto {
+export class InterviewApplicationDto {
   @IsNotEmpty()
   readonly profession: string;
 

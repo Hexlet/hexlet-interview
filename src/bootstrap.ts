@@ -51,7 +51,7 @@ export const bootstrapApp = (app: NestExpressApplication): void => {
   app.enableCors();
   app.use(
     rateLimit({
-      windowMs: 15 * 60 * 1000,
+      windowMs: 5 * 60 * 1000,
       max: 100,
     }),
   );
@@ -63,6 +63,7 @@ export const bootstrapApp = (app: NestExpressApplication): void => {
     res.locals._ = _;
     res.locals.helpers = viewHelpers;
     res.locals.login = req.isAuthenticated();
+    res.locals.path = req.path;
     res.locals.user = req.user;
     res.locals.userRole = req.user ? req.user.role : 'guest';
     next();

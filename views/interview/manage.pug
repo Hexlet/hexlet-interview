@@ -1,0 +1,59 @@
+extends ../layout
+
+mixin navLink(state, name)
+  - const url = `/interview/manage/${state}`
+  - const isActive = url => path === url ? 'active' : ''
+    li.nav-item
+      a.nav-link(class=isActive(url) href=url)= __(`interview.${name}`)
+
+mixin actionBtn(interviewId, actionName, style, iconClass)
+  a.btn.mr-2.btn-sm(href=`/interview/manage/${interviewId}/${actionName}` class=`btn-${style}` title=__(`interview.action-names.${actionName}`))
+    i(class=iconClass)
+
+block content
+  .container.pt-5
+    .d-flex
+      ul.nav.nav-pills
+        +navLink('application', 'application')
+        +navLink('coming', 'coming')
+        +navLink('passed', 'passed')
+        +navLink('canceled', 'canceled')
+      .ml-5
+        a.btn.mr-2(href=`/interview/manage/new` class=`btn-success`)= __(`interview.new`)
+    h2.mt-4.mb-4.text-center #{__(`app.${state}_interviews`)}
+    .table-responsive.table-sm.bg-white.shadow-sm
+      table.table.mb-0
+        thead.thead-light
+          tr
+            if options.relations.includes('interviewee')
+              th.p-3.border-0= __('interview.interviewee')
+            if options.relations.includes('interviewer')
+              th.p-3.border-0= __('interview.interviewer')
+            th.p-3.border-0= __('interview.profession')
+            th.p-3.border-0= __('interview.position')
+            th.p-3.border-0(style='width: 30%;')= __('interview.description')
+            th.p-3.border-0(style='min-width:100px;')= __('interview.actions')
+          tbody
+            if interviews.length > 0
+              each interview in interviews
+                tr
+                  if interview.interviewee
+                    td.p-3.align-middle.text-nowrap #{interview.interviewee.fullName}
+                  if options.relations.includes('interviewer')
+                    td.p-3.align-middle.text-nowrap= interview.interviewer ? interview.interviewer.fullName : ''
+                  td.p-3.align-middle.text-nowrap #{interview.profession}
+                  td.p-3.align-middle.text-nowrap #{interview.position}
+                  td.p-3.align-middle #{interview.description}
+                  td.p-3.align-middle
+                    if state === 'application'
+                      +actionBtn(interview.id, 'assignment', 'success', 'fas fa-user-plus')
+                      // +actionBtn(interview.id, 'canceling', 'danger', 'fas fa-times-circle')
+                      +actionBtn(interview.id, 'edit', 'warning', 'fas fa-edit')
+                    if state === 'coming'
+                      // +actionBtn(interview.id, 'canceling', 'danger', 'fas fa-times-circle')
+                      +actionBtn(interview.id, 'edit', 'warning', 'fas fa-edit')
+                    if state === 'passed'
+                      // +actionBtn(interview.id, 'canceling', 'danger', 'fas fa-times-circle')
+                      +actionBtn(interview.id, 'edit', 'warning', 'fas fa-edit')
+                    if state === 'canceled'
+                      +actionBtn(interview.id, 'edit', 'warning', 'fas fa-edit')
