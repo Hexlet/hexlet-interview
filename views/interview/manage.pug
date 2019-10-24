@@ -17,7 +17,7 @@ block content
         +navLink('application', 'application')
         +navLink('coming', 'coming')
         +navLink('passed', 'passed')
-        +navLink('canceled', 'canceled')
+        +navLink('cancelled', 'cancelled')
       .ml-5
         a.btn.mr-2(href=`/interview/manage/new` class=`btn-success`)= __(`interview.new`)
     h2.mt-4.mb-4.text-center #{__(`app.${state}_interviews`)}
@@ -55,5 +55,5 @@ block content
                     if state === 'passed'
                       // +actionBtn(interview.id, 'canceling', 'danger', 'fas fa-times-circle')
                       +actionBtn(interview.id, 'edit', 'warning', 'fas fa-edit')
-                    if state === 'canceled'
+                    if state === 'cancelled'
                       +actionBtn(interview.id, 'edit', 'warning', 'fas fa-edit')

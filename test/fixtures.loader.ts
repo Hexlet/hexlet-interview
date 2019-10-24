@@ -34,7 +34,7 @@ export const loadFixtures = async (): Promise<Fixtures> => {
     entities[entityName][fixture.name] = entitySaved;
   }
 
-  return entities;
+  return entities as Fixtures;
 };
 
 export const clearDb = async (): Promise<void> => {

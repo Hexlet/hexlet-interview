@@ -142,8 +142,8 @@ export class InterviewAdminController {
         where: { state: interviewState.PASSED },
         relations: ['interviewee', 'interviewer'],
       },
-      canceled: {
-        where: { state: interviewState.CANCELED },
+      cancelled: {
+        where: { state: interviewState.CANCELLED },
         relations: ['interviewee', 'interviewer'],
       },
     };
