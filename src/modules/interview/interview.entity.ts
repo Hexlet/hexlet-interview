@@ -9,6 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from '../user/user.entity';
+import { StateMachine } from '../../common/state-machine.decorator';
 
 export enum interviewState {
   WAIT_FOR_INTERVIEWER = 'wait_for_interviewer',
@@ -17,7 +18,17 @@ export enum interviewState {
   CANCELLED = 'cancelled',
 }
 
+export const InterviewStateMachine = {
+  init: 'wait_for_interviewer',
+  transitions: [
+    { name: 'assign', from: 'wait_for_interviewer', to: 'assigned' },
+    { name: 'cancel', from: ['wait_for_interviewer', 'assigned'], to: 'cancelled' },
+    { name: 'pass', from: 'assigned', to: 'passed' }
+  ],
+}
+
 @Entity('interview')
+@StateMachine(InterviewStateMachine)
 export class Interview extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -56,7 +67,7 @@ export class Interview extends BaseEntity {
 
   @BeforeInsert()
   setDefaults(): void {
-    this.state = this.state || interviewState.WAIT_FOR_INTERVIEWER;
+    //this.state = this.state || interviewState.WAIT_FOR_INTERVIEWER;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
@@ -65,4 +76,11 @@ export class Interview extends BaseEntity {
   updateUpdatedAt(): void {
     this.updatedAt = new Date();
   }
+}
+
+ //for fsm methods working
+export interface Interview {
+  assign(): void;
+  cancel(): void;
+  pass(): void;
 }

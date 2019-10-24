@@ -2,7 +2,7 @@ import { ValidationError } from 'class-validator';
 
 export class FormData {
   constructor(
-    public readonly values: { [key: string]: string | number } = {},
+    public readonly values: { [key: string]: any } = {},
     public readonly errors: ValidationError[] = [],
   ) {}
 

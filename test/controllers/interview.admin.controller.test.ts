@@ -205,7 +205,9 @@ describe('manage interview', () => {
       .post(`/interview/manage/${coming.id}/edit`)
       .set('Cookie', response.header['set-cookie'])
       .send({
-        ...coming,
+        position: coming.position,
+        state: coming.state,
+        description: coming.description,
         intervieweeId: coming.interviewee.id,
         interviewerId: coming.interviewer!.id,
         profession: 'PHP',
