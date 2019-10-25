@@ -1,0 +1,4 @@
+mixin navLink(url, name)
+  - const isActive = url => path === url ? 'active' : ''
+    li.nav-item
+      a.nav-link(class=isActive(url) href=url)= name

@@ -5,6 +5,7 @@
     "want_to_interview": "Хочу собеседоваться",
     "title": "Собеседования онлайн",
     "manage_interviews": "Управление интервью",
+    "my_interview_applications": "Мои заявки",
     "application_interviews": "Заявки",
     "coming_interviews": "Предстоящие интервью",
     "passed_interviews": "Прошедшие интервью",
@@ -103,5 +104,14 @@
   "error": {
     "back-home": "Back home",
     "not-found": "The page you are looking for was not found."
+  },
+  "account": {
+    "my_application": "Мои заявки",
+    "my_application_title": "Заявки в рассмотрении",
+    "no_application": "У вас все ещё нет ни одной заявки.",
+    "create_application": "Подать заявку",
+    "coming_title": "Вам назначено собеседование",
+    "applied": "заявка подана",
+    "ago": "назад"
   }
 }
