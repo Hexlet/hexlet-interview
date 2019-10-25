@@ -23,9 +23,9 @@ export const InterviewStateMachine = {
   transitions: [
     { name: 'assign', from: 'wait_for_interviewer', to: 'assigned' },
     { name: 'cancel', from: ['wait_for_interviewer', 'assigned'], to: 'cancelled' },
-    { name: 'pass', from: 'assigned', to: 'passed' }
+    { name: 'pass', from: 'assigned', to: 'passed' },
   ],
-}
+};
 
 @Entity('interview')
 @StateMachine(InterviewStateMachine)
@@ -67,7 +67,7 @@ export class Interview extends BaseEntity {
 
   @BeforeInsert()
   setDefaults(): void {
-    //this.state = this.state || interviewState.WAIT_FOR_INTERVIEWER;
+    // this.state = this.state || interviewState.WAIT_FOR_INTERVIEWER;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
@@ -78,7 +78,7 @@ export class Interview extends BaseEntity {
   }
 }
 
- //for fsm methods working
+// for fsm methods working
 export interface Interview {
   assign(): void;
   cancel(): void;
