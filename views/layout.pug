@@ -16,12 +16,12 @@ html(lang='ru')
 
   body.d-flex.flex-column.min-vh-100
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href="/").mr-5 HexletInterview
+      a.navbar-brand(href="/") HexletInterview
       .collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-          li.nav-item
+        ul.navbar-nav
           if login
-            a.nav-link(href="/my/application") #{__('app.my_interview_applications')}
+            li.nav-item
+              a.nav-link(href="/my/application") #{__('app.my_interview_applications')}
           if userRole === 'admin'
               li.nav-item
                 a.nav-link(href="/interview/manage/application") #{__('app.manage_interviews')}
