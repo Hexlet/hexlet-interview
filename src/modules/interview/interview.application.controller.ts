@@ -23,19 +23,19 @@ import { User } from '../user/user.entity';
 import { FormData } from '../../common/utils/form-data';
 import { ReqUser } from '../../common/decorators/req-user.decorator';
 
-@Controller('interview')
+@Controller('interview/application')
 @UseGuards(AuthenticatedGuard)
-export class InterviewController {
+export class InterviewApplicationController {
   constructor(public interviewService: InterviewService, public userService: UserService) {}
 
-  @Get('/application')
+  @Get()
   @Render('interview/application')
   getApplictionForm(): {} {
     return {};
   }
 
   @UseFilters(new BadRequestExceptionFilter('interview/application'))
-  @Post('/application')
+  @Post()
   async addApplication(
     @Body() interviewApplicationDto: InterviewApplicationDto,
     @Req() req: Request,
@@ -49,7 +49,7 @@ export class InterviewController {
     }
   }
 
-  @Get('/application/:id/edit')
+  @Get('/:id/edit')
   @Render('interview/application')
   async getApplictionEditForm(
     @Req() req: Request,
@@ -70,7 +70,7 @@ export class InterviewController {
   }
 
   // TODO: should be PATCH on '/application/:id'
-  @Post('/application/:id/edit')
+  @Post('/:id/edit')
   @UseFilters(new BadRequestExceptionFilter('interview/application'))
   async editApplication(
     @Body() interviewApplicationDto: InterviewApplicationDto,

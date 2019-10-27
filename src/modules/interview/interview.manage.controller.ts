@@ -26,7 +26,7 @@ import { prepareDate } from '../../common/utils/prepare-data.util';
 @Controller('interview/manage')
 @UseGuards(AuthenticatedGuard)
 @UseGuards(RoleGuard)
-export class InterviewAdminController {
+export class InterviewManageController {
   constructor(public interviewService: InterviewService, public userService: UserService) {}
 
   @Get(':id/assignment')
