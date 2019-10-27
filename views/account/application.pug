@@ -4,17 +4,20 @@ mixin applicationCard(interview)
   .col-md-6.col-12
     .card.my-4
       .card-body
-        .h5 #{interview.profession}
-        div= interview.position
+        .h5.mb-1 #{interview.profession}
+        .mb-2= interview.position
         if interview.description
             .text-muted #{interview.description}
       .card-footer
         .d-flex
           - const when = dateFns.formatDistance(new Date(interview.createdAt), new Date, { locale: dateLocale });
           .font-weight-light.mr-auto= `${__('account.applied')} ${when} ${__('account.ago')}`
-          a.card-link(href=`/interview/${interview.id}/edit` class=`btn-${style}`)= __('interview.action-names.edit')
+          a.card-link(href=`/interview/application/${interview.id}/edit` class=`btn-${style}`)= __('interview.action-names.edit')
           // a.card-link.ml-3(href=`/interview/${interview.id}/edit` class=`btn-${style}`)= __('interview.action-names.canceling')
 
+append nav-actions
+  if userApplications.length
+    a.btn.ml-5(href="/interview/application" class=`btn-success`)= __("account.create_application")
 
 block pane
     if userApplications.length

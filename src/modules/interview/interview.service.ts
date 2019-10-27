@@ -72,6 +72,10 @@ export class InterviewService {
     return interview.save();
   }
 
+  editApplication(application: Interview, interviewApplicationDto: InterviewApplicationDto): Promise<Interview> {
+    return this.interviewRepo.save({ ...application, ...interviewApplicationDto });
+  }
+
   async assign(id: number, interviewAssignmentDto: InterviewAssignmentDto): Promise<Interview> {
     const toUpdate = await this.interviewRepo.findOne(id);
     const { interviewerId, ...assignData } = interviewAssignmentDto;

@@ -19,8 +19,8 @@ block content
                       .h5= dateFns.format(new Date(interview.date),'PP', { locale: dateLocale })
 
                 .col-md-8.col-lg-9
-                  .h5 #{interview.profession}
-                  div= interview.position
+                  .h5.mb-1 #{interview.profession}
+                  .mb-2= interview.position
                   if interview.description
                       .text-muted #{interview.description}
 
