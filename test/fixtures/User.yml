@@ -8,6 +8,14 @@ items:
     password: '12345'
     enabled: true
     verified: true
+  user:
+    role: user
+    firstname: User
+    lastname: Interviee
+    email: user@gmail.com
+    password: 'user'
+    enabled: true
+    verified: true
   admin:
     role: admin
     firstname: Admin

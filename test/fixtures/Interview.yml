@@ -5,6 +5,11 @@ items:
     interviewee: '@kozma'
     profession: 'PHP'
     position: 'intern'
+  application2:
+    state: 'wait_for_interviewer'
+    interviewee: '@user'
+    profession: 'PHP'
+    position: 'intern'
   coming:
     state: 'coming'
     interviewee: '@kozma'
