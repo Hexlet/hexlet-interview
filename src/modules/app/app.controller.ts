@@ -1,7 +1,9 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { InterviewService } from '../interview/interview.service';
-import { Interview } from '../interview/interview.entity';
+import { Interview, interviewState } from '../interview/interview.entity';
 import { getPreviewFromVideoLink } from '../../common/utils/youtube-preview.util';
+import { User } from '../user/user.entity';
+import { ReqUser } from '../../common/decorators/req-user.decorator';
 
 @Controller()
 export class AppController {
@@ -9,22 +11,46 @@ export class AppController {
 
   @Get()
   @Render('index')
-  async index(): Promise<{ comingInterviews: InterviewWithPreview[]; pastInterviews: InterviewWithPreview[] }> {
-    const pastInterviews = (await this.interviewService.getPast()).map(interview => {
+  async index(
+    @ReqUser() user: User,
+  ): Promise<{
+    comingInterviews: InterviewWithPreview[];
+    pastInterviews: InterviewWithPreview[];
+    userComingInterviews: Interview[] | undefined;
+  }> {
+    const pastInterviews = (await this.interviewService.get({
+      where: { state: 'passed' },
+      relations: ['interviewee', 'interviewer'],
+    })).map(interview => {
       return {
         ...interview,
-        ...{ preview: getPreviewFromVideoLink(interview.videoLink) },
+        preview: getPreviewFromVideoLink(interview.videoLink),
       } as InterviewWithPreview;
     });
 
-    const comingInterviews = (await this.interviewService.getComing()).map(interview => {
+    const comingInterviews = (await this.interviewService.get({
+      where: { state: 'coming' },
+      relations: ['interviewee', 'interviewer'],
+    })).map(interview => {
       return {
         ...interview,
-        ...{ preview: getPreviewFromVideoLink(interview.videoLink) },
+        preview: getPreviewFromVideoLink(interview.videoLink),
       } as InterviewWithPreview;
     });
 
-    return { comingInterviews, pastInterviews };
+    let userComingInterviews: Interview[] | undefined;
+
+    if (user) {
+      userComingInterviews = await this.interviewService.get({
+        where: {
+          interviewee: user,
+          state: interviewState.COMING,
+        },
+        relations: ['interviewer'],
+      });
+    }
+
+    return { comingInterviews, pastInterviews, userComingInterviews };
   }
 }
 

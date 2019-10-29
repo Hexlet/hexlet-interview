@@ -1,11 +1,14 @@
 extends ../layout
 
 block content
+  - const isEditForm = _.last(path.split('/')) === 'edit';
+  - const actionUrl = isEditForm ? `/interview/application/${id}/edit` : `/interview/application`;
+  - const method = 'POST';
   .container
     .row.pt-5
       .col-lg-5.col-md-8.mx-auto
-        h1 #{__('interview.request')}
-        form(method='POST' action='/interview')
+        h2 #{__('interview.request')}
+        form(method=method action=actionUrl)
           +select('profession', {
             label: __('interview.form.profession'),
             help: __('interview.form.professsion-description'),
@@ -31,4 +34,5 @@ block content
             label: __('interview.form.about'),
             help: __('interview.form.about-description'),
           })
-          button.btn.btn-primary(type='submit')= __('interview.form.send-request')
+          - const btnText = isEditForm ? __('interview.edit') : __('interview.form.send-request');
+          button.btn.btn-primary(type='submit')= btnText

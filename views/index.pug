@@ -3,6 +3,27 @@ extends layout
 block content
   main.flex-shrink-0.my-5
     .container
+      if userComingInterviews && userComingInterviews.length
+        .card.mb-4.border-warning
+          .card-body
+            h2.card-title.mb-4.text-center= `${__('account.coming_title')}:`
+            for interview in userComingInterviews
+              .row.no-gutter.mb-5
+                .col-md-4.col-lg-3
+                  .shadow-sm.bg-light.mx-0.p-3.mt-2.mb-4.my-md-0.mx-md-2
+                    .mb-3
+                      .font-weight-light #{__('interview.interviewer')}:
+                      .h5 #{interview.interviewer.fullName}
+                    div
+                      .font-weight-light #{__('interview.data')}:
+                      .h5= dateFns.format(new Date(interview.date),'PP', { locale: dateLocale })
+
+                .col-md-8.col-lg-9
+                  .h5.mb-1 #{interview.profession}
+                  .mb-2= interview.position
+                  if interview.description
+                      .text-muted #{interview.description}
+
       .card.mb-4
         .card-body
           h2.card-title.text-center.mb-4 Для чего нужны онлайн собеседования?
@@ -15,11 +36,11 @@ block content
                 i.far.fa-hand-point-right.mr-2
                 | Хотите просто проверить свои силы
           .row
-            a.mx-auto.btn.btn-success.btn-lg(href="/interview/new") #{__('app.want_to_interview')}
+            a.mx-auto.btn.btn-success.btn-lg(href="/interview/application") #{__('app.want_to_interview')}
       .row.mb-5
         h3.text-center.mx-auto.mb-4 #{__('app.coming_interviews')}
         .table-responsive.bg-white.shadow-sm
-          table.table.table-sm
+          table.table.table-sm.mb-0
             thead.thead-light
               tr
                 th.p-3.border-0.text-center.font-11em #{__('interview.interviewer')}
@@ -29,13 +50,17 @@ block content
                 if comingInterviews && comingInterviews.length > 0
                   each interview in comingInterviews
                     tr
-                      td.p-3.align-middle.text-center #{interview.interviewer}
-                      td.p-3.align-middle.text-center #{interview.interviewee}
+                      td.p-3.align-middle.text-center #{interview.interviewer.fullName}
+                      td.p-3.align-middle.text-center #{interview.interviewee.fullName}
                       td.p-3.align-middle.text-center
-                        a(href=interview.videoLink) #{interview.videoLink}
+                        if interview.videoLink
+                          a(href=interview.videoLink) #{interview.videoLink}
+                        else
+                          p #{__('coming_soon')}
+
 
       .row.mb5
-        h3.text-center.mx-auto.mb-4 #{__('app.past_interviews')}
+        h3.text-center.mx-auto.mb-4 #{__('app.passed_interviews')}
         .table-responsive.bg-white.shadow-sm
           table.table.table-sm
             thead.thead-light
@@ -47,8 +72,8 @@ block content
                 if pastInterviews && pastInterviews.length > 0
                   each interview in pastInterviews
                     tr
-                      td.p-2.align-middle.text-nowrap.text-center #{interview.interviewer}
-                      td.p-3.align-middle.text-nowrap.text-center #{interview.interviewee}
+                      td.p-2.align-middle.text-nowrap.text-center #{interview.interviewer.fullName}
+                      td.p-3.align-middle.text-nowrap.text-center #{interview.interviewee.fullName}
                       td.p-3.align-middle.text-nowrap.text-center
                         a(href=interview.videoLink)
                           img(src=interview.preview, width='200').img-thumbnail

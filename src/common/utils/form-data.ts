@@ -1,7 +1,10 @@
 import { ValidationError } from 'class-validator';
 
 export class FormData {
-  constructor(public readonly values: { [key: string]: string } = {}, public readonly errors: ValidationError[] = []) {}
+  constructor(
+    public readonly values: { [key: string]: string | number } = {},
+    public readonly errors: ValidationError[] = [],
+  ) {}
 
   private getPropertyError(property: string): ValidationError | undefined {
     return this.errors.find(error => error.property === property);
@@ -15,7 +18,7 @@ export class FormData {
     return !!this.getPropertyError(property);
   }
 
-  getPropertyValue(property: string): string {
+  getPropertyValue(property: string): string | number {
     return this.values[property] || '';
   }
 

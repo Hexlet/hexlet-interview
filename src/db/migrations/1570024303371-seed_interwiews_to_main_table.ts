@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { MigrationInterface, QueryRunner, Repository } from 'typeorm';
 import { User } from '../../modules/user/user.entity';
-import { Interview } from '../../modules/interview/interview.entity';
+import { Interview, interviewState } from '../../modules/interview/interview.entity';
 
 const interviewsData = [
   {
@@ -119,7 +119,7 @@ export class seedInterwiewsToMainTable1570024303371 implements MigrationInterfac
         ...rest,
         interviewee,
         interviewer,
-        state: 'passed',
+        state: interviewState.PASSED,
         createdAt: `${new Date()}`,
         updatedAt: `${new Date()}`,
       });

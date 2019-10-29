@@ -1,0 +1,19 @@
+entity: Interview
+items:
+  application:
+    state: 'wait_for_interviewer'
+    interviewee: '@kozma'
+    profession: 'PHP'
+    position: 'intern'
+  application2:
+    state: 'wait_for_interviewer'
+    interviewee: '@user'
+    profession: 'PHP'
+    position: 'intern'
+  coming:
+    state: 'coming'
+    interviewee: '@kozma'
+    interviewer: '@interviewer'
+    profession: 'Python'
+    position: 'intern'
+    date: '2019-12-15 00:00:00'

@@ -1,0 +1,69 @@
+extends ../layout
+
+
+block content
+  - const formType = _.last(path.split('/'))
+  - const actionUrl = formType === 'new' ? '/interview/manage/new' : `/interview/manage/${id}/edit`
+  .container
+    .row.pt-5
+      .col-lg-5.col-md-8.mx-auto
+        h2 #{__(`interview.${formType}`)}
+        form(method='POST' action=actionUrl)
+          +select('profession', {
+            label: __('interview.form.profession'),
+            help: __('interview.form.professsion-description'),
+            choices: [
+              { value: __('interview.js-frontend'), name: __('interview.js-frontend') },
+              { value: __('interview.js-backend'), name: __('interview.js-backend') },
+              { value: __('interview.php'), name: __('interview.php') },
+              { value: __('interview.java'), name: __('interview.java') },
+              { value: __('interview.python'), name: __('interview.python') },
+            ]
+          })
+          +select('position', {
+            label: __('interview.form.position'),
+            help: __('interview.form.position-description'),
+            choices: [
+              { value: __('interview.intern'), name: __('interview.intern') },
+              { value: __('interview.junior'), name: __('interview.junior') },
+              { value: __('interview.middle'), name: __('interview.middle') },
+              { value: __('interview.senior'), name: __('interview.senior') },
+            ]
+          })
+          +textarea('description', {
+            label: __('interview.form.about'),
+            help: __('interview.form.about-description'),
+          })
+          +select('intervieweeId', {
+            label: __('interview.interviewee'),
+            choices: [
+              { value: '', name: __('interview.assignment.select-interviewee'), selectedDefault: true, disabled: true },
+              ...interviewees.map(interviewee => ({ value: interviewee.id, name: interviewee.fullName }))
+              ],
+          })
+          +select('interviewerId', {
+            label: __('interview.interviewer'),
+            choices: [
+              { value: '', name: __('interview.assignment.select-interviewer'), selectedDefault: true },
+              ...interviewers.map(interviewer => ({ value: interviewer.id, name: interviewer.fullName }))
+              ],
+          })
+          +input('date', {
+            label: __('interview.data'),
+            as: 'datetime-local',
+            placeholder: 'yyyy-MM-ddThh:mm'
+          })
+          +input('videoLink', {
+            label: __('interview.videoLink'),
+            placeholder: 'https://youtu.be/...'
+          })
+          +select('state', {
+            label: __('interview.form.state'),
+            choices: [
+              { value: interviewState.WAIT_FOR_INTERVIEWER, name: interviewState.WAIT_FOR_INTERVIEWER },
+              { value: interviewState.COMING, name: interviewState.COMING },
+              { value: interviewState.PASSED, name: interviewState.PASSED },
+              { value: interviewState.CANCELED, name: interviewState.CANCELED },
+            ]
+          })
+          button.btn.btn-primary(type='submit')= __(`interview.${formType}`)

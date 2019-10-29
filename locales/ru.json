@@ -1,11 +1,15 @@
 {
   "hello": "Привет!",
+  "coming_soon": "Скоро будет",
   "app": {
     "want_to_interview": "Хочу собеседоваться",
     "title": "Собеседования онлайн",
-    "interview_requests": "Заявки",
+    "manage_interviews": "Управление интервью",
+    "my_interview_applications": "Мои заявки",
+    "application_interviews": "Заявки",
     "coming_interviews": "Предстоящие интервью",
-    "past_interviews": "Прошедшие интервью"
+    "passed_interviews": "Прошедшие интервью",
+    "cancelled_interviews": "Отменённые интервью"
   },
   "validation": {
     "firstname should not be empty": "Имя не может быть пустым",
@@ -18,7 +22,12 @@
     "confirmpassword should not be empty": "Подтверждение пароля не может быть пустым",
     "registration_error_password_mismatch": "Ошибка регистрации, несовпадение пароля и подтверждения пароля!",
     "registration_error_existing_user": "Ошибка регистрации, пользователь с таким email уже зарегистрирован",
-    "description should not be empty": "Описание не может быть пустым"
+    "description should not be empty": "Описание не может быть пустым",
+    "interviewerId should not be empty": "Необходимо указать собеседующего",
+    "date must be a valid ISO 8601 date string": "Необходимо указать в формату ISO 8601",
+    "date should not be empty": "Дата не может быть пустой",
+    "intervieweeId should not be empty": "Необходимо указать собеседуемого",
+    "videoLink must be an URL address": "Должен быть указан URL адрес"
   },
   "users": {
     "form": {
@@ -43,12 +52,14 @@
     }
   },
   "interview": {
-    "request_accepted": "Ваша заявка принята",
+    "application_accepted": "Ваша заявка принята",
     "interviewer": "Собеседующий",
     "interviewee": "Собеседуемый",
     "description": "Описание",
     "videoLink": "Ссылка на трансляцию",
     "request": "Заявка на собеседование",
+    "new": "Создать новое интервью",
+    "edit": "Редактировать интервью",
     "profession": "Профессия",
     "js-frontend": "JavaScript frontend",
     "js-backend": "JavaScript backend",
@@ -60,6 +71,8 @@
     "junior": "Junior",
     "middle": "Middle",
     "senior": "Senior",
+    "data": "Дата",
+    "actions": "Действия",
     "form": {
       "name": "Ваше имя",
       "name-description": "Чтобы собеседующий знал, как к вам обращаться",
@@ -69,11 +82,37 @@
       "position-description": "Оцените свой уровень в выбранной профессии",
       "about": "О себе",
       "about-description": "Например, ссылка на резюме или профиль на гитхабе",
-      "send-request": "Отправить заявку"
+      "send-request": "Отправить заявку",
+      "state": "Состояние",
+      "not-own-error": "Вы можете редактировать только собственные заявки"
+    },
+    "assignment": {
+      "title": "Назначьте собеседующего и дату интервью",
+      "select-interviewer": "Выберите интервьюера",
+      "select-interviewee": "Выберите интервьюируемого",
+      "assign": "Назначить"
+    },
+    "application": "Заявки",
+    "coming": "Предстоящие",
+    "passed": "Состоявшиеся",
+    "cancelled": "Отменённые",
+    "action-names": {
+      "assignment": "Назначить собеседующего",
+      "edit": "Редактировать",
+      "canceling": "Отменить"
     }
   },
   "error": {
     "back-home": "Back home",
     "not-found": "The page you are looking for was not found."
+  },
+  "account": {
+    "my_application": "Мои заявки",
+    "my_application_title": "Заявки в рассмотрении",
+    "no_application": "У вас все ещё нет ни одной заявки.",
+    "create_application": "Подать заявку",
+    "coming_title": "Вам назначено собеседование",
+    "applied": "заявка подана",
+    "ago": "назад"
   }
 }
