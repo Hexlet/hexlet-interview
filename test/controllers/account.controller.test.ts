@@ -22,6 +22,7 @@ describe('#interview', () => {
       .expect(HttpStatus.FOUND)
       .expect('Location', '/');
     const cookie = res.header['set-cookie'];
+
     return request(app.getHttpServer())
       .get('/my/application')
       .set('Cookie', cookie)

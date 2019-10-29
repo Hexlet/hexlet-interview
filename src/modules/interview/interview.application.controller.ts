@@ -30,7 +30,7 @@ export class InterviewApplicationController {
 
   @Get()
   @Render('interview/application')
-  getApplictionForm(): {} {
+  getApplicationForm(): {} {
     return {};
   }
 
