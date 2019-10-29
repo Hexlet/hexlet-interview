@@ -6,6 +6,7 @@ import { InterviewModule } from '../interview/interview.module';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 import { MailerModule } from '../mailer/mailer.module';
+import { AccountModule } from '../account/account.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { MailerModule } from '../mailer/mailer.module';
     AuthModule,
     ConfigModule,
     MailerModule,
+    AccountModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -5,10 +5,11 @@
     "want_to_interview": "Хочу собеседоваться",
     "title": "Собеседования онлайн",
     "manage_interviews": "Управление интервью",
+    "my_interview_applications": "Мои заявки",
     "application_interviews": "Заявки",
     "coming_interviews": "Предстоящие интервью",
     "passed_interviews": "Прошедшие интервью",
-    "canceled_interviews": "Отменённые интервью"
+    "cancelled_interviews": "Отменённые интервью"
   },
   "validation": {
     "firstname should not be empty": "Имя не может быть пустым",
@@ -82,7 +83,8 @@
       "about": "О себе",
       "about-description": "Например, ссылка на резюме или профиль на гитхабе",
       "send-request": "Отправить заявку",
-      "state": "Состояние"
+      "state": "Состояние",
+      "not-own-error": "Вы можете редактировать только собственные заявки"
     },
     "assignment": {
       "title": "Назначьте собеседующего и дату интервью",
@@ -93,7 +95,7 @@
     "application": "Заявки",
     "coming": "Предстоящие",
     "passed": "Состоявшиеся",
-    "canceled": "Отменённые",
+    "cancelled": "Отменённые",
     "action-names": {
       "assignment": "Назначить собеседующего",
       "edit": "Редактировать",
@@ -103,5 +105,14 @@
   "error": {
     "back-home": "Back home",
     "not-found": "The page you are looking for was not found."
+  },
+  "account": {
+    "my_application": "Мои заявки",
+    "my_application_title": "Заявки в рассмотрении",
+    "no_application": "У вас все ещё нет ни одной заявки.",
+    "create_application": "Подать заявку",
+    "coming_title": "Вам назначено собеседование",
+    "applied": "заявка подана",
+    "ago": "назад"
   }
 }

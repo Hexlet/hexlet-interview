@@ -14,7 +14,7 @@ export enum interviewState {
   WAIT_FOR_INTERVIEWER = 'wait_for_interviewer',
   COMING = 'coming',
   PASSED = 'passed',
-  CANCELED = 'canceled',
+  CANCELLED = 'cancelled',
 }
 
 @Entity('interview')

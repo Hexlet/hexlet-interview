@@ -3,6 +3,27 @@ extends layout
 block content
   main.flex-shrink-0.my-5
     .container
+      if userComingInterviews && userComingInterviews.length
+        .card.mb-4.border-warning
+          .card-body
+            h2.card-title.mb-4.text-center= `${__('account.coming_title')}:`
+            for interview in userComingInterviews
+              .row.no-gutter.mb-5
+                .col-md-4.col-lg-3
+                  .shadow-sm.bg-light.mx-0.p-3.mt-2.mb-4.my-md-0.mx-md-2
+                    .mb-3
+                      .font-weight-light #{__('interview.interviewer')}:
+                      .h5 #{interview.interviewer.fullName}
+                    div
+                      .font-weight-light #{__('interview.data')}:
+                      .h5= dateFns.format(new Date(interview.date),'PP', { locale: dateLocale })
+
+                .col-md-8.col-lg-9
+                  .h5.mb-1 #{interview.profession}
+                  .mb-2= interview.position
+                  if interview.description
+                      .text-muted #{interview.description}
+
       .card.mb-4
         .card-body
           h2.card-title.text-center.mb-4 Для чего нужны онлайн собеседования?

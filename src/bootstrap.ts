@@ -2,6 +2,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import _ from 'lodash';
+import * as dateFns from 'date-fns';
+import { ru, enUS } from 'date-fns/locale';
 import i18n from 'i18n';
 import Session from 'express-session';
 import passport from 'passport';
@@ -16,6 +18,13 @@ import {
 } from './common/filters';
 import viewHelpers from './common/utils/view.helpers';
 
+const getDateLocale = (locale: string): dateFns.Locale => {
+  const mapLocale = {
+    ru,
+    en: enUS,
+  };
+  return mapLocale[locale];
+};
 i18n.configure({
   locales: ['ru', 'en'],
   defaultLocale: 'ru',
@@ -61,6 +70,8 @@ export const bootstrapApp = (app: NestExpressApplication): void => {
   app.use(passport.session());
   app.use((req, res, next) => {
     res.locals._ = _;
+    res.locals.dateFns = dateFns;
+    res.locals.dateLocale = getDateLocale(res.locale);
     res.locals.helpers = viewHelpers;
     res.locals.login = req.isAuthenticated();
     res.locals.path = req.path;

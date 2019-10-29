@@ -1,0 +1,32 @@
+extends base
+
+mixin applicationCard(interview)
+  .col-md-6.col-12
+    .card.my-4
+      .card-body
+        .h5.mb-1 #{interview.profession}
+        .mb-2= interview.position
+        if interview.description
+            .text-muted #{interview.description}
+      .card-footer
+        .d-flex
+          - const when = dateFns.formatDistance(new Date(interview.createdAt), new Date, { locale: dateLocale });
+          .font-weight-light.mr-auto= `${__('account.applied')} ${when} ${__('account.ago')}`
+          a.card-link(href=`/interview/application/${interview.id}/edit` class=`btn-${style}`)= __('interview.action-names.edit')
+          // a.card-link.ml-3(href=`/interview/${interview.id}/edit` class=`btn-${style}`)= __('interview.action-names.canceling')
+
+append nav-actions
+  if userApplications.length
+    a.btn.ml-5(href="/interview/application" class=`btn-success`)= __("account.create_application")
+
+block pane
+    if userApplications.length
+      h2.ml-5= `${__('account.my_application_title')}:`
+      .row
+        for application in userApplications
+          +applicationCard(application)
+    else
+      .jumbotron
+        h3.mb-4= __('account.no_application')
+        a.mx-auto.btn.btn-success.btn-lg(href="/interview/application") #{__('account.create_application')}
+

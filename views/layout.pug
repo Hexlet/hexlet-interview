@@ -1,4 +1,5 @@
 include ./mixins/forms.pug
+include ./mixins/utils.pug
 
 doctype html
 html(lang='ru')
@@ -15,12 +16,15 @@ html(lang='ru')
 
   body.d-flex.flex-column.min-vh-100
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href="/").mr-5 HexletInterview
+      a.navbar-brand(href="/") HexletInterview
       .collapse.navbar-collapse
-        if userRole === 'admin'
-          ul.navbar-nav.mr-auto
+        ul.navbar-nav
+          if login
             li.nav-item
-              a.nav-link(href="/interview/manage/application") #{__('app.manage_interviews')}
+              a.nav-link(href="/my/application") #{__('app.my_interview_applications')}
+          if userRole === 'admin'
+              li.nav-item
+                a.nav-link(href="/interview/manage/application") #{__('app.manage_interviews')}
         ul.navbar-nav.ml-auto
           if login
             li.nav-item
