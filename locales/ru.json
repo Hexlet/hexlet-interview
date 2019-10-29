@@ -9,7 +9,7 @@
     "application_interviews": "Заявки",
     "coming_interviews": "Предстоящие интервью",
     "passed_interviews": "Прошедшие интервью",
-    "canceled_interviews": "Отменённые интервью"
+    "cancelled_interviews": "Отменённые интервью"
   },
   "validation": {
     "firstname should not be empty": "Имя не может быть пустым",
@@ -95,7 +95,7 @@
     "application": "Заявки",
     "coming": "Предстоящие",
     "passed": "Состоявшиеся",
-    "canceled": "Отменённые",
+    "cancelled": "Отменённые",
     "action-names": {
       "assignment": "Назначить собеседующего",
       "edit": "Редактировать",

@@ -9,7 +9,7 @@ block nav-links
   +navLink('/interview/manage/application', __('interview.application'))
   +navLink('/interview/manage/coming', __('interview.coming'))
   +navLink('/interview/manage/passed', __('interview.passed'))
-  +navLink('/interview/manage/canceled', __('interview.canceled'))
+  +navLink('/interview/manage/cancelled', __('interview.cancelled'))
 
 block nav-actions
   a.btn.ml-5(href=`/interview/manage/new` class=`btn-success`)= __(`interview.new`)
@@ -50,5 +50,5 @@ block pane
                   if state === 'passed'
                     // +actionBtn(interview.id, 'canceling', 'danger', 'fas fa-times-circle')
                     +actionBtn(interview.id, 'edit', 'warning', 'fas fa-edit')
-                  if state === 'canceled'
+                  if state === 'cancelled'
                     +actionBtn(interview.id, 'edit', 'warning', 'fas fa-edit')

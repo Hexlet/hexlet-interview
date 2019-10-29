@@ -63,9 +63,9 @@ describe('manage interview', () => {
         .expect(HttpStatus.OK);
     });
 
-    it('canceled', () => {
+    it('cancelled', () => {
       return request(app.getHttpServer())
-        .get('/interview/manage/canceled')
+        .get('/interview/manage/cancelled')
         .set('Cookie', cookie)
         .expect(HttpStatus.OK);
     });
