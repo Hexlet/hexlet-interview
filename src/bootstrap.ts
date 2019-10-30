@@ -79,7 +79,9 @@ export const bootstrapApp = (app: NestExpressApplication): void => {
     res.locals.userRole = req.user ? req.user.role : 'guest';
     next();
   });
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(join(__dirname, 'public'), {
+    prefix: '/assets/',
+  });
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('pug');
 };
