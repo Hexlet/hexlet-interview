@@ -10,6 +10,13 @@ import { ConfigService } from '../config/config.service';
     {
       provide: MailerService,
       useFactory: (config: ConfigService): MailerService => {
+        const { driver } = config.mailParams;
+        if (driver === 'log') {
+          const transport = createTransport({
+            jsonTransport: true,
+          });
+          return new MailerService(transport, config);
+        }
         const transporter: Transporter = createTransport({
           host: config.mailParams.host,
           port: config.mailParams.port,

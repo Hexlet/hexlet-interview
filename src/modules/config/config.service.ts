@@ -3,6 +3,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
 
 export interface MailParams {
+  driver: string;
   host: string;
   port: number;
   user: string;
@@ -27,6 +28,7 @@ export class ConfigService {
 
   get mailParams(): MailParams {
     return {
+      driver: String(this.get('MAIL_DRIVER')) || 'smtp',
       host: this.get('MAIL_HOST'),
       port: Number(this.get('MAIL_PORT')),
       pass: this.get('MAIL_AUTH_PASSWORD'),
@@ -57,7 +59,7 @@ export class ConfigService {
         migrationsDir: 'src/db/migrations',
       },
       keepConnectionAlive: true,
-      logging: !!process.env.DB_LOGGING,
+      logging: process.env.DB_LOGGING === 'true',
     };
 
     const test: TypeOrmModuleOptions = {
