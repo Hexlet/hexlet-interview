@@ -4,8 +4,8 @@
 * Обсуждение в канале #nodejs слака http://slack-ru.hexlet.io
 
 ### Requirements
-* NodeJS >= 10.16.0
-* npm >= 6
+* NodeJS >= 12.13.0
+* npm >= 6.12
 * docker & docker-compose
 
 ### Run
