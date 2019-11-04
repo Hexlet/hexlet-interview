@@ -1,12 +1,13 @@
 test:
 	npm run test
 
-setup:
+setup: create_development_vars fixtures-load
+
+create_development_vars:
 	cp -n .env.example development.env || true
-	npm run fixtures:load
 
 install:
-	npm install
+	npm ci
 
 start:
 	npm run start:dev
