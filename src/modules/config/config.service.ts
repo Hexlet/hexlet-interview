@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
+import { ConnectionOptions, DatabaseType } from 'typeorm';
 
 export interface MailParams {
   driver: string;
@@ -63,24 +64,24 @@ export class ConfigService {
     };
 
     const test: TypeOrmModuleOptions = {
-      type: 'postgres',
-      host: 'localhost',
+      type: process.env.DB_TYPE as DatabaseType,
+      host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       ...commonOptions,
-    };
+    } as ConnectionOptions;
 
     const development: TypeOrmModuleOptions = {
-      type: 'postgres',
-      host: 'localhost',
+      type: process.env.DB_TYPE as DatabaseType,
+      host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       ...commonOptions,
-    };
+    } as ConnectionOptions;
 
     const production: TypeOrmModuleOptions = {
       type: 'postgres',
