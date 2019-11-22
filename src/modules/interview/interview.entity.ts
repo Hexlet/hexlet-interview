@@ -3,11 +3,14 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
+  AfterLoad,
   BeforeInsert,
   BeforeUpdate,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { TypeState } from 'typestate';
+import { InvalidStateTransition } from './exception/invalid-state-transition.exception';
 import { User } from '../user/user.entity';
 
 export enum interviewState {
@@ -64,5 +67,33 @@ export class Interview extends BaseEntity {
   @BeforeUpdate()
   updateUpdatedAt(): void {
     this.updatedAt = new Date();
+  }
+
+  // Finite state machine specific methods
+  private fsm: TypeState.FiniteStateMachine<interviewState>;
+
+  private async performTransition(state: interviewState): Promise<void> {
+    try {
+      this.fsm.go(state);
+    } catch (e) {
+      throw new InvalidStateTransition('Raz');
+    }
+  }
+
+  @AfterLoad()
+  initStateMachine(): void {
+    const fsm = new TypeState.FiniteStateMachine<interviewState>(this.state);
+
+    fsm.from(interviewState.WAIT_FOR_INTERVIEWER).to(interviewState.COMING);
+    fsm.from(interviewState.WAIT_FOR_INTERVIEWER).to(interviewState.CANCELLED);
+
+    fsm.from(interviewState.COMING).to(interviewState.CANCELLED);
+    fsm.from(interviewState.COMING).to(interviewState.WAIT_FOR_INTERVIEWER);
+
+    this.fsm = fsm;
+  }
+
+  async assign(): Promise<void> {
+    this.performTransition(interviewState.COMING);
   }
 }

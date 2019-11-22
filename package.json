@@ -5,6 +5,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
+    "repl": "ts-node -r tsconfig-paths/register src/repl.ts",
     "build": "rm -rf dist && npx tsc -p tsconfig.build.json && npm run build:client",
     "build:client": "webpack -p --env production",
     "watch:server": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
@@ -72,6 +73,7 @@
     "typeorm": "0.2.18",
     "typeorm-fixtures-cli": "^1.3.5",
     "typeorm-seeding": "^1.0.0-rc.3",
+    "typestate": "^1.0.6",
     "uuid": "^3.3.3",
     "webpack": "^4.41.2"
   },
