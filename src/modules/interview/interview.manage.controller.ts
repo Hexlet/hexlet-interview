@@ -38,6 +38,7 @@ export class InterviewManageController {
     @Req() req: Request,
   ): Promise<{ interview: Interview; interviewers: User[] }> {
     const interview = await this.interviewService.findOneById(id);
+    console.log(interview);
     if (!interview) {
       throw new NotFoundException();
     }

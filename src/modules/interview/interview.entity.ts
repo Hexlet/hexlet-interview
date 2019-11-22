@@ -72,28 +72,28 @@ export class Interview extends BaseEntity {
   // Finite state machine specific methods
   private fsm: TypeState.FiniteStateMachine<interviewState>;
 
-  private async performTransition(state: interviewState): Promise<void> {
-    try {
-      this.fsm.go(state);
-    } catch (e) {
-      throw new InvalidStateTransition('Raz');
-    }
-  }
+  //private async performTransition(state: interviewState): Promise<void> {
+    //try {
+      //this.fsm.go(state);
+    //} catch (e) {
+      //throw new InvalidStateTransition('Raz');
+    //}
+  //}
 
   @AfterLoad()
   initStateMachine(): void {
     const fsm = new TypeState.FiniteStateMachine<interviewState>(this.state);
 
     fsm.from(interviewState.WAIT_FOR_INTERVIEWER).to(interviewState.COMING);
-    fsm.from(interviewState.WAIT_FOR_INTERVIEWER).to(interviewState.CANCELLED);
+    //fsm.from(interviewState.WAIT_FOR_INTERVIEWER).to(interviewState.CANCELLED);
 
-    fsm.from(interviewState.COMING).to(interviewState.CANCELLED);
-    fsm.from(interviewState.COMING).to(interviewState.WAIT_FOR_INTERVIEWER);
+    //fsm.from(interviewState.COMING).to(interviewState.CANCELLED);
+    //fsm.from(interviewState.COMING).to(interviewState.WAIT_FOR_INTERVIEWER);
 
     this.fsm = fsm;
   }
 
-  async assign(): Promise<void> {
-    this.performTransition(interviewState.COMING);
-  }
+  //async assign(): Promise<void> {
+    //this.performTransition(interviewState.COMING);
+  //}
 }
