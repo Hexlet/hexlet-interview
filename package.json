@@ -50,7 +50,7 @@
     "express-session": "^1.16.2",
     "helmet": "^3.21.1",
     "i18n": "^0.8.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-ujs": "^1.2.2",
     "lodash": "^4.17.15",
     "memorystore": "^1.6.1",
