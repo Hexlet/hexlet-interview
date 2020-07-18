@@ -52,7 +52,7 @@
     "i18n": "^0.8.3",
     "jquery": "^3.4.1",
     "jquery-ujs": "^1.2.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "memorystore": "^1.6.1",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
