@@ -37,7 +37,7 @@
     "@types/passport-github2": "^1.2.4",
     "autoprefixer": "^9.6.5",
     "babel-loader": "^8.0.6",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bootstrap": "^4.3.1",
     "class-transformer": "0.2.3",
     "class-validator": "0.10.0",
