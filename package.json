@@ -64,7 +64,7 @@
     "pg": "^7.12.1",
     "popper.js": "^1.16.0",
     "postcss-loader": "^3.0.0",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^6.3.3",
     "sass-loader": "^8.0.0",
