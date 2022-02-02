@@ -1,3 +1,6 @@
+
+>**See most active contributers on [hexlet-friends](https://friends.hexlet.io/).**
+
 # Hexlet Interview
 
 ### Участие
@@ -56,5 +59,5 @@ open localhost:3000 in your browser
 
 This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=exercises-javascript).
 
-See most active contributers on [hexlet-friends](https://friends.hexlet.io/).
+
 
